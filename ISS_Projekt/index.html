@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<meta charset="UTF-8" />
+<html>
+<head>
+    <title>ISS Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="map.css" />
+    <link rel="stylesheet" type="text/css" href="leaflet.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="leaflet.js"></script>
+    <script type="text/javascript" src="MovingMarker.js"></script>
+    <script type="text/javascript" src="map.js"></script>
+    <script type="text/javascript" src="iss_call.js"></script>
+
+</head>
+<body style="height:100%;margin:0">
+    <div class='overlay'>  </div>       
+        <div id="input" style="position:absolute; z-index:1; border-style:solid;border:2 2 2 2;margin:2% 2%;padding:5px; background-color :white">
+            <form action="/action_page.php">
+                <label for="fname">Straße:</label>
+                <input type="text" id="fname" name="fname"><br><br>
+                <label for="lname">PLZ:</label>
+                <input type="text" id="lname" name="lname"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="loadwrapper"> <div class="loader" style="position:relative; z-index:1"></div><span id="loadingText"style="position:relative; z-index:1"></span></div>
+
+        <div id="mapid" style="width: 100%;height:100%; position:fixed;left:0;right:0; z-index:0"></div>
+   
+</body>
+</html> 
