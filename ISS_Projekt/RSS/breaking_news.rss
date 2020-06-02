@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?> <rss version="2.0" xml:base="http://www.nasa.gov/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/"> <channel> <title>NASA Breaking News</title>
+ <description>A RSS news feed containing the latest NASA news articles and press releases.</description>
+ <link>http://www.nasa.gov/</link>
+ <atom:link rel="self" href="http://www.nasa.gov/rss/dyn/breaking_news.rss" />
+ <language>en-us</language>
+ <managingEditor>jim.wilson@nasa.gov</managingEditor>
+ <webMaster>brian.dunbar@nasa.gov</webMaster>
+ <docs>http://blogs.harvard.edu/tech/rss</docs>
+ <item> <title>NASA Administrator, Sen. Cruz, Rep. Babin to Discuss Crew Dragon Test Flight at Briefing in Houston</title>
+ <link>http://www.nasa.gov/press-release/nasa-administrator-sen-cruz-rep-babin-to-discuss-crew-dragon-test-flight-at-briefing</link>
+ <description>NASA Administrator Jim Bridenstine, and U.S. Sen. Ted Cruz and U.S. Rep. Brian Babin of Texas will hold a news conference at 1 p.m. CDT Sunday, May 31, at Space Center Houston, the official visitor center of NASA’s Johnson Space Center in Houston, to discuss the successful docking of the SpaceX Crew Dragon spacecraft carrying NASA astronauts Robert</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/jsc2020e024319_0.jpg?itok=HSuUMGdN" length="3108646" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/nasa-administrator-sen-cruz-rep-babin-to-discuss-crew-dragon-test-flight-at-briefing</guid>
+ <pubDate>Sat, 30 May 2020 18:23 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461467</dc:identifier>
+</item>
+ <item> <title>NASA Astronauts Launch from America in Historic Test Flight of SpaceX Crew Dragon</title>
+ <link>http://www.nasa.gov/press-release/nasa-astronauts-launch-from-america-in-historic-test-flight-of-spacex-crew-dragon</link>
+ <description>For the first time in history, NASA astronauts have launched from American soil in a commercially built and operated American crew spacecraft on its way to the International Space Station.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/49953052258_b9a7d6971d_k_0.jpg?itok=FET9gjQY" length="293207" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/nasa-astronauts-launch-from-america-in-historic-test-flight-of-spacex-crew-dragon</guid>
+ <pubDate>Sat, 30 May 2020 15:38 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461463</dc:identifier>
+</item>
+ <item> <title>Next NASA Advisory Council Meeting Postponed</title>
+ <link>http://www.nasa.gov/press-release/next-nasa-advisory-council-meeting-postponed</link>
+ <description>The NASA Advisory Council (NAC) virtual public meeting originally scheduled for Tuesday, June 2, has been postponed until further notice.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/nasa-logo-web-rgb_0.jpg?itok=mrBnB_c9" length="189751" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/next-nasa-advisory-council-meeting-postponed</guid>
+ <pubDate>Fri, 29 May 2020 18:25 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461459</dc:identifier>
+</item>
+ <item> <title>Eight US Manufacturers Selected to Make NASA COVID-19 Ventilator</title>
+ <link>http://www.nasa.gov/press-release/eight-us-manufacturers-selected-to-make-nasa-covid-19-ventilator</link>
+ <description>After receiving more than 100 applications, NASA&#039;s Jet Propulsion Laboratory (JPL) in Southern California has selected eight U.S. manufacturers to make a new ventilator tailored for coronavirus (COVID-19) patients.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/michael_johnson_screen_shot_2020-05-21_at_5.57.41_pm.jpg?itok=8LbciCVV" length="784560" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/eight-us-manufacturers-selected-to-make-nasa-covid-19-ventilator</guid>
+ <pubDate>Fri, 29 May 2020 14:21 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461447</dc:identifier>
+</item>
+ <item> <title>Updates to Coverage of Landmark NASA SpaceX Commercial Crew Test Flight</title>
+ <link>http://www.nasa.gov/press-release/updates-to-coverage-of-landmark-nasa-spacex-commercial-crew-test-flight</link>
+ <description>NASA will provide live coverage of prelaunch and launch activities for the agency’s SpaceX Demo-2 test flight, carrying NASA astronauts Robert Behnken and Douglas Hurley to the International Space Station.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/49928071692_7793eeb271_k_1.jpg?itok=_hL8SlJk" length="667158" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/updates-to-coverage-of-landmark-nasa-spacex-commercial-crew-test-flight</guid>
+ <pubDate>Thu, 28 May 2020 14:15 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461314</dc:identifier>
+</item>
+ <item> <title>Coverage of Landmark NASA SpaceX Commercial Crew Test Flight</title>
+ <link>http://www.nasa.gov/press-release/coverage-of-landmark-nasa-spacex-commercial-crew-test-flight</link>
+ <description>NASA will provide live coverage of prelaunch and launch activities for the agency’s SpaceX Demo-2 test flight on Wednesday, May 27, carrying NASA astronauts Robert Behnken and Douglas Hurley to the International Space Station.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/49927174291_6f33756884_k.jpg?itok=4hMV79N6" length="722834" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/coverage-of-landmark-nasa-spacex-commercial-crew-test-flight</guid>
+ <pubDate>Tue, 26 May 2020 16:01 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461227</dc:identifier>
+</item>
+ <item> <title>NASA Science to Hold Virtual Community Town Hall Meeting</title>
+ <link>http://www.nasa.gov/press-release/nasa-science-to-hold-virtual-community-town-hall-meeting-0</link>
+ <description>NASA’s Science Mission Directorate will hold a community town hall meeting via teleconference with Associate Administrator for Science Thomas Zurbuchen and his leadership team at 3 p.m. EDT Thursday, May 28, to discuss updates in NASA’s science program and the current status of NASA activities.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/smdtownhall.jpg?itok=A50p-eTJ" length="315521" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/nasa-science-to-hold-virtual-community-town-hall-meeting-0</guid>
+ <pubDate>Fri, 22 May 2020 12:11 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461075</dc:identifier>
+</item>
+ <item> <title>NASA Invites Public to Be Its Guests to Celebrate Historic ‘Launch America’</title>
+ <link>http://www.nasa.gov/press-release/nasa-invites-public-to-be-its-guests-to-celebrate-historic-launch-america</link>
+ <description>NASA is inviting the public to help celebrate a historic milestone in human spaceflight as it prepares for #LaunchAmerica – the first flight into orbit of American astronauts on American rockets from American soil since the end of the space shuttle era in 2011.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/49917937812_caac5dafa0_k.jpg?itok=Q16THIT-" length="709044" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/nasa-invites-public-to-be-its-guests-to-celebrate-historic-launch-america</guid>
+ <pubDate>Thu, 21 May 2020 10:23 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>461009</dc:identifier>
+</item>
+ <item> <title>NASA Telescope Named For ‘Mother of Hubble’ Nancy Grace Roman</title>
+ <link>http://www.nasa.gov/press-release/nasa-telescope-named-for-mother-of-hubble-nancy-grace-roman</link>
+ <description>NASA is naming its next-generation space telescope currently under development, the Wide Field Infrared Survey Telescope (WFIRST), in honor of Nancy Grace Roman, NASA’s first chief astronomer, who paved the way for space telescopes focused on the broader universe.</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/trailer_still_1.jpg?itok=kcffUfRR" length="2067065" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/nasa-telescope-named-for-mother-of-hubble-nancy-grace-roman</guid>
+ <pubDate>Wed, 20 May 2020 09:37 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>460938</dc:identifier>
+</item>
+ <item> <title>NASA Remembers Annie Glenn</title>
+ <link>http://www.nasa.gov/press-release/nasa-remembers-annie-glenn</link>
+ <description>The following is a statement on the passing of Annie Glenn, wife of former NASA astronaut Sen. John Glenn:</description>
+ <enclosure url="http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/201202200037hq_john_and_annie_glenn.jpg?itok=DhEExx86" length="1281160" type="image/jpeg" />
+ <guid isPermaLink="false">http://www.nasa.gov/press-release/nasa-remembers-annie-glenn</guid>
+ <pubDate>Tue, 19 May 2020 14:03 EDT</pubDate>
+ <source url="http://www.nasa.gov/rss/dyn/breaking_news.rss">NASA Breaking News</source>
+ <dc:identifier>460907</dc:identifier>
+</item>
+</channel>
+</rss>

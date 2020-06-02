@@ -1,5 +1,9 @@
 # Requests
 This folder contains every src-file processing API-Requests from external sources:
-* ISS Location
-* ISS Pass-by
-* Nasa ISS RSS-Feed
+
+* ## issCurPos.py
+    ISS Location Requests
+* ## rssFeed.py
+    Nasa ISS RSS-Feed Requests
+* ## userPosition.py
+    ISS Pass-by Requests
