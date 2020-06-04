@@ -42,7 +42,7 @@ class requestHandler(BaseHTTPRequestHandler):
 
 def startAPIServer():
     # Setting Server address to localhost:8081
-    server_address = ('', 8081)
+    server_address = ('', 8082)
 
     # Starting http server which handles every request in a seperate THREAD
     httpd = ThreadingHTTPServer(server_address, requestHandler)
