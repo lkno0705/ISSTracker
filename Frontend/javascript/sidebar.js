@@ -1,3 +1,6 @@
+// function to toggle width of menues, function needs to be adjusted for responsive use
+
+// left menu
 function toggleNavL() {   
   var x = document.getElementById("mySidebarLeft").style.width;
     if (document.getElementById("mySidebarLeft").style.width == "250px" || document.getElementById("mySidebarLeft").style.width == "")
@@ -14,6 +17,7 @@ function toggleNavL() {
     }
 }  
 
+//  right menu
   function toggleNav() {   
     var x = document.getElementById("mySidebar").style.width;
       if (document.getElementById("mySidebar").style.width == "250px")
@@ -30,6 +34,7 @@ function toggleNavL() {
       }
   }     
 
+  // left menu after serch button pressed. 
   function start(){
     document.getElementById("mySidebarLeft").style.backgroundColor = "#111";
     document.getElementById("openbtnLeft").style.display = "";

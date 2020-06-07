@@ -1,8 +1,10 @@
+// function to get xml transform with xsl and draw as svg.
+
 function load(url, callback) {
     var req = new XMLHttpRequest();
     req.open('GET', url);
     // to allow us doing XSLT in IE
-    try { req.responseType = "document" } catch (ex) {}
+    try { req.responseType = "msxml-document" } catch (ex) {}
     req.onload = function() {
       callback(req.responseXML);
     };
@@ -27,11 +29,11 @@ function load(url, callback) {
     if (typeof XSLTProcessor !== 'undefined') {
       var proc = new XSLTProcessor();
       proc.importStylesheet(xsltSheet);
-      document.getElementById('mySidebar').appendChild(proc.transformToFragment(xmlInput, document));
+      document.getElementById('test').appendChild(proc.transformToFragment(xmlInput, document));
     }
     else if (typeof xmlInput.transformNode !== 'undefined') {
-      document.getElementById("mySidebar").innerHTML = xmlInput.transformNode(xsltSheet);
+      document.getElementById("test").innerHTML = xmlInput.transformNode(xsltSheet);
     }
   }
-
-  transform('spacetoground_vodcast.xml', 'rssfeednasa.xsl');
+  //test call
+  transform('SVGTest.xml', 'SVGTest.xsl');

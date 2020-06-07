@@ -1,14 +1,16 @@
+// Function to load xml File via URL
 function load(url, callback) {
     var req = new XMLHttpRequest();
     req.open('GET', url);
     // to allow us doing XSLT in IE
-    try { req.responseType = "msxml-document" } catch (ex) {}
+    try { req.responseType = "document" } catch (ex) {}
     req.onload = function() {
       callback(req.responseXML);
     };
     req.send();
   }
   
+// transform xml with xsl 
   function transform(xml, xsl) {
     load(
       xml,
@@ -22,16 +24,18 @@ function load(url, callback) {
       }
     );
   }
-  
+
+// display result of xsl tranformation
   function displayResult(xmlInput, xsltSheet) {
     if (typeof XSLTProcessor !== 'undefined') {
       var proc = new XSLTProcessor();
       proc.importStylesheet(xsltSheet);
-      document.getElementById('test').appendChild(proc.transformToFragment(xmlInput, document));
+      document.getElementById('mySidebar').appendChild(proc.transformToFragment(xmlInput, document));
     }
     else if (typeof xmlInput.transformNode !== 'undefined') {
-      document.getElementById("test").innerHTML = xmlInput.transformNode(xsltSheet);
+      document.getElementById("mySidebar").innerHTML = xmlInput.transformNode(xsltSheet);
     }
   }
 
-  transform('SVGTest.xml', 'SVGTest.xsl');
+//  test call
+  transform('xml/spacetoground_vodcast.xml', 'xsl/rssfeednasa.xsl');

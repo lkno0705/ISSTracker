@@ -1,3 +1,5 @@
+// this script should take XML files with geo coordinates and return the XML with pixel values in regards to map object.
+
 function loadXMLDoc(filename)
 {
 if (window.ActiveXObject)
@@ -39,6 +41,7 @@ else if (document.implementation && document.implementation.createDocument)
   
 }
 
+// function to read xml and return js Objekt with array of values. Needs to be adjusted according to our XML specifications. 
 function coordinate2pixel(xmlFile){  
   load (xmlFile, function (xmlDoc){
   var x = xmlDoc.documentElement;
@@ -79,6 +82,7 @@ function coordinate2pixel(xmlFile){
   });
 }
 
+// function to take object and return it as XML to be transformed to SVG.
 function objectToXml(object) {
   var xml = '';
   xml += "<coordinates>"

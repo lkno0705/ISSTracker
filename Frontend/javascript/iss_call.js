@@ -1,3 +1,4 @@
+// this function directly calls the ISS-Api, will be refactored to call our own BE
 function createISS() {
     console.log("createISS");
     $.getJSON('http://api.open-notify.org/iss-now.json?callback=?', function (data) {
@@ -16,6 +17,7 @@ function createISS() {
     setTimeout(moveISS, 5000);
 }
 
+// function to move the ISS along the Map
 function moveISS() {
     $.getJSON('http://api.open-notify.org/iss-now.json?callback=?', function (data) {
         var lat = data['iss_position']['latitude'];
