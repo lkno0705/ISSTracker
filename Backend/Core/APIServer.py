@@ -3,11 +3,12 @@ from Backend.Requests.issCurrPos import currPos as issCurrentPosition
 from Backend.Requests.rssFeed import rssFeed as rssFeed
 from Backend.Requests.userPosition import getUserPosition as userPosition
 
+import json
+
 # Reimplementign Request Handler with custom Functions to handle GET Requests
 class requestHandler(BaseHTTPRequestHandler):
 
     def _checkData(self, requestName, data):
-
         correct = False
         allowedKeys = {
             "ISSDB": [
@@ -17,13 +18,18 @@ class requestHandler(BaseHTTPRequestHandler):
             ],
             "ISSpos": None
         }
+
         if allowedKeys[requestName] is not None:
             if "params" in data and data["params"] is not None:
-                for key in allowedKeys[data["requestname"]]:
+                for key in allowedKeys[requestName]:
                     correct = True if key in data["params"] and data["params"][key] is not None else False
                     if not correct:
                         break
-        return correct
+            print(correct)
+            return correct
+        else:
+            return True
+
 
     # Implements GET request
     def do_GET(self):
@@ -32,12 +38,15 @@ class requestHandler(BaseHTTPRequestHandler):
             "/ISSpos": issCurrentPosition,
             "/RSS": rssFeed,
             "/userPosition": userPosition,
-            "/ISSDB": "issDB"
+            "/ISSDB": issCurrentPosition  # TODO: Has to be replaced with DB-request
         }
-
-        content_len = int(self.headers.get('Content-Length'))
-        body = self.rfile.read(content_len)
-        requestName = self.path.split("/")[len(self.path) - 1]
+        try:
+            content_len = int(self.headers.get('Content-Length'))
+            body = json.loads(self.rfile.read(content_len))  # TODO: Json.loads has to be replaced with XML Parser
+        except TypeError:
+            body = {}
+        print(self.path.split("/"))
+        requestName = self.path.split("/")[1]
         # Executing function based on link; Works kinda like a switch case statement
         function = links.get(self.path)
         if function is not None and self._checkData(requestName, body):

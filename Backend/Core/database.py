@@ -46,14 +46,11 @@ class redisDB:
         # </Request>
         #
         # TODO: parse data to python Object
-        if not self._checkData(requestData):
-            return {"ERROR": "INVALID REQUEST DATA"}
-        else:
-            searchPattern = requestData["requestname"] + ":" + requestData["params"]["date"] + " " + requestData["params"]["time"] + "*"
-            print(searchPattern)
-            with self.__redisDB__ as DB:
-                keys = DB.keys(pattern=searchPattern)
-            print(keys)
+        searchPattern = requestData["requestname"] + ":" + requestData["params"]["date"] + " " + requestData["params"]["time"] + "*"
+        print(searchPattern)
+        with self.__redisDB__ as DB:
+            keys = DB.keys(pattern=searchPattern)
+        print(keys)
 
 
 if __name__ == '__main__':
