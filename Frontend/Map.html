@@ -1,33 +1,34 @@
 ﻿<!DOCTYPE html>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"></meta>
 <html>
 <head>
     <title>ISS Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="map.css" />
-    <link rel="stylesheet" type="text/css" href="sidebar.css" />
-    <link rel="stylesheet" type="text/css" href="leaflet.css" />
+    <!------------------------------------------------------------------------------------------>
+    <!-------------------------------- CSS Stylesheets ----------------------------------------->
+    <!------------------------------------------------------------------------------------------>    
+    <link rel="stylesheet" type="text/css" href="css/map.css" />
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css" />
+    <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+    <!------------------------------------------------------------------------------------------>
+    <!----------------------------------- Javascripts ------------------------------------------>
+    <!------------------------------------------------------------------------------------------>        
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="leaflet.js"></script>
-    <!-- <script type="text/javascript" src="leaflet-src.esm.js"></script>   -->
-    <!-- <script type="text/javascript" src="leaflet-src.js"></script> -->
-    <script type="text/javascript" src="MovingMarker.js"></script>
-    <script type="text/javascript" src="createMap.js"></script>
-    <script type="text/javascript" src="iss_call.js"></script>
-    <script type="text/javascript" src="rss.js"></script>
-    <script type="text/javascript" src="sidebar.js"></script>  
-    <script type="text/javascript" src="xmlParser.js"></script>  
-    
+    <script type="text/javascript" src="javascript/leaflet.js"></script>
+    <script type="text/javascript" src="javascript/MovingMarker.js"></script>
+    <script type="text/javascript" src="javascript/createMap.js"></script>
+    <script type="text/javascript" src="javascript/iss_call.js"></script>
+    <script type="text/javascript" src="javascript/rss.js"></script>
+    <script type="text/javascript" src="javascript/sidebar.js"></script>  
+    <script type="text/javascript" src="javascript/xmlParser.js"></script>  
 </head>
 
 <body style="height:100%;margin:0">   
 
-    
-
-
+  <!------------------------ Class for loading animation, can be dismissed when loading times improve ----------------------------------------->
     <div class="loadwrapper"> <div class="loader" style="position:relative; z-index:1"></div><span id="loadingText"style="position:relative; z-index:1"></span></div>   
       
-  
+  <!------------------------ Left sidebar --------------------------------------------------------------------->
     <div id="mySidebarLeft" class="sidebarLeft">
         <div class="container" style="margin-top: 30px;">   
           <div class="one">
@@ -42,16 +43,18 @@
            <button id="close-image"  onclick="start()" style="height: 36px;width: 36px;margin: 0;padding: 0;"><img src="images/iss_top.png"></button> 
         </div>    
       </div>
-    </div>  
+    </div>      
     <div id="mainLeft" style="position: absolute; left: 0;">
       <button id="openbtnLeft" class="openbtnLeft" onclick="toggleNavL()" style="display: none;"><div id="arrowleft" class="triangle-left"></div></button>
     </div>
-          <!-- <embed width="250" height="150" src="primitives.svg" alt="some svg primitives"></embed> -->
-          <div id="mapid" style="width: 100%;height:100%; position:fixed;left:0;right:0; z-index:-10"> </div>  
-        
-        <div id="mySidebar" class="sidebar"></div>              
-        <div id="main" style="position: absolute; right: 0;">
-            <button class="openbtn" onclick="toggleNav()"><div id="arrowright" class="triangle-left"></div></button>
-        </div> 
+
+  <!------------------------ Map body -------------------------------------------------------------------->
+    <div id="mapid" style="width: 100%;height:100%; position:fixed;left:0;right:0; z-index:-10"> </div>  
+  
+  <!------------------------ Right sidebar  -------------------------------------------------------------------->
+  <div id="mySidebar" class="sidebar"></div>              
+  <div id="main" style="position: absolute; right: 0;">
+    <button class="openbtn" onclick="toggleNav()"><div id="arrowright" class="triangle-left"></div></button>
+  </div> 
 </body>
 </html> 
