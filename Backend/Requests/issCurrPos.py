@@ -1,5 +1,4 @@
 import requests
-import urllib.request
 from datetime import datetime
 
 # ISS current location API URL
