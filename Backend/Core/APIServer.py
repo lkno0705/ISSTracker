@@ -12,8 +12,8 @@ class requestHandler(BaseHTTPRequestHandler):
         correct = False
         allowedKeys = {
             "ISSDB": [
-                "date",
-                "time",
+                "startTime",
+                "endTime",
                 "numberOfItems"
             ],
             "ISSpos": None

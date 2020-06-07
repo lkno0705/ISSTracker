@@ -39,6 +39,7 @@ class redisDB:
         #    </data>
         # </Request>
         #
+        # TODO: Change to StartTime and EndTime Range
         searchPattern = requestName + ":" + requestData["params"]["date"] + " " + requestData["params"]["time"] + "*"
         n = requestData["params"]["numberOfItems"]
         print(searchPattern)
@@ -63,8 +64,8 @@ if __name__ == '__main__':
 
     datar = {
         "params": {
-            "date": "2020-06-05",
-            "time": "14",
+            "startTime": "timestamp",
+            "endTime": "timestamp",
             "numberOfItems": 0,
         }
     }
