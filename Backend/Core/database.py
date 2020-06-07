@@ -22,6 +22,12 @@ class redisDB:
             DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":timestamp", value=data["data"]["timestamp"])
             DB.expire(name="ISSpos:" + data["data"]["timestamp"], time=86400)  # key expires after 24h
 
+
+
+
+
+
+
     def setData(self, data):
         # TODO: parse data to python Object
         topLevel = {
@@ -30,7 +36,7 @@ class redisDB:
         }
         topLevel.get(data["requestname"])(data)
 
-    def getData(self, data, n=1):
+    def getData(self, requestData, n=1):
         # data has to be an correctly formatted XML with an empty data Tag:
         # <?xml version="1.0" encoding="UTF-8"?>
         # <Request>
@@ -40,9 +46,14 @@ class redisDB:
         # </Request>
         #
         # TODO: parse data to python Object
-        with self.__redisDB__ as DB:
-            keys = DB.keys(pattern="ISSpos:*")
-        print(keys)
+        if not self._checkData(requestData):
+            return {"ERROR": "INVALID REQUEST DATA"}
+        else:
+            searchPattern = requestData["requestname"] + ":" + requestData["params"]["date"] + " " + requestData["params"]["time"] + "*"
+            print(searchPattern)
+            with self.__redisDB__ as DB:
+                keys = DB.keys(pattern=searchPattern)
+            print(keys)
 
 
 if __name__ == '__main__':
@@ -59,5 +70,10 @@ if __name__ == '__main__':
 
     datar = {
         "requestname": "ISSpos",
+        "params": {
+            "date": "2020-06-05",
+            "time": "14",
+            "numberOfItems": 4,
+        }
     }
     DB.getData(datar, n=2)

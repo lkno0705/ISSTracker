@@ -6,18 +6,41 @@ from Backend.Requests.userPosition import getUserPosition as userPosition
 # Reimplementign Request Handler with custom Functions to handle GET Requests
 class requestHandler(BaseHTTPRequestHandler):
 
+    def _checkData(self, requestName, data):
+
+        correct = False
+        allowedKeys = {
+            "ISSDB": [
+                "date",
+                "time",
+                "numberOfItems"
+            ],
+            "ISSpos": None
+        }
+        if allowedKeys[requestName] is not None:
+            if "params" in data and data["params"] is not None:
+                for key in allowedKeys[data["requestname"]]:
+                    correct = True if key in data["params"] and data["params"][key] is not None else False
+                    if not correct:
+                        break
+        return correct
+
     # Implements GET request
     def do_GET(self):
         # Dictonary containg Links assigned with their correct functions
         links = {
             "/ISSpos": issCurrentPosition,
             "/RSS": rssFeed,
-            "/userPosition": userPosition
+            "/userPosition": userPosition,
+            "/ISSDB": "issDB"
         }
 
+        content_len = int(self.headers.get('Content-Length'))
+        body = self.rfile.read(content_len)
+        requestName = self.path.split("/")[len(self.path) - 1]
         # Executing function based on link; Works kinda like a switch case statement
         function = links.get(self.path)
-        if function is not None:
+        if function is not None and self._checkData(requestName, body):
             data = function()
             code = 200
         else:
@@ -25,6 +48,7 @@ class requestHandler(BaseHTTPRequestHandler):
             data = '<?xml version="1.0" encoding="UTF-8"?>' \
                    '<message>' \
                    '<error>Error 400: Bad Request</error>' \
+                   '<description></description>' \
                    '</message>'
             code = 400
 
