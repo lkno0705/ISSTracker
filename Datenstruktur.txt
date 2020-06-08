@@ -1,0 +1,21 @@
+XML-Struktur:
+<?xml version="1.0" encoding="UTF-8"?>
+<Request>
+   <requestName>ISS-Pos</requestName>
+   <data>
+        <latitude>...</latitude>
+        <longitude>...</longitude>
+   </data>
+</Request>
+
+Datenbank-Struktur:
+- RedisDB
+
+
+RSS-Feed:
+- Items Begrenzen auf 5 pro Anfrage / dynamisch
+- Items nach Datum sortiert 1. bis 5. Eintrag etc.
+
+
+ISS-Positionen:
+- 12H Speichern
