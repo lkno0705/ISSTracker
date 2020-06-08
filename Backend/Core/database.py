@@ -1,6 +1,8 @@
 import redis
 from time import time
 import datetime
+from Backend.Core.dataStructs import parseTimeToTimestamp, ISSDBKey
+
 
 class redisDB:
     __redisHost__ = "localhost"
@@ -22,52 +24,33 @@ class redisDB:
             DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":timestamp", value=data["data"]["timestamp"])
             DB.expire(name="ISSpos:" + data["data"]["timestamp"], time=86400)  # key expires after 24h
 
-    def _parseTimeToTimestamp(self, time):
-        date, time = time.split(" ")
-        date = date.split("-")
-        time = time.split("-")
-        timeTupel = (int(date[0]), int(date[1]), int(date[2]), int(time[0]), int(time[1]), int(time[2]))
-        timestamp = datetime.datetime(year=timeTupel[0],
-                                      month=timeTupel[1],
-                                      day=timeTupel[2],
-                                      hour=timeTupel[3],
-                                      minute=timeTupel[4],
-                                      second=timeTupel[5]).timestamp()
-        return timestamp
 
     def _getISS(self, requestData):
         # TODO: Change to StartTime and EndTime Range
 
-        startTime = self._parseTimeToTimestamp(requestData["params"]["startTime"])
-        endTime = self._parseTimeToTimestamp(requestData["params"]["endTime"])
+        startTime = parseTimeToTimestamp(requestData["params"]["startTime"])
+        endTime = parseTimeToTimestamp(requestData["params"]["endTime"])
 
+        keyset = set()
         with self.__redisDB__ as DB:
-
             searchPattern = "ISSpos" + ":" + requestData["params"]["startTime"].split(" ")[0] + "*"
             startTimeKeys = DB.keys(pattern=searchPattern)
-            for i in range(len(startTimeKeys)):
-                startTimeKeys[i] = str(startTimeKeys[i]).split(':')  # [0] = requestName; [1] = timestamp; [2] = param
-                del startTimeKeys[i][0]
+            for key in startTimeKeys:
+                splitted = str(key).split(':')
+                currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2])
+                if currKeyObject.timestamp >= startTime and currKeyObject.timestamp <= endTime:
+                    keyset.add(currKeyObject)
 
             searchPattern = "ISSpos" + ":" + requestData["params"]["endTime"].split(" ")[0] + "*"
             endTimeKeys = DB.keys(pattern=searchPattern)
-            for i in range(len(endTimeKeys)):
-                endTimeKeys[i] = str(endTimeKeys[i]).split(':')  # [0] = requestName; [1] = timestamp; [2] = param
-                del endTimeKeys[i][0]
+            for key in endTimeKeys:
+                splitted = str(key).split(':')  # [0] = requestName; [1] = timestamp; [2] = param
+                currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2])
+                if currKeyObject.timestamp >= startTime and currKeyObject.timestamp <= endTime:
+                    keyset.add(currKeyObject)
 
-            for i in range(len(startTimeKeys)):
-                offset = 0
-                startTimeKeys[i].append(self._parseTimeToTimestamp(startTimeKeys[i][0]))
-                for x in range(len(endTimeKeys)):
-                    if startTimeKeys[i][0] == endTimeKeys[x-offset][0]:
-                        del endTimeKeys[x-offset]
-                        offset += 1
-                    elif len(endTimeKeys[x-offset]) < 3:
-                        endTimeKeys[x-offset].append(self._parseTimeToTimestamp(endTimeKeys[x-offset][0]))
-                        startTimeKeys.append(endTimeKeys[x-offset])
-
-            print(startTimeKeys)
-
+            keylist = sorted(keyset, key=lambda x: x.timestamp)
+            print(keylist)
 
 
 
