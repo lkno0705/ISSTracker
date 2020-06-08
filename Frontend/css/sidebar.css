@@ -1,0 +1,204 @@
+ /* The sidebar menu */
+ .sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+    color: #FFFFFF;
+  }
+  
+  /* The sidebar links */
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+
+  /* The button used to open the sidebar */
+  .openbtn {  
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    margin-top: 30px;
+  }
+  
+  .openbtn:hover {
+    background-color: #444;
+  }
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-right .5s; /* If you want a transition effect */
+    padding:0;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  } 
+
+  .triangle-left {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 15px solid #FFFFFF;
+    border-bottom: 10px solid transparent;       
+}
+
+  /* Safari 4.0 - 8.0 */
+  @-webkit-keyframes infiniteRotate {    
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+
+/* Standard syntax */
+@keyframes infinite-rotate {  
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+
+ /* The sidebar menu */
+ .sidebarLeft {
+  height: 100%; /* 100% Full-height */
+  width: 250px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;  
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  color: #FFFFFF;
+}
+
+/* The sidebar links */
+.sidebarLeft a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebarLeft a:hover {
+  color: #f1f1f1;
+}
+
+
+/* The button used to open the sidebar */
+.openbtnLeft {  
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  margin-top: 30px;
+  margin-left: 250px; 
+}
+
+.openbtnLeft:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#mainLeft {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding:0;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebarLeft {padding-top: 15px;}
+  .sidebarLeft a {font-size: 18px;}
+} 
+
+.triangle-left {
+width: 0;
+height: 0;
+border-top: 10px solid transparent;
+border-right: 15px solid #FFFFFF;
+border-bottom: 10px solid transparent;       
+}
+
+.triangle-right {
+width: 0;
+height: 0;
+border-top: 10px solid transparent;
+border-right: 15px solid #FFFFFF;
+border-bottom: 10px solid transparent; 
+transform: rotate(180deg);      
+}
+
+.container {
+width: 90%;
+
+margin: auto;
+
+}
+
+.one { 
+float: left;
+}
+
+.two {
+
+}
+
+.three {
+
+  width: 100%;
+
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #818181;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: rgb(153, 48, 167);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: rgb(153, 48, 167);
+  cursor: pointer;
+}
+
