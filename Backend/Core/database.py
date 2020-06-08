@@ -21,12 +21,10 @@ class redisDB:
         with self.__redisDB__ as DB:
             DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":latitude", value=data["data"]["latitude"])
             DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":longitude", value=data["data"]["longitude"])
-            DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":timestamp", value=data["data"]["timestamp"])
             DB.expire(name="ISSpos:" + data["data"]["timestamp"], time=86400)  # key expires after 24h
 
 
     def _getISS(self, requestData):
-        # TODO: Change to StartTime and EndTime Range
 
         startTime = parseTimeToTimestamp(requestData["params"]["startTime"])
         endTime = parseTimeToTimestamp(requestData["params"]["endTime"])
@@ -37,7 +35,7 @@ class redisDB:
             startTimeKeys = DB.keys(pattern=searchPattern)
             for key in startTimeKeys:
                 splitted = str(key).split(':')
-                currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2])
+                currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2].strip("'"), value=None)
                 if currKeyObject.timestamp >= startTime and currKeyObject.timestamp <= endTime:
                     keyset.add(currKeyObject)
 
@@ -45,12 +43,15 @@ class redisDB:
             endTimeKeys = DB.keys(pattern=searchPattern)
             for key in endTimeKeys:
                 splitted = str(key).split(':')  # [0] = requestName; [1] = timestamp; [2] = param
-                currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2])
+                currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2].strip("'"), value=None)
                 if currKeyObject.timestamp >= startTime and currKeyObject.timestamp <= endTime:
                     keyset.add(currKeyObject)
 
             keylist = sorted(keyset, key=lambda x: x.timestamp)
-            print(keylist)
+            for key in keylist:
+                key.value = DB.get("ISSpos:" + key.timeValue + ":" + key.key)
+
+            return keylist
 
 
 
@@ -80,8 +81,8 @@ if __name__ == '__main__':
     data = {
         "requestname": "ISSpos",
         "data": {
-            "latitude": 1234,
-            "longitude": 1234,
+            "latitude": -17.9617,
+            "longitude": 162.6117,
             "timestamp": datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d %H-%M-%S')
         }
     }
@@ -90,8 +91,8 @@ if __name__ == '__main__':
 
     datar = {
         "params": {
-            "startTime": "2020-06-07 13-22-41",
-            "endTime": "2020-06-08 13-28-06",
+            "startTime": "2020-06-08 22-00-41",
+            "endTime": "2020-06-08 22-50-18",
         }
     }
-    DB.getData(requestData=datar, requestName="ISSpos")
+    print(DB.getData(requestData=datar, requestName="ISSpos"))

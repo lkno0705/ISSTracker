@@ -20,6 +20,7 @@ def parseTimeToTimestamp(time):
 class ISSDBKey:
     timeValue: str
     key: str
+    value: str
 
     def __post_init__(self):
         self.timestamp = parseTimeToTimestamp(self.timeValue)
