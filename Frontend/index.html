@@ -21,6 +21,7 @@
     <script type="text/javascript" src="javascript/rss.js"></script>
     <script type="text/javascript" src="javascript/sidebar.js"></script>  
     <script type="text/javascript" src="javascript/xmlParser.js"></script>  
+    <script type="text/javascript" src="javascript/slider.js"></script>
 </head>
 
 <body style="height:100%;margin:0">   
@@ -41,7 +42,13 @@
   
         <div class="two" >
            <button id="close-image"  onclick="start()" style="height: 36px;width: 36px;margin: 0;padding: 0;"><img src="images/iss_top.png"></button> 
-        </div>    
+        </div>  
+        
+        <div class="three">
+          <input type="range" min="1" max="720" value="360" class="slider" id="iss_range">
+          <p>Last Position in Minutes: <span id="last_pos"></span></p>
+      </div>
+
       </div>
     </div>      
     <div id="mainLeft" style="position: absolute; left: 0;">
