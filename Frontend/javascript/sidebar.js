@@ -38,5 +38,5 @@ function toggleNavL() {
   function start(){
     document.getElementById("mySidebarLeft").style.backgroundColor = "#111";
     document.getElementById("openbtnLeft").style.display = "";
-    
+    document.getElementById("sliderLeft").style.display = "";
   }
