@@ -2,33 +2,39 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from Backend.Requests.issCurrPos import currPos as issCurrentPosition
 from Backend.Requests.rssFeed import rssFeed as rssFeed
 from Backend.Requests.userPosition import getUserPosition as userPosition
+from Backend.Core.database import redisDB
 
 import json
 
 # Reimplementign Request Handler with custom Functions to handle GET Requests
 class requestHandler(BaseHTTPRequestHandler):
 
+    # checks request body
     def _checkData(self, requestName, data):
         correct = False
         allowedKeys = {
             "ISSDB": [
                 "startTime",
                 "endTime",
-                "numberOfItems"
             ],
-            "ISSpos": None
+            "ISSpos": True
         }
 
         if allowedKeys[requestName] is not None:
-            if "params" in data and data["params"] is not None:
-                for key in allowedKeys[requestName]:
-                    correct = True if key in data["params"] and data["params"][key] is not None else False
-                    if not correct:
-                        break
-            print(correct)
-            return correct
+            if data is not None:
+                if "params" in data and data["params"] is not None:
+                    for key in allowedKeys[requestName]:
+                        correct = True if key in data["params"] and data["params"][key] is not None else False
+                        if not correct:
+                            break
+                print(correct)
+                return correct
+            elif allowedKeys[requestName] is True:
+                return True
+            else:
+                return False
         else:
-            return True
+            return False
 
 
     # Implements GET request
@@ -37,22 +43,37 @@ class requestHandler(BaseHTTPRequestHandler):
         links = {
             "/ISSpos": issCurrentPosition,
             "/RSS": rssFeed,
-            "/userPosition": userPosition,
-            "/ISSDB": issCurrentPosition  # TODO: Has to be replaced with DB-request
+            "/userPosition": userPosition
         }
         try:
             content_len = int(self.headers.get('Content-Length'))
             body = json.loads(self.rfile.read(content_len))  # TODO: Json.loads has to be replaced with XML Parser
         except TypeError:
-            body = {}
+            body = None
         print(self.path.split("/"))
         requestName = self.path.split("/")[1]
         # Executing function based on link; Works kinda like a switch case statement
         function = links.get(self.path)
-        if function is not None and self._checkData(requestName, body):
+
+        code = 1
+        if function is not None and body is None:
             data = function()
             code = 200
         else:
+            if self._checkData(requestName, body):
+                if self.path == "/ISSDB":
+                    data = redisDB().getData(body, self.path.strip("/"))
+                    code = 200
+                # TODO: parse data to XML with XML parser
+            else:
+                # Setting Error Message if Body data is incorrect
+                data = '<?xml version="1.0" encoding="UTF-8"?>' \
+                       '<message>' \
+                       '<error>Error 400: Bad Request</error>' \
+                       '<description>Incorrect parameters!</description>' \
+                       '</message>'
+                code = 400
+        if code == 1:
             # Setting Error Message
             data = '<?xml version="1.0" encoding="UTF-8"?>' \
                    '<message>' \
