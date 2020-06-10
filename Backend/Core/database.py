@@ -66,6 +66,46 @@ class redisDB:
                 key.value = DB.get("ISSpos:" + key.timeValue + ":" + key.key)
             return keylist
 
+    def _getGeoJsonSingel(self, countryname):
+        with self.__redisDB__ as DB:
+            # initialize return dict
+            returnValue = {"countryname": countryname}
+
+            # generate search pattern
+            searchPattern = "GeoJson:" + countryname + ":*"
+
+            # get keys
+            keys = DB.keys(searchPattern)
+
+            # build return dict from DB
+            for i in range(len(keys) // 2):
+                returnValue[str(i)] = {
+                    "latitude": DB.get(name="GeoJson:" + countryname + ":" + str(i) + ":latitude"),
+                    "longitude": DB.get(name="GeoJson:" + countryname + ":" + str(i) + ":longitude")
+                }
+            return returnValue
+
+    def _getGeoJson(self, requestdata):
+        with self.__redisDB__ as DB:
+
+            if not requestdata["params"]["country"] == "all":
+                return self._getGeoJsonSingel(countryname=requestdata["params"]["country"])
+            else:
+                # initialize return dict
+                returnValue = []
+
+                # get all countrys from DB
+                keys = DB.keys("GeoJson:*")
+                countryset = set()
+                for i in range(len(keys)):
+                    countryset.add(str(keys[i]).split(":")[1])
+
+                # get GeoJson for every country
+                for country in countryset:
+                    returnValue.append(self._getGeoJsonSingel(countryname=country))
+                return returnValue
+
+
     def setData(self, data, requestname):
         # switch case for requestnames -> call correct function for every request
         topLevel = {
@@ -77,9 +117,10 @@ class redisDB:
     def getData(self, requestData, requestName):
         # switch case for requestnames -> call correct function for every request
         functions = {
-            "ISSDB": self._getISS(requestData)
+            "ISSDB": self._getISS,
+            "GeoJson": self._getGeoJson
         }
-        return functions.get(requestName)
+        return functions.get(requestName)(requestData)
 
 
 
@@ -102,4 +143,13 @@ class redisDB:
 #             "endTime": "2020-06-09 21-50-10",
 #         }
 #     }
-#     print(DB.getData(requestData=datar, requestName="ISSpos"))
+#     print(DB.getData(requestData=datar, requestName="ISSDB"))
+
+if __name__ == '__main__':
+    DB = redisDB()
+    data = {
+        "params": {
+            "country": "all"
+        }
+    }
+    print(DB.getData(data, "GeoJson"))
