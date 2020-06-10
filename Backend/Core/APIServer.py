@@ -17,7 +17,10 @@ class requestHandler(BaseHTTPRequestHandler):
                 "startTime",
                 "endTime",
             ],
-            "ISSpos": True
+            "ISSpos": True,
+            "GeoJson": [
+                "country"
+            ]
         }
 
         if allowedKeys[requestName] is not None:
@@ -40,7 +43,7 @@ class requestHandler(BaseHTTPRequestHandler):
     # Implements GET request
     def do_GET(self):
         # Dictonary containg Links assigned with their correct functions
-        links = {
+        linksWithoutParams = {
             "/ISSpos": issCurrentPosition,
             "/RSS": rssFeed,
             "/userPosition": userPosition
@@ -53,7 +56,7 @@ class requestHandler(BaseHTTPRequestHandler):
         print(self.path.split("/"))
         requestName = self.path.split("/")[1]
         # Executing function based on link; Works kinda like a switch case statement
-        function = links.get(self.path)
+        function = linksWithoutParams.get(self.path)
 
         code = 1
         if function is not None and body is None:
@@ -61,9 +64,11 @@ class requestHandler(BaseHTTPRequestHandler):
             code = 200
         else:
             if self._checkData(requestName, body):
+                code = 200
                 if self.path == "/ISSDB":
                     data = redisDB().getData(body, self.path.strip("/"))
-                    code = 200
+                elif self.path == "/GeoJson":
+                    data = redisDB().getData(body, self.path.strip("/"))
                 # TODO: parse data to XML with XML parser
             else:
                 # Setting Error Message if Body data is incorrect
