@@ -9,7 +9,7 @@ __redisDB__ = redis.Redis(host=__redisHost__, port=6379, db=0)
 
 # enter path of your json File for "path"
 def getPath():
-    path = r"C:\Users\i516369\Desktop\ISSTracker\Frontend\json\word_low_res.json"
+    path = r"E:/Programs/ISSTracker/Frontend/json/word_low_res.json"
     return path
 
 
