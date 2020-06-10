@@ -6,7 +6,19 @@ def getRssFeed(url):
     #disable certificate check
     if hasattr(ssl, '_create_unverified_context'):
         ssl._create_default_https_context = ssl._create_unverified_context
-        
+
     #get RSS-Feed data
     rssFeed = feedparser.parse(url)
-    return rssFeed.entries
+
+    list = []
+
+    #create return values
+    for e in rssFeed.entries:
+        dict = {'title': e.title,
+                'summary': e.summary,
+                'published': e.published,
+                'link': e.link}
+        list.append(dict)
+
+    # Return dictionary with RSS list
+    return { 'items': list }
