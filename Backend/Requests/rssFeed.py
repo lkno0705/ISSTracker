@@ -1,15 +1,11 @@
-import feedparser
-import ssl
+import rssUtility
 
 def rssFeed():
-    
-    #disable certificate check
-    if hasattr(ssl, '_create_unverified_context'):
-        ssl._create_default_https_context = ssl._create_unverified_context
-    #get RSS-Feed data
-    rssFeed = feedparser.parse("https://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss")
+    # Feed URL
+    url = "https://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss"
+    # Read Feed
+    entry = rssUtility.getRssFeed(url)
 
-    entry = rssFeed.entries
     list = []
 
     #create return values
