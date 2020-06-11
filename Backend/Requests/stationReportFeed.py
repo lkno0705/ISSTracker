@@ -1,9 +1,8 @@
 import rssUtility
 
-def rssFeed():
-    
+def stationReportFeed():
     # Feed URL
-    url = "https://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss"
+    url = "http://blogs.nasa.gov/stationreport/feed/"
 
     # Read Feed
     return rssUtility.getRssFeed(url)
