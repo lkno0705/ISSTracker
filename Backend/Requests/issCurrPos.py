@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+from Backend.Core.database import redisDB
 
 # ISS current location API URL
 ISS_LOCATION_URL = 'http://api.open-notify.org/iss-now.json'
@@ -23,8 +24,12 @@ def currPos():
         timestamp = data['timestamp']
 
         # Convert timestamp to datetime and format datetime
-        dt_obj = datetime.fromtimestamp(timestamp).strftime(format = "%Y-%m-%d %H-%M-%S")
+        dt_obj = datetime.fromtimestamp(timestamp).strftime(format="%Y-%m-%d %H-%M-%S")
 
         # Create a dictionary with the values latitude, longitude, timestamp and return data in dictionary
-        iss_dict={'latitude': float(latitude), 'longitude': float(longitude), 'timestamp': dt_obj}
+        iss_dict = {'latitude': float(latitude), 'longitude': float(longitude), 'timestamp': dt_obj}
+
+        # Push data to DB
+        redisDB().setData(data=iss_dict, requestname='ISSpos')
+
         return iss_dict

@@ -1,44 +1,55 @@
 import redis
-from time import time
-import datetime
 from Backend.Core.dataStructs import parseTimeToTimestamp, ISSDBKey
 
 
 class redisDB:
+    # establishing connection to redisDB
     __redisHost__ = "localhost"
     __redisDB__ = redis.Redis(host=__redisHost__, port=6379, db=0)
 
+    # push current ISS postition to DB
     def _setIsspos(self, data):
         # IssPos object (data):
-        # {
-        #   "requestname": "ISSpos",
-        #   "data":{
-        #       "timestamp":"2012-12-15 01:21:05",
-        #       "latitude": "-17.9617",
-        #       "longitude": "162.6117"
-        #   }
-        # }
+        # {'latitude': -45.4742, 'longitude': 150.3883, 'timestamp': '2020-06-09 20-50-01'}
         with self.__redisDB__ as DB:
-            DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":latitude", value=data["data"]["latitude"])
-            DB.set(name="ISSpos:" + data["data"]["timestamp"] + ":longitude", value=data["data"]["longitude"])
-            DB.expire(name="ISSpos:" + data["data"]["timestamp"], time=86400)  # key expires after 24h
+            # set Key and Value
+            DB.set(name="ISSpos:" + data["timestamp"] + ":latitude", value=data["latitude"])
+            DB.set(name="ISSpos:" + data["timestamp"] + ":longitude", value=data["longitude"])
+
+            # key expires after 24h
+            DB.expire(name="ISSpos:" + data["timestamp"], time=86400)
 
 
     def _getISS(self, requestData):
 
+        # converting Timestamps from requests to actual Timestamps
         startTime = parseTimeToTimestamp(requestData["params"]["startTime"])
         endTime = parseTimeToTimestamp(requestData["params"]["endTime"])
 
+        # define empty Key set (mathematische Menge)
         keyset = set()
+
         with self.__redisDB__ as DB:
+
+            # Generating search pattern from request parameters
             searchPattern = "ISSpos" + ":" + requestData["params"]["startTime"].split(" ")[0] + "*"
+
+            # Get all keys from DB which match previously defined keyset
             startTimeKeys = DB.keys(pattern=searchPattern)
+
+            # add keys to keyset
             for key in startTimeKeys:
                 splitted = str(key).split(':')
+
+                # create new ISSDBKey object which holds all values (timestamp for this key is automaticly converted)
                 currKeyObject = ISSDBKey(timeValue=splitted[1], key=splitted[2].strip("'"), value=None)
+
+                # only add keys which are in the range of [startTime, endTime]
                 if currKeyObject.timestamp >= startTime and currKeyObject.timestamp <= endTime:
+                    # adding key to keyset
                     keyset.add(currKeyObject)
 
+            # same code as for startTime -> see comments above for explanations
             searchPattern = "ISSpos" + ":" + requestData["params"]["endTime"].split(" ")[0] + "*"
             endTimeKeys = DB.keys(pattern=searchPattern)
             for key in endTimeKeys:
@@ -47,52 +58,98 @@ class redisDB:
                 if currKeyObject.timestamp >= startTime and currKeyObject.timestamp <= endTime:
                     keyset.add(currKeyObject)
 
+            # convert keyset into a sorted list, sorted by timestamps
             keylist = sorted(keyset, key=lambda x: x.timestamp)
+
+            # get values from DB
             for key in keylist:
                 key.value = DB.get("ISSpos:" + key.timeValue + ":" + key.key)
-
             return keylist
 
+    def _getGeoJsonSingel(self, countryname):
+        with self.__redisDB__ as DB:
+            # initialize return dict
+            returnValue = {"countryname": countryname}
+
+            # generate search pattern
+            searchPattern = "GeoJson:" + countryname + ":*"
+
+            # get keys
+            keys = DB.keys(searchPattern)
+
+            # build return dict from DB
+            for i in range(len(keys) // 2):
+                returnValue[str(i)] = {
+                    "latitude": DB.get(name="GeoJson:" + countryname + ":" + str(i) + ":latitude"),
+                    "longitude": DB.get(name="GeoJson:" + countryname + ":" + str(i) + ":longitude")
+                }
+            return returnValue
+
+    def _getGeoJson(self, requestdata):
+        with self.__redisDB__ as DB:
+
+            if not requestdata["params"]["country"] == "all":
+                return self._getGeoJsonSingel(countryname=requestdata["params"]["country"])
+            else:
+                # initialize return dict
+                returnValue = []
+
+                # get all countrys from DB
+                keys = DB.keys("GeoJson:*")
+                countryset = set()
+                for i in range(len(keys)):
+                    countryset.add(str(keys[i]).split(":")[1])
+
+                # get GeoJson for every country
+                for country in countryset:
+                    returnValue.append(self._getGeoJsonSingel(countryname=country))
+                return returnValue
 
 
-
-
-    def setData(self, data):
-        # TODO: parse data to python Object
+    def setData(self, data, requestname):
+        # switch case for requestnames -> call correct function for every request
         topLevel = {
             "ISSpos": self._setIsspos,
             "RSS-Feed": "_setRSS"
         }
-        topLevel.get(data["requestname"])(data)
+        topLevel.get(requestname)(data)
 
     def getData(self, requestData, requestName):
+        # switch case for requestnames -> call correct function for every request
         functions = {
-            "ISSpos": self._getISS(requestData)
+            "ISSDB": self._getISS,
+            "GeoJson": self._getGeoJson
         }
-        return functions.get(requestName)
+        return functions.get(requestName)(requestData)
 
 
 
 
 
 
+# Comment out for Debugging purposes
+# if __name__ == '__main__':
+#     data = {
+#         'latitude': -45.4742,
+#         'longitude': 150.3883,
+#         'timestamp': '2020-06-09 20-50-01'
+#     }
+#     DB = redisDB()
+#     DB.setData(data=data, requestname="ISSpos")
+#
+#     datar = {
+#         "params": {
+#             "startTime": "2020-06-09 20-50-01",
+#             "endTime": "2020-06-09 21-50-10",
+#         }
+#     }
+#     print(DB.getData(requestData=datar, requestName="ISSDB"))
 
 if __name__ == '__main__':
-    data = {
-        "requestname": "ISSpos",
-        "data": {
-            "latitude": -17.9617,
-            "longitude": 162.6117,
-            "timestamp": datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d %H-%M-%S')
-        }
-    }
     DB = redisDB()
-    DB.setData(data=data)
-
-    datar = {
+    data = {
         "params": {
-            "startTime": "2020-06-08 22-00-41",
-            "endTime": "2020-06-08 22-50-18",
+            "country": "all"
         }
     }
-    print(DB.getData(requestData=datar, requestName="ISSpos"))
+    print(DB.getData(data, "GeoJson"))
