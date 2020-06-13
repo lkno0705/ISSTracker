@@ -1,4 +1,5 @@
-import rssUtility
+from Backend.Requests import rssUtility
+
 
 def rssFeed():
     
