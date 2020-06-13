@@ -18,6 +18,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 "endTime",
             ],
             "ISSpos": True,
+            "AstrosOnISS": True,
             "GeoJson": [
                 "country"
             ]
@@ -46,7 +47,7 @@ class requestHandler(BaseHTTPRequestHandler):
         linksWithoutParams = {
             "/ISSpos": issCurrentPosition,
             "/RSS": rssFeed,
-            "/userPosition": userPosition
+            "/userPosition": userPosition,
         }
         try:
             content_len = int(self.headers.get('Content-Length'))
@@ -68,6 +69,8 @@ class requestHandler(BaseHTTPRequestHandler):
                 if self.path == "/ISSDB":
                     data = redisDB().getData(body, self.path.strip("/"))
                 elif self.path == "/GeoJson":
+                    data = redisDB().getData(body, self.path.strip("/"))
+                elif self.path == "/AstrosOnISS":
                     data = redisDB().getData(body, self.path.strip("/"))
                 # TODO: parse data to XML with XML parser
             else:
