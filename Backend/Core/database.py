@@ -1,11 +1,11 @@
 import redis
-from Backend.Core.dataStructs import parseTimeToTimestamp, ISSDBKey
-
+from Backend.Core.dataStructs import parseTimeToTimestamp, ISSDBKey, Astronaut
+from Backend.Requests import astrosOnISS
 
 class redisDB:
     # establishing connection to redisDB
     __redisHost__ = "localhost"
-    __redisDB__ = redis.Redis(host=__redisHost__, port=6379, db=0)
+    __redisDB__ = redis.StrictRedis(host=__redisHost__, port=6379, db=0, decode_responses=True)
 
     # push current ISS postition to DB
     def _setIsspos(self, data):
@@ -105,6 +105,20 @@ class redisDB:
                     returnValue.append(self._getGeoJsonSingel(countryname=country))
                 return returnValue
 
+    def _getAstros(self, requestData):
+        astros = astrosOnISS.getAstrosOnISS()
+        astrosWithItems = []
+        with self.__redisDB__ as DB:
+            for i in range(len(astros)):
+
+                # get picture,flag and nation of current astro
+                picture = DB.get("Astronaut:" + astros[i] + ":" + 'picture')
+                flag = DB.get("Astronaut:" + astros[i] + ":" + 'flag')
+                nation = DB.get("Astronaut:" + astros[i] + ":" + 'nation')
+                # assign these items to current astronaut
+                astrosWithItems.append(Astronaut(name=astros[i], pic=picture, flag=flag, nation=nation))
+            return astrosWithItems
+
 
     def setData(self, data, requestname):
         # switch case for requestnames -> call correct function for every request
@@ -118,7 +132,8 @@ class redisDB:
         # switch case for requestnames -> call correct function for every request
         functions = {
             "ISSDB": self._getISS,
-            "GeoJson": self._getGeoJson
+            "GeoJson": self._getGeoJson,
+            "AstrosOnISS": self._getAstros
         }
         return functions.get(requestName)(requestData)
 
@@ -145,11 +160,16 @@ class redisDB:
 #     }
 #     print(DB.getData(requestData=datar, requestName="ISSDB"))
 
+# if __name__ == '__main__':
+#     DB = redisDB()
+#     data = {
+#         "params": {
+#             "country": "all"
+#         }
+#     }
+#     print(DB.getData(data, "GeoJson"))
+
 if __name__ == '__main__':
     DB = redisDB()
-    data = {
-        "params": {
-            "country": "all"
-        }
-    }
-    print(DB.getData(data, "GeoJson"))
+    data = {}
+    print(DB.getData(requestData=data, requestName="AstrosOnISS"))

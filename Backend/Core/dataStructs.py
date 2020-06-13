@@ -45,3 +45,15 @@ class ISSDBKey:
         # define condition when two ISSDBKeys are equal
         return self.timeValue == other.timeValue and self.key == other.key
 
+@dataclass()
+class Astronaut:
+    name: str
+    pic: str
+    flag: str
+    nation: str
+
+    def __hash__(self):
+        return hash((self.name, self.pic, self.flag, self.nation))
+
+    def __eq__(self, other):
+        return self.name == other.name and self.pic == other.pic and self.flag == other.pic and self.nation == other.nation
