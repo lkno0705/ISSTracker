@@ -7,3 +7,5 @@ This folder contains every src-file processing API-Requests from external source
     Nasa ISS RSS-Feed Requests
 * ## userPosition.py
     ISS Pass-by Requests
+* ## addressGeocoding.py
+    Geocoding of addresses 
