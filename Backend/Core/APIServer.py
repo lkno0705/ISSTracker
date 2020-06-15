@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from Backend.Requests.issCurrPos import currPos as issCurrentPosition
 from Backend.Requests.rssFeed import rssFeed as rssFeed
+from Backend.Requests.ISSCountryPasses import ISScountryPasses
 from Backend.Requests.userPosition import getUserPosition as userPosition
 from Backend.Core.database import redisDB
 
@@ -20,6 +21,11 @@ class requestHandler(BaseHTTPRequestHandler):
             "ISSpos": True,
             "AstrosOnISS": True,
             "GeoJson": [
+                "country"
+            ],
+            "ISSCountryPass": [
+                "startTime",
+                "endTime",
                 "country"
             ]
         }
@@ -72,6 +78,8 @@ class requestHandler(BaseHTTPRequestHandler):
                     data = redisDB().getData(body, self.path.strip("/"))
                 elif self.path == "/AstrosOnISS":
                     data = redisDB().getData(body, self.path.strip("/"))
+                elif self.path == "/ISSCountryPass":
+                    data = ISScountryPasses(requestData=body)
                 # TODO: parse data to XML with XML parser
             else:
                 # Setting Error Message if Body data is incorrect
