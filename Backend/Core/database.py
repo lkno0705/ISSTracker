@@ -169,7 +169,7 @@ class redisDB:
 #     }
 #     print(DB.getData(data, "GeoJson"))
 
-if __name__ == '__main__':
-    DB = redisDB()
-    data = {}
-    print(DB.getData(requestData=data, requestName="AstrosOnISS"))
+# if __name__ == '__main__':
+#     DB = redisDB()
+#     data = {}
+#     print(DB.getData(requestData=data, requestName="AstrosOnISS"))
