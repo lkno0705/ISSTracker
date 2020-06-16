@@ -37,7 +37,7 @@ class requestHandler(BaseHTTPRequestHandler):
                         correct = True if key in data["params"] and data["params"][key] is not None else False
                         if not correct:
                             break
-                print(correct)
+                # print(correct)
                 return correct
             elif allowedKeys[requestName] is True:
                 return True
@@ -60,7 +60,7 @@ class requestHandler(BaseHTTPRequestHandler):
             body = json.loads(self.rfile.read(content_len))  # TODO: Json.loads has to be replaced with XML Parser
         except TypeError:
             body = None
-        print(self.path.split("/"))
+        # print(self.path.split("/"))
         requestName = self.path.split("/")[1]
         # Executing function based on link; Works kinda like a switch case statement
         function = linksWithoutParams.get(self.path)
