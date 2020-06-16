@@ -23,7 +23,10 @@ def currPos():
         longitude = data['iss_position']['longitude']
         timestamp = data['timestamp']
 
-        # Convert timestamp to datetime and format datetime
+        # Convert timestamp to datetime and format datetime;
+        # The timestamp comes as a UNIX-Timestamp which is defined as
+        # "the number of seconds (or milliseconds) elapsed since an absolute point in time,
+        # midnight of Jan 1 1970 in UTC time."
         dt_obj = datetime.fromtimestamp(timestamp).strftime(format="%Y-%m-%d %H-%M-%S")
 
         # Create a dictionary with the values latitude, longitude, timestamp and return data in dictionary
