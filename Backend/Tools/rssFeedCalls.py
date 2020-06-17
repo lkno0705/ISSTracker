@@ -13,16 +13,18 @@ def setRssFeed(data):
     feedItems = data['items']
     for i in range(len(feedItems)):
         publishDate = feedItems[i]['published']
+        # convert date into utc and format yyyy-mm-dd HH-MM-S
         publishDate = dateConverter.convert(publishDate)
         expireTime = 3600  # in seconds
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + publishDate + ":title", value=feedItems[i]['title'], ex=expireTime)
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + publishDate + ":summary", value=feedItems[i]['summary'], ex=expireTime)
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + publishDate + ":published", value=publishDate, ex=expireTime)
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + publishDate + ":link", value=feedItems[i]['link'], ex=expireTime)
-        print("RSS-Feed:" + feedName + ":" + publishDate + ":title:" + str(feedItems[i]['title']))
-        print("RSS-Feed:" + feedName + ":" + publishDate + ":summary:" + str(feedItems[i]['summary']))
-        print("RSS-Feed:" + feedName + ":" + publishDate + ":published:" + publishDate)
-        print("RSS-Feed:" + feedName + ":" + publishDate + ":link:" + str(feedItems[i]['link']))
+        fristKeyPart = "RSS-Feed:" + feedName + ":" + publishDate
+        __redisDB__.set(name=fristKeyPart + ":title", value=feedItems[i]['title'], ex=expireTime)
+        __redisDB__.set(name=fristKeyPart + ":summary", value=feedItems[i]['summary'], ex=expireTime)
+        __redisDB__.set(name=fristKeyPart + ":published", value=publishDate, ex=expireTime)
+        __redisDB__.set(name=fristKeyPart + ":link", value=feedItems[i]['link'], ex=expireTime)
+        print(fristKeyPart + ":title:" + str(feedItems[i]['title']))
+        print(fristKeyPart + ":summary:" + str(feedItems[i]['summary']))
+        print(fristKeyPart + ":published:" + publishDate)
+        print(fristKeyPart + ":link:" + str(feedItems[i]['link']))
 
 
 # # set spacetoground rssFeed
@@ -40,6 +42,7 @@ def getRssFeed(time, numbOfItems):
     # get keys(datetime in 'published') of rssFeeds
     for key in keys:
         if str(key).endswith('published'):
+            # get key in format: RSS-Feed:spacetoground/stationreport:yyyy-mm-dd HH-MM-SS
             timeKeys.append(str(key).replace(':published', ''))
     items = []
     for key in timeKeys:
@@ -49,6 +52,5 @@ def getRssFeed(time, numbOfItems):
                           'published': __redisDB__.get(key + ':published'), 'link': __redisDB__.get(key + ':link')})
 
     return sorted(items, key=lambda i: (i['published']), reverse=True)
-
 
 # print(*getRssFeed('2018-07-05 16-36-00', 40), sep='\n')
