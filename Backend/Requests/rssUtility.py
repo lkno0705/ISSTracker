@@ -20,7 +20,5 @@ def getRssFeed(url):
                 'published': e.published,
                 'link': e.link}
         list.append(dict)
-
-    rssFeedName = rssFeed.entries[0].title
-    # Return dictionary with RSS list and its Name (whether "space to Ground" or ISS Daily Summary Report)
-    return {'rssFeedName': rssFeedName, 'items': list}
+    # Return list of dictionaries with RSS-Feeds
+    return list
