@@ -1,5 +1,7 @@
 import redis
 
+from Backend.Requests import rssFeed
+from Backend.Requests import stationReportFeed
 from Backend.Tools import rssFeedTimeConverter as timeConverter
 
 __redisHost__ = "localhost"
@@ -12,10 +14,10 @@ def setRssFeed(data):
     for i in range(len(feedItems)):
         time = feedItems[i]['published']
         time = timeConverter.convert(time)
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":title", value=feedItems[i]['title'])
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":summary", value=feedItems[i]['summary'])
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":published", value=time)
-        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":link", value=feedItems[i]['link'])
+        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":title", value=feedItems[i]['title'], ex=3600)
+        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":summary", value=feedItems[i]['summary'], ex=3600)
+        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":published", value=time, ex=3600)
+        __redisDB__.set(name="RSS-Feed:" + feedName + ":" + time + ":link", value=feedItems[i]['link'], ex=3600)
         print("RSS-Feed:" + feedName + ":" + time + ":title:" + str(feedItems[i]['title']))
         print("RSS-Feed:" + feedName + ":" + time + ":summary:" + str(feedItems[i]['summary']))
         print("RSS-Feed:" + feedName + ":" + time + ":published:" + time)
@@ -29,7 +31,8 @@ def setRssFeed(data):
 # data = stationReportFeed.stationReportFeed()
 # setRssFeed(data)
 
-#awaits utc time in format yyyy-mm-dd HH-MM-SS!!
+
+# awaits utc time in format yyyy-mm-dd HH-MM-SS!!
 def getRssFeed(time, numbOfItems):
     keys = __redisDB__.keys("RSS-Feed:*")
     timeKeys = []
@@ -39,10 +42,11 @@ def getRssFeed(time, numbOfItems):
             timeKeys.append(str(key).replace(':published', ''))
     items = []
     for key in timeKeys:
-        if len(items) < numbOfItems and str(__redisDB__.get(key+':published')) >= time:
+        # check if number of rssfeeds wished is not exceeded and this rssFeed published before the getRequest was done
+        if len(items) < numbOfItems and str(__redisDB__.get(key + ':published')) <= time:
             items.append({'title': __redisDB__.get(key + ':title'), 'summary': __redisDB__.get(key + ':summary'),
                           'published': __redisDB__.get(key + ':published'), 'link': __redisDB__.get(key + ':link')})
     return items
 
 
-# print(*getRssFeed('2019-04-05 16-36-00', 10), sep='\n')
+# print(*getRssFeed('2020-07-05 16-36-00', 10), sep='\n')
