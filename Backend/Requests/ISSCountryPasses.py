@@ -33,7 +33,6 @@ def ISScountryPasses(requestData):
         }
     }, requestName="GeoJson")
     del geoJson["countryname"]
-    print(geoJson)
     issCoordinates = DB.getData(requestData={
         "params": {
             "startTime": requestData["params"]["startTime"],
