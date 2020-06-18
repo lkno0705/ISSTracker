@@ -17,7 +17,8 @@ def getFuturePass(longitude, latitude, number=10):
         for a in response['response']:
             futurePass = a['risetime']
 #        futurePass = response['response'][0]['risetime']
-            futurePassDatetime = datetime.fromtimestamp(futurePass, tz=pytz.utc)
+#            futurePassDatetime = datetime.fromtimestamp(futurePass, tz=pytz.utc)
+            futurePassDatetime = datetime.utcfromtimestamp(futurePass).strftime(format="%Y-%m-%d %H-%M-%S")
             data.append(futurePassDatetime)
         return data
     else:
