@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 import pytz
 
+# ISS pass API URL
 ISS_API_URL = 'http://api.open-notify.org/iss-pass.json'
 
 def getFuturePass(longitude, latitude, number=10):
@@ -10,20 +11,15 @@ def getFuturePass(longitude, latitude, number=10):
                 'lon': longitude,
                 'n': number}
 
+# read data from response and return future pass datetime
     response = requests.get(ISS_API_URL, params=location).json()
-#    return response
+
     if 'response' in response:
         data = []
         for a in response['response']:
             futurePass = a['risetime']
-#        futurePass = response['response'][0]['risetime']
-#            futurePassDatetime = datetime.fromtimestamp(futurePass, tz=pytz.utc)
             futurePassDatetime = datetime.utcfromtimestamp(futurePass).strftime(format="%Y-%m-%d %H-%M-%S")
             data.append(futurePassDatetime)
         return data
     else:
         raise Exception ("No results found")
-
-
-
-print (getFuturePass(122.3, 45))
