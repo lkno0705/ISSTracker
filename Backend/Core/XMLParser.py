@@ -3,15 +3,16 @@ from xml.etree.ElementTree import tostring
 from Backend.Core.dataStructs import ISSDBKey
 import struct
 
-d = { "requestName": "ISSpos", "data": {"timestamp": "2012-12-15 01-21-05", "latitude":"-17.0617","longitude":"162.6117"}}
-l = [
-    ISSDBKey(timeValue='2020-06-05 14-25-04', key='longitude', value=b'1234'),
-    ISSDBKey(timeValue='2020-06-05 14-25-04', key='latitude', value=b'5678'),
-    ISSDBKey(timeValue='2020-06-05 14-26-04', key='latitude', value=b'5555'),
-    ISSDBKey(timeValue="2020-06-05 14-26-04", key="longitude", value=b"1111"),
-    ISSDBKey(timeValue="2020-06-05 14-27-04", key="longitude", value=b"1212"),
-    ISSDBKey(timeValue='2020-06-05 14-27-04', key='latitude', value=b'5555'),
-]
+# TEST DATA
+# d = { "requestName": "ISSpos", "data": {"timestamp": "2012-12-15 01-21-05", "latitude":"-17.0617","longitude":"162.6117"}}
+# l = [
+#    ISSDBKey(timeValue='2020-06-05 14-25-04', key='longitude', value=b'1234'),
+#    ISSDBKey(timeValue='2020-06-05 14-25-04', key='latitude', value=b'5678'),
+#    ISSDBKey(timeValue='2020-06-05 14-26-04', key='latitude', value=b'5555'),
+#    ISSDBKey(timeValue="2020-06-05 14-26-04", key="longitude", value=b"1111"),
+#    ISSDBKey(timeValue="2020-06-05 14-27-04", key="longitude", value=b"1212"),
+#    ISSDBKey(timeValue='2020-06-05 14-27-04', key='latitude', value=b'5555'),
+#]
 
 # Create XML out of dictionary with specific tag- and requestname
 def genericDictToXML(d):
