@@ -1,6 +1,5 @@
 import requests
 from datetime import datetime
-import pytz
 
 # ISS pass API URL
 ISS_API_URL = 'http://api.open-notify.org/iss-pass.json'
