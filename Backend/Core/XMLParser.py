@@ -31,10 +31,7 @@ def genericDictToXML(d):
     elem.append(subelem)
     return elem
 
-
-# TODO: def convertByteToFloat(byteString):
-
-# XML
+# XML for ISSDBKey
 # <Request>
 #	<requestName>ISSDB</requestName>
 #	<data>
@@ -57,71 +54,54 @@ def convertISSDBKeyToXML(requestData):
 
     dataChild = Element("data")
 
+    timeValueElem = Element("timeValue")
+
     for key in requestData:
-    
-        if dataChild.find("timeValue"):
-            for time in dataChild.iterfind("data/timeValue[@time='" + key.timeValue + "']"):
-                if key.timeValue == time.get("time"):
+
+        if 'time' in timeValueElem.attrib:
+            if timeValueElem.attrib["time"] == key.timeValue:
+                if key.key == 'longitude':
                     keyElem = Element(key.key)
                     keyElem.text = str(struct.unpack('f', key.value)[0])
-                    time.append(keyElem)
-                    break
-#                else:
+                    timeValueElem.append(keyElem)
+                    if len(timeValueElem) == 2:
+                        dataChild.append(timeValueElem)
+                        timeValueElem = Element("timeValue")
+                else:
+                    keyElem = Element(key.key)
+                    keyElem.text = str(struct.unpack('f', key.value)[0])
+                    timeValueElem.append(keyElem)
+                    if len(timeValueElem) == 2:
+                        dataChild.append(timeValueElem)
+                        timeValueElem = Element("timeValue")
 
-            timeValueElem = Element("timeValue")
-            timeValueElem.attrib = {"time": key.timeValue}
-
-            keyElem = Element(key.key)
-            keyElem.text = str(struct.unpack('f', key.value)[0])
-
-            timeValueElem.append(keyElem)
-            dataChild.append(timeValueElem)
         else:
-            timeValueElem = Element("timeValue")
             timeValueElem.attrib = {"time": key.timeValue}
-
-            keyElem = Element(key.key)
-            keyElem.text = str(struct.unpack('f', key.value)[0])
-
-            timeValueElem.append(keyElem)
-            dataChild.append(timeValueElem)    
+            if key.key == 'longitude':
+                keyElem = Element(key.key)
+                keyElem.text = str(struct.unpack('f', key.value)[0])
+                timeValueElem.append(keyElem)
+                if len(timeValueElem) == 2:
+                    dataChild.append(timeValueElem)
+                    timeValueElem = Element("timeValue")
+            else:
+                keyElem = Element(key.key)
+                keyElem.text = str(struct.unpack('f', key.value)[0])
+                timeValueElem.append(keyElem)
+                if len(timeValueElem) == 2:
+                    dataChild.append(timeValueElem)
+                    timeValueElem = Element("timeValue")
 
     elem.append(dataChild)
     tostring(elem)
     return elem
 
-#def createDictISSDBKey(requestData):
-
-    listOfDicts = []
-    for k in requestData:
-        # Handling duplicates with lists as values in dictionary
-        if not listOfDicts:
-            dictionary = {}
-            dictionary["timeValue"] = k.timeValue
-            dictionary["key"] = [k.key]
-            dictionary["value"] = [k.value]
-            dictionary["timeStamp"] = k.timestamp
-            listOfDicts.append(dictionary)
-        # Append keys and values of same timestamp
-        elif k.timestamp == listOfDicts[len(listOfDicts)-1]["timeStamp"]:
-            listOfDicts[len(listOfDicts)-1]["key"].append(k.key)
-            listOfDicts[len(listOfDicts)-1]["value"].append(k.value)
-        else:
-            dictionary = {}
-            dictionary["timeValue"] = k.timeValue
-            dictionary["key"] = [k.key]
-            dictionary["value"] = [k.value]
-            dictionary["timeStamp"] = k.timestamp
-            listOfDicts.append(dictionary)     
-
-    return convertISSDBKeyToXML(listOfDicts)
-
-def createDictISSPos(requestData):
+def convertISSPosToXML(requestData):
     return 10
 
 def reformatData(requestData, requestName):
     functions = {
-        'ISSpos': createDictISSPos,
+        'ISSpos': convertISSPosToXML,
         'ISSDB': convertISSDBKeyToXML
         # List of Requests
     }
