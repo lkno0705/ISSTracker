@@ -8,7 +8,7 @@ function createISS() {
         var latlng = L.latLng(lat, lon);
         create([latlng, latlng]);
         //marker.setLatLng([lat, lon]);            
-        mymap.setView(latlng, mymap.getZoom());
+        mymap.setView(latlng, 4);
 
         console.log("Lang: " + lat + " Long: " + lon);
         console.log("moveISSbefore");
