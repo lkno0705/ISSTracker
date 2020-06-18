@@ -2,8 +2,9 @@
 function createMap() {
     console.log("create map");
     mymap = L.map('mapid',{
+        // continuousWorld:false,
         worldCopyJump:true,
-        maxBoundsViscosity: 0.5
+        maxBoundsViscosity: 1
         
     }).setView([51.5, -0.09], 5);
 
@@ -20,8 +21,7 @@ function createMap() {
     
     L.control.zoom({position:"bottomright"});
 
-    var southWest = L.latLng(-90, -180),
-    northEast = L.latLng(90, 180);
+    var southWest = L.latLng(-90, -190), northEast = L.latLng(90, 190);
     var bounds = L.latLngBounds(southWest, northEast);
     
     mymap.setMaxBounds(bounds);
@@ -31,20 +31,25 @@ function createMap() {
 
 }
 
-// funtion to draw geoJson to map, just for test purposes
+// trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
+
+var mainLayer;
+
+// funtion to draw geoJson to map, just for test purposes 
 function drawGeoJSON(){
     $.getJSON("json/world_med_res.json", function(json) {
         data = json;
         console.log(json); // this will show the info it in firebug console
-        L.geoJSON(json, {
-            style: function (feature) {
-                return {color: '#FFFFFF',
-                        opacity: .2,
-                        fillOpacity: 0};
-            }
-        }).bindPopup(function (layer) {
+        mainLayer=L.geoJSON(json, {
+                style: function (feature) {
+                    return {color: '#FFFFFF',
+                            opacity: .2,
+                            fillOpacity: 0};
+                }
+            }).bindPopup(function (layer) {
             return layer.feature.properties.name_sort;
-        }).bindTooltip('click for more information').addTo(map);
+        })//**.bindTooltip('click for more information')
+        .addTo(mymap);
     });
 }
 
