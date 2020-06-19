@@ -1,11 +1,10 @@
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import tostring
 from Backend.Core.dataStructs import ISSDBKey
-import struct
 
 # TEST DATA
 # d = { "requestName": "ISSpos", "data": {"timestamp": "2012-12-15 01-21-05", "latitude":"-17.0617","longitude":"162.6117"}}
-# l = [
+#l = [
 #    ISSDBKey(timeValue='2020-06-05 14-25-04', key='longitude', value=b'1234'),
 #    ISSDBKey(timeValue='2020-06-05 14-25-04', key='latitude', value=b'5678'),
 #    ISSDBKey(timeValue='2020-06-05 14-26-04', key='latitude', value=b'5555'),
@@ -57,44 +56,20 @@ def convertISSDBKeyToXML(requestData):
 
     timeValueElem = Element("timeValue")
 
-    for key in requestData:
+    for x in range(0, len(requestData), 2):
 
-        if 'time' in timeValueElem.attrib:
-            if timeValueElem.attrib["time"] == key.timeValue:
-                if key.key == 'longitude':
-                    keyElem = Element(key.key)
-                    keyElem.text = str(struct.unpack('f', key.value)[0])
-                    timeValueElem.append(keyElem)
-                    if len(timeValueElem) == 2:
-                        dataChild.append(timeValueElem)
-                        timeValueElem = Element("timeValue")
-                else:
-                    keyElem = Element(key.key)
-                    keyElem.text = str(struct.unpack('f', key.value)[0])
-                    timeValueElem.append(keyElem)
-                    if len(timeValueElem) == 2:
-                        dataChild.append(timeValueElem)
-                        timeValueElem = Element("timeValue")
+            timeValueElem.attrib = {"time": requestData[x].timeValue}
 
-        else:
-            timeValueElem.attrib = {"time": key.timeValue}
-            if key.key == 'longitude':
-                keyElem = Element(key.key)
-                keyElem.text = str(struct.unpack('f', key.value)[0])
+            for i in range(0, 2):
+                keyElem = Element(requestData[x+i].key)
+                keyElem.text = str(requestData[x+i].value)
                 timeValueElem.append(keyElem)
-                if len(timeValueElem) == 2:
-                    dataChild.append(timeValueElem)
-                    timeValueElem = Element("timeValue")
-            else:
-                keyElem = Element(key.key)
-                keyElem.text = str(struct.unpack('f', key.value)[0])
-                timeValueElem.append(keyElem)
-                if len(timeValueElem) == 2:
-                    dataChild.append(timeValueElem)
-                    timeValueElem = Element("timeValue")
+
+                
+            dataChild.append(timeValueElem)
+            timeValueElem = Element("timeValue")
 
     elem.append(dataChild)
-    tostring(elem)
     return elem
 
 def convertISSPosToXML(requestData):
@@ -109,4 +84,4 @@ def reformatData(requestData, requestName):
 
     return functions.get(requestName)(requestData)
 
-print(tostring(reformatData(l, "ISSDB")))
+# print(tostring(reformatData(l, "ISSDB")))
