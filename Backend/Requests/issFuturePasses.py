@@ -4,11 +4,11 @@ from datetime import datetime
 # ISS pass API URL
 ISS_API_URL = 'http://api.open-notify.org/iss-pass.json'
 
-def getFuturePass(longitude, latitude, number=10):
+def getFuturePass(params):
 
-    location = {'lat': latitude,
-                'lon': longitude,
-                'n': number}
+    location = {'lat': params['latitude'],
+                'lon': params['longitude'],
+                'n': params['number'] if 'number' in params else 5}
 
 # read data from response and return future pass datetime
     response = requests.get(ISS_API_URL, params=location).json()
@@ -22,3 +22,5 @@ def getFuturePass(longitude, latitude, number=10):
         return data
     else:
         raise Exception ("No results found")
+
+print (getFuturePass({'latitude': 45, 'longitude': 125}))
