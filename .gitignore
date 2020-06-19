@@ -2,6 +2,7 @@
 Backend/Requests/__pycache__/
 Backend/Core/__pycache__/
 Backend/__pycache__/
+Backend/Tools/__pycache__/*
 ./dump.rdb
 ./dev/*
 dev/
