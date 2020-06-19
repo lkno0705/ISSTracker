@@ -1,11 +1,11 @@
  /* The sidebar menu */
  .sidebar {
     height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
+    width: 250px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
-    right: 0;
+    right: -250px;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
@@ -77,17 +77,19 @@
 
  /* The sidebar menu */
  .sidebarLeft {
+  pointer-events: none;
   height: 100%; /* 100% Full-height */
   width: 250px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0;
-  left: 0;  
+  left: 0px;  
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
   color: #FFFFFF;
 }
+
 
 /* The sidebar links */
 .sidebarLeft a {
@@ -159,6 +161,11 @@ margin: auto;
 
 .one { 
 float: left;
+pointer-events: auto;
+}
+
+.two {
+  pointer-events: auto;
 }
 
 .three {
