@@ -26,10 +26,10 @@ def convertAstrosToXML(requestData):
     requestChild.text = "AstrosOnISS"
     elem.append(requestChild)
     dataChild = Element("data")
-    picture = Element("picture")
-    flag = Element("flag")
-    nation = Element("nation")
     for astro in requestData:
+        picture = Element("picture")
+        flag = Element("flag")
+        nation = Element("nation")
         AstroChild = Element("Astro")
         AstroChild.attrib = {"name": astro.name}
         picture.text = astro.pic
@@ -42,4 +42,4 @@ def convertAstrosToXML(requestData):
     elem.append(dataChild)
     return tostring(elem)
 
-# print(convertAstrosToXML(database.redisDB._getAstros(database.redisDB, None)))
+print(convertAstrosToXML(database.redisDB._getAstros(database.redisDB, None)))
