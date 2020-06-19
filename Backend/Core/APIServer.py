@@ -4,6 +4,8 @@ from Backend.Requests.rssFeed import rssFeed as rssFeed
 from Backend.Requests.ISSCountryPasses import ISScountryPasses
 from Backend.Requests.userPosition import getUserPosition as userPosition
 from Backend.Core.database import redisDB
+from Backend.Requests.issPastPasses import pastPasses
+from Backend.Requests.issFuturePasses import getFuturePass
 
 import json
 
@@ -31,6 +33,16 @@ class requestHandler(BaseHTTPRequestHandler):
             "RSS-Feed": [
                 "time",
                 "numberOfItems"
+            ],
+            "ISSpastPasses": [
+                "latitude",
+                "longitude",
+                "radius"
+            ],
+            "ISSfuturePasses": [
+                "latitude",
+                "longitude",
+                "number"
             ]
         }
 
@@ -86,6 +98,10 @@ class requestHandler(BaseHTTPRequestHandler):
                     data = ISScountryPasses(requestData=body)
                 elif self.path == "/RSS-Feed":
                     data = redisDB().getData(requestData=body, requestName=self.path.strip("/"))
+                elif self.path == "/ISSpastPasses":
+                    data = pastPasses().pastPasses(requestData=body)
+                elif self.path == "/ISSfuturePasses":
+                    data = getFuturePass(params=body["params"])
                 # TODO: parse data to XML with XML parser
             else:
                 # Setting Error Message if Body data is incorrect
