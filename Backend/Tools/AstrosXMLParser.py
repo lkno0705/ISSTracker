@@ -26,12 +26,12 @@ def convertAstrosToXML(requestData):
     requestChild.text = "AstrosOnISS"
     elem.append(requestChild)
     dataChild = Element("data")
-    picture = Element("picture")
-    flag = Element("flag")
-    nation = Element("nation")
     for astro in requestData:
         AstroChild = Element("Astro")
         AstroChild.attrib = {"name": astro.name}
+        picture = Element("picture")
+        flag = Element("flag")
+        nation = Element("nation")
         picture.text = astro.pic
         flag.text = astro.flag
         nation.text = astro.nation
