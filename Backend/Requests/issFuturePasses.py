@@ -22,5 +22,3 @@ def getFuturePass(params):
         return data
     else:
         raise Exception ("No results found")
-
-print (getFuturePass({'latitude': 45, 'longitude': 125}))
