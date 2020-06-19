@@ -1,7 +1,6 @@
 import redis
 from datetime import datetime
 from Backend.Requests import rssFeed
-from Backend.Requests import stationReportFeed
 from Backend.Tools import rssFeedTimeConverter as dateConverter
 
 __redisHost__ = "localhost"

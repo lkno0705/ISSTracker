@@ -27,6 +27,10 @@ class requestHandler(BaseHTTPRequestHandler):
                 "startTime",
                 "endTime",
                 "country"
+            ],
+            "RSS-Feed": [
+                "time",
+                "numberOfItems"
             ]
         }
 
@@ -80,6 +84,8 @@ class requestHandler(BaseHTTPRequestHandler):
                     data = redisDB().getData(body, self.path.strip("/"))
                 elif self.path == "/ISSCountryPass":
                     data = ISScountryPasses(requestData=body)
+                elif self.path == "/RSS-Feed":
+                    data = redisDB().getData(requestData=body, requestName=self.path.strip("/"))
                 # TODO: parse data to XML with XML parser
             else:
                 # Setting Error Message if Body data is incorrect
