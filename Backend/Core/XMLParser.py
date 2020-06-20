@@ -14,7 +14,7 @@ from Backend.Core.dataStructs import ISSDBKey
 #]
 
 # Create XML out of dictionary with specific tag- and requestname
-def genericDictToXML(d):
+def _genericDictToXML(d):
     
     elem = Element("Request")
     for key,val in d.items():
@@ -45,7 +45,7 @@ def genericDictToXML(d):
 #		</timeValue>
 #	</data>
 # </Request>
-def convertISSDBKeyToXML(requestData):
+def _convertISSDBKeyToXML(requestData):
 
     elem = Element("Request")
     requestChild = Element("requestName")
@@ -90,7 +90,7 @@ def convertISSDBKeyToXML(requestData):
 #   </data>
 # </Request>'
 
-def convertAstrosToXML(requestData):
+def _convertAstrosToXML(requestData):
     elem = Element('Request')
     requestChild = Element("requestName")
     requestChild.text = "AstrosOnISS"
@@ -130,7 +130,7 @@ def convertAstrosToXML(requestData):
 
 
 # create XML according to structure above
-def convertGeoJSONToXML(requestData):
+def _convertGeoJSONToXML(requestData):
 
     # for requests for a single country only a single object is returned
     if not isinstance(requestData, list):
@@ -170,7 +170,7 @@ def convertGeoJSONToXML(requestData):
     return elem
 
 
-def convertISSPosToXML(requestData):
+def _convertISSPosToXML(requestData):
     return 10
 
 
