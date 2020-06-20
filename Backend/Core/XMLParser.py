@@ -357,6 +357,28 @@ def _parseRequestParamsXMLtoDic(request):
     data = json.loads(data)
     return data['Request']
 
-# xml = '<?xml version="1.0" encoding="UTF-8"?><Request> <requestName>ISS-Pos</requestName> <params> <latitude>...</latitude> <longitude>...</longitude> </params></Request>'
+def _parseRequesToDicWithoutLibrary(xml):
+    requestDic = {}
+    request = xml.split("<Request>", 1)[1]
+    requestName = request.split("<requestName>")[1]
+    requestName = requestName.split("<")[0]
+    requestDic['requestName'] = requestName
+    requestData = request.split("<params>")[1]
+    requestData = requestData.split("</params>")[0]
+    paramsDic = {}
+    count = 0
+    for i in requestData:
+        if i == '<':
+            count = count + 1
+    for i in range(0,count,2):
+        xparam = requestData.split("<")[i+1]
+        xparam = xparam.split(">")[0]
+        yparamValue = requestData.split("<" + xparam + ">")[1]
+        yparamValue = yparamValue.split("</")[0]
+        paramsDic[xparam] = yparamValue
+    requestDic['params'] = paramsDic
+    return requestDic
+
+
+# xml="<Request> <requestName>ISS-Pos</requestName> <data>   <latitude>...</latitude>  <longitude>...</longitude></data></Request>"
 # print(_parseRequestParamsXMLtoDic(xml))
-# print(type(_parseRequestParamsXMLtoDic(xml)))
