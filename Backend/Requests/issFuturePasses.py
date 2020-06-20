@@ -17,8 +17,11 @@ def getFuturePass(params):
         data = []
         for a in response['response']:
             futurePass = a['risetime']
+            passDuration = a['duration']
             futurePassDatetime = datetime.utcfromtimestamp(futurePass).strftime(format="%Y-%m-%d %H-%M-%S")
-            data.append(futurePassDatetime)
+            dict = {'futurePassDatetime': futurePassDatetime,
+                    'duration': passDuration}
+            data.append(dict)
         return data
     else:
         raise Exception ("No results found")
