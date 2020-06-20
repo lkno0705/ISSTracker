@@ -14,7 +14,7 @@ from Backend.Core.dataStructs import ISSDBKey
 #]
 
 # Create XML out of dictionary with specific tag- and requestname
-def genericDictToXML(d):
+def _genericDictToXML(d):
     
     elem = Element("Request")
     for key,val in d.items():
@@ -45,7 +45,7 @@ def genericDictToXML(d):
 #		</timeValue>
 #	</data>
 # </Request>
-def convertISSDBKeyToXML(requestData):
+def _convertISSDBKeyToXML(requestData):
 
     elem = Element("Request")
     requestChild = Element("requestName")
@@ -72,16 +72,118 @@ def convertISSDBKeyToXML(requestData):
     elem.append(dataChild)
     return elem
 
-def convertISSPosToXML(requestData):
+
+# XML-Structure for AstrosOnISS
+# <Request>
+#   <requestName>AstrosOnISS</requestName>
+#   <data>
+#       <Astro name="max muster">
+#          <picture>link</picture>
+#          <flag>link</flag>
+#          <nation>link</nation>
+#       </Astro>
+#       <Astro name="max muster">
+#          <picture>link</picture>
+#          <flag>link</flag>
+#          <nation>link</nation>
+#       </Astro>
+#   </data>
+# </Request>'
+
+def _convertAstrosToXML(requestData):
+    elem = Element('Request')
+    requestChild = Element("requestName")
+    requestChild.text = "AstrosOnISS"
+    elem.append(requestChild)
+    dataChild = Element("data")
+    for astro in requestData:
+        AstroChild = Element("Astro")
+        AstroChild.attrib = {"name": astro.name}
+        picture = Element("picture")
+        flag = Element("flag")
+        nation = Element("nation")
+        picture.text = astro.pic
+        flag.text = astro.flag
+        nation.text = astro.nation
+        AstroChild.append(picture)
+        AstroChild.append(flag)
+        AstroChild.append(nation)
+        dataChild.append(AstroChild)
+    elem.append(dataChild)
+    return elem
+
+'''
+<Request>
+	<requestName> GeoJson </requestName>
+	<data>
+		<countries>
+			<country name="Uruguay">
+				<1>
+					<latitute>-57.62513342958296</latitude>
+					<longitude>-30.216294854454258</longitude>
+				</1>
+			</country>
+		</countries>
+	</data>
+</Request>
+'''
+
+
+# create XML according to structure above
+def _convertGeoJSONToXML(requestData):
+
+    # for requests for a single country only a single object is returned
+    if not isinstance(requestData, list):
+        requestData = [requestData]
+
+    elem = Element('Request')
+    requestChild = Element('requestName')
+    requestChild.text = 'GeoJson'
+    elem.append(requestChild)
+
+    dataChild = Element('data')
+    countriesElem = Element('countries')
+
+    for country in requestData:
+        countryChild = Element('country')
+        countryChild.attrib = {'countryname': country['countryname']}
+        countriesElem.append(countryChild)
+
+
+        count = 0
+        while str(count) in country:
+            countElem = Element(str(count))
+
+            latElem = Element('latitude')
+            latElem.text = country[str(count)]['latitude']
+            countElem.append(latElem)
+
+            lonElem = Element('longitude')
+            lonElem.text = country[str(count)]['longitude']
+            countElem.append(lonElem)
+
+            countryChild.append(countElem)
+            count = count + 1
+
+    dataChild.append(countriesElem)
+    elem.append(dataChild)
+    return elem
+
+
+def _convertISSPosToXML(requestData):
     return 10
+
 
 def reformatData(requestData, requestName):
     functions = {
         'ISSpos': convertISSPosToXML,
-        'ISSDB': convertISSDBKeyToXML
+        'ISSDB': convertISSDBKeyToXML,
+        'AstrosOnISS': convertAstrosToXML,
+        'GeoJSON': convertGeoJSONToXML
         # List of Requests
     }
 
     return functions.get(requestName)(requestData)
 
 # print(tostring(reformatData(l, "ISSDB")))
+# print(convertAstrosToXML(database.redisDB._getAstros(database.redisDB, None)))
