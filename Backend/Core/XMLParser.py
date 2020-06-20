@@ -1,6 +1,6 @@
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import tostring
-
+import xmltodict, json
 
 # TEST DATA
 # d = { "requestName": "ISSpos", "data": {"timestamp": "2012-12-15 01-21-05", "latitude":"-17.0617","longitude":"162.6117"}}
@@ -349,3 +349,14 @@ def reformatData(requestData, requestName):
         # List of Requests
     }
     return functions.get(requestName)(requestData)
+
+
+def _parseRequestParamsXMLtoDic(request):
+    data = xmltodict.parse(request)
+    data = json.dumps(data)
+    data = json.loads(data)
+    return data['Request']
+
+# xml = '<?xml version="1.0" encoding="UTF-8"?><Request> <requestName>ISS-Pos</requestName> <params> <latitude>...</latitude> <longitude>...</longitude> </params></Request>'
+# print(_parseRequestParamsXMLtoDic(xml))
+# print(type(_parseRequestParamsXMLtoDic(xml)))
