@@ -1,6 +1,7 @@
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import tostring
 
+
 # TEST DATA
 # d = { "requestName": "ISSpos", "data": {"timestamp": "2012-12-15 01-21-05", "latitude":"-17.0617","longitude":"162.6117"}}
 # l = [
@@ -315,8 +316,24 @@ def _convertRSSFeedToXML(requestData):
     return tostring(elem)
 
 
+# {'latitude': -16.1781, 'longitude': -165.9373, 'timestamp': '2020-06-14 18-40-07'}
 def _convertISSPosToXML(requestData):
-    return 10
+    elem = Element('Request')
+    requestChild = Element("requestName")
+    requestChild.text = "ISSpos"
+    elem.append(requestChild)
+    dataChild = Element("data")
+    latitudeChild = Element("latitude")
+    longitudeChild = Element("longitude")
+    timestampChild = Element("timestamp")
+    latitudeChild.text = str(requestData['latitude'])
+    longitudeChild.text = str(requestData['longitude'])
+    timestampChild.text = str(requestData['timestamp'])
+    dataChild.append(latitudeChild)
+    dataChild.append(longitudeChild)
+    dataChild.append(timestampChild)
+    elem.append(dataChild)
+    return tostring(elem)
 
 
 def reformatData(requestData, requestName):
