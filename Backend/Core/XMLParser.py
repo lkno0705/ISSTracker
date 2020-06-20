@@ -157,7 +157,7 @@ def convertGeoJSONToXML(requestData):
             latElem = Element('latitude')
             latElem.text = country[str(count)]['latitude']
             countElem.append(latElem)
-            
+
             lonElem = Element('longitude')
             lonElem.text = country[str(count)]['longitude']
             countElem.append(lonElem)
@@ -179,7 +179,7 @@ def reformatData(requestData, requestName):
         'ISSpos': convertISSPosToXML,
         'ISSDB': convertISSDBKeyToXML,
         'AstrosOnISS': convertAstrosToXML,
-        'GeoJSON': convertGeoJSONToXML()
+        'GeoJSON': convertGeoJSONToXML
         # List of Requests
     }
 
