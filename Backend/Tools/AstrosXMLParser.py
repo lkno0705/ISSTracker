@@ -42,4 +42,4 @@ def convertAstrosToXML(requestData):
     elem.append(dataChild)
     return tostring(elem)
 
-print(convertAstrosToXML(database.redisDB._getAstros(database.redisDB, None)))
+# print(convertAstrosToXML(database.redisDB._getAstros(database.redisDB, None)))
