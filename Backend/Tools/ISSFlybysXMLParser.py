@@ -28,10 +28,10 @@ from Backend.Core.dataStructs import ISSDBKey
 # # </Request>
 
 
-def convertFlyBystoXML(requestData):
+def _convertFlyBystoXML(requestData, requestname):
     elem = Element("Request")
     requestChild = Element("requestName")
-    requestChild.text = "ISSFlyBys"
+    requestChild.text = requestname
     elem.append(requestChild)
     dataChild = Element("data")
     numbOfPassesChild = Element("numberOfPasses")
@@ -52,3 +52,11 @@ def convertFlyBystoXML(requestData):
     dataChild.append(passesChild)
     elem.append(dataChild)
     return tostring(elem)
+
+
+def _convertISSpastPasses(requestData):
+    _convertFlyBystoXML(requestData, 'ISSpastPasses')
+
+
+def _convertISSCountryPasses(requestData):
+    _convertFlyBystoXML(requestData, 'ISSCountryPasses')
