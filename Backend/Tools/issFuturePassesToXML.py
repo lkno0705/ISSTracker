@@ -6,8 +6,14 @@ from xml.etree.ElementTree import tostring
 	<requestName> ISS Future Passes </requestName>
 	<data>
         <timeValue>
-            <time index=1> 2020-06-05 14-15-04 </time>
-            <time index=2> 2020-06-05 18-15-04 </time>
+            <time index=1>
+                <futurePassDatetime> 2020-06-05 14-15-04 </futurePassDatetime>
+                <duration> 635 </duration>
+            </time>
+            <time index=2>
+                <futurePassDatetime> 2020-06-05 18-15-04 </futurePassDatetime>
+                <duration> 500 </duration>
+            </time>
         </timeValue>
 	</data>
 </Request>
@@ -24,12 +30,21 @@ def convertISSFuturePassesToXML(requestData):
     timeValueElem = Element('timeValue')
 
 # create tuples for time values
-    for index, time in enumerate(requestData):
+    for index, r in enumerate(requestData):
         timeElem = Element('time')
         timeElem.attrib = {'index': str(index)}
-        timeElem.text = time
+        passDateElem = Element('futurePassDatetime')
+        passDateElem.text = r['futurePassDatetime']
+        durationElem = Element('duration')
+        durationElem.text = str(r['duration'])
+
+        timeElem.append(passDateElem)
+        timeElem.append(durationElem)
         timeValueElem.append(timeElem)
 
     dataChild.append(timeValueElem)
     elem.append(dataChild)
     return elem
+
+test = [{'futurePassDatetime': '2020-06-20 21-30-15', 'duration': 602}, {'futurePassDatetime': '2020-06-20 23-06-23', 'duration': 652}, {'futurePassDatetime': '2020-06-21 00-43-49', 'duration': 625}, {'futurePassDatetime': '2020-06-21 02-21-08', 'duration': 635}, {'futurePassDatetime': '2020-06-21 03-57-59', 'duration': 651}]
+print(tostring((convertISSFuturePassesToXML(test))))
