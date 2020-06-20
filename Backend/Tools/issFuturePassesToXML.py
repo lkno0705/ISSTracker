@@ -1,5 +1,4 @@
 from xml.etree.ElementTree import Element
-from xml.etree.ElementTree import tostring
 
 '''
 <Request>
@@ -45,6 +44,3 @@ def convertISSFuturePassesToXML(requestData):
     dataChild.append(timeValueElem)
     elem.append(dataChild)
     return elem
-
-test = [{'futurePassDatetime': '2020-06-20 21-30-15', 'duration': 602}, {'futurePassDatetime': '2020-06-20 23-06-23', 'duration': 652}, {'futurePassDatetime': '2020-06-21 00-43-49', 'duration': 625}, {'futurePassDatetime': '2020-06-21 02-21-08', 'duration': 635}, {'futurePassDatetime': '2020-06-21 03-57-59', 'duration': 651}]
-print(tostring((convertISSFuturePassesToXML(test))))
