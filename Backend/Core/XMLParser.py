@@ -1,6 +1,7 @@
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import tostring
 
+
 # Create XML out of dictionary with specific tag- and requestname
 def _genericDictToXML(d):
     elem = Element("Request")
@@ -306,6 +307,7 @@ def _convertRSSFeedToXML(requestData):
     elem.append(dataChild)
     return tostring(elem)
 
+
 '''
 <Request>
    <requestName>ISSpos</requestName>
@@ -315,6 +317,8 @@ def _convertRSSFeedToXML(requestData):
    </data>
 </Request>
 '''
+
+
 def _convertISSPosToXML(requestData):
     elem = Element('Request')
     requestChild = Element("requestName")
@@ -348,6 +352,7 @@ def reformatData(requestData, requestName):
     }
     return functions.get(requestName)(requestData)
 
+
 '''
 Example 
 #
@@ -372,24 +377,30 @@ to
 }
 
 '''
+
+
 def parseRequestParamsXMLToDic(xml):
     requestDic = {}
-    request = xml.split("<Request>", 1)[1]
-    requestName = request.split("<requestName>")[1]
-    requestName = requestName.split("<")[0]
-    requestDic['requestName'] = requestName
-    requestData = request.split("<params>")[1]
-    requestData = requestData.split("</params>")[0]
-    paramsDic = {}
-    count = 0
-    for i in requestData:
-        if i == '<':
-            count = count + 1
-    for i in range(0, count, 2):
-        xparam = requestData.split("<")[i + 1]
-        xparam = xparam.split(">")[0]
-        yparamValue = requestData.split("<" + xparam + ">")[1]
-        yparamValue = yparamValue.split("</")[0]
-        paramsDic[xparam] = yparamValue
-    requestDic['params'] = paramsDic
-    return requestDic
+    if xml.__contains__("requestName"):
+        request = xml.split("<Request>", 1)[1]
+        requestName = request.split("<requestName>")[1]
+        requestName = requestName.split("<")[0]
+        requestDic['requestName'] = requestName
+    if xml.__contains__("params"):
+        requestData = xml.split("<params>")[1]
+        requestData = requestData.split("</params>")[0]
+        paramsDic = {}
+        count = 0
+        for i in requestData:
+            if i == '<':
+                count = count + 1
+        for i in range(0, count, 2):
+            xparam = requestData.split("<")[i + 1]
+            xparam = xparam.split(">")[0]
+            yparamValue = requestData.split("<" + xparam + ">")[1]
+            yparamValue = yparamValue.split("</")[0]
+            paramsDic[xparam] = yparamValue
+        requestDic['params'] = paramsDic
+        return requestDic
+    else:
+        raise Exception("no tag 'params' found ")
