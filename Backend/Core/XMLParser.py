@@ -1,17 +1,5 @@
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import tostring
-import xmltodict, json
-
-# TEST DATA
-# d = { "requestName": "ISSpos", "data": {"timestamp": "2012-12-15 01-21-05", "latitude":"-17.0617","longitude":"162.6117"}}
-# l = [
-#    ISSDBKey(timeValue='2020-06-05 14-25-04', key='longitude', value=b'1234'),
-#    ISSDBKey(timeValue='2020-06-05 14-25-04', key='latitude', value=b'5678'),
-#    ISSDBKey(timeValue='2020-06-05 14-26-04', key='latitude', value=b'5555'),
-#    ISSDBKey(timeValue="2020-06-05 14-26-04", key="longitude", value=b"1111"),
-#    ISSDBKey(timeValue="2020-06-05 14-27-04", key="longitude", value=b"1212"),
-#    ISSDBKey(timeValue='2020-06-05 14-27-04', key='latitude', value=b'5555'),
-# ]
 
 # Create XML out of dictionary with specific tag- and requestname
 def _genericDictToXML(d):
@@ -214,28 +202,28 @@ def _convertISSFuturePassesToXML(requestData):
 
 
 # XML for ISSFlyBys
-# # <Request>
-# #	<requestName>ISSFlyBys</requestName>
-# #	<data>
-# #		<numberOfPasses>
-# #			3
-# #		</numberOfPasses>
-# #		<passes>
-# #			<pass>
-# #             <startTime>
-# #             </startTime>
-# #             <endTime>
-# #             </endTime>
-# #         </pass>
-# #			<pass>
-# #             <startTime>
-# #             </startTime>
-# #             <endTime>
-# #             </endTime>
-# #         </pass>
-# #		</passes>
-# #	</data>
-# # </Request>
+# <Request>
+# 	<requestName>ISSFlyBys</requestName>
+# 	<data>
+# 		<numberOfPasses>
+# 			3
+# 		</numberOfPasses>
+# 		<passes>
+# 			<pass>
+#             <startTime>
+#             </startTime>
+#             <endTime>
+#             </endTime>
+#         </pass>
+# 			<pass>
+#             <startTime>
+#             </startTime>
+#             <endTime>
+#             </endTime>
+#         </pass>
+# 		</passes>
+# 	</data>
+# </Request>
 
 
 def _convertFlyBystoXML(requestData, requestname):
@@ -272,24 +260,27 @@ def _convertISSCountryPasses(requestData):
     _convertFlyBystoXML(requestData, 'ISSCountryPasses')
 
 
-# XML-Structure for RSSFeed
-# <Request>
-#   <requestName>RssFeed</requestName>
-#   <data>
-#       <RSSFeed>
-#          <title></title>
-#          <summary></summary>
-#          <published></published>
-#          <link></link>
-#       </RSSFeed>
-#       <RSSFeed>
-#          <title></title>
-#          <summary></summary>
-#          <published></published>
-#          <link></link>
-#       </RSSFeed>
-#   </data>
-# </Request>
+'''
+XML-Structure for RSSFeed
+<Request>
+  <requestName>RssFeed</requestName>
+  <data>
+      <RSSFeed>
+         <title></title>
+         <summary></summary>
+         <published></published>
+         <link></link>
+      </RSSFeed>
+      <RSSFeed>
+         <title></title>
+         <summary></summary>
+         <published></published>
+         <link></link>
+      </RSSFeed>
+  </data>
+</Request>
+'''
+
 
 def _convertRSSFeedToXML(requestData):
     elem = Element('Request')
@@ -315,8 +306,15 @@ def _convertRSSFeedToXML(requestData):
     elem.append(dataChild)
     return tostring(elem)
 
-
-# {'latitude': -16.1781, 'longitude': -165.9373, 'timestamp': '2020-06-14 18-40-07'}
+'''
+<Request>
+   <requestName>ISSpos</requestName>
+   <data>
+       <longitude>1.6688</longitude>
+       <latitude>4.3681</latitude>
+   </data>
+</Request>
+'''
 def _convertISSPosToXML(requestData):
     elem = Element('Request')
     requestChild = Element("requestName")
@@ -350,14 +348,31 @@ def reformatData(requestData, requestName):
     }
     return functions.get(requestName)(requestData)
 
+'''
+Example 
+#
+<Request>
+   <requestName>ISS-Pos</requestName>
+   <params>
+        <timestamp>2012-12-15 01-21-05</timestamp>
+        <latitude>-17.9617</latitude>
+        <longitude>162.6117</longitude>
+   </params>
+</Request>
 
-def _parseRequestParamsXMLtoDic(request):
-    data = xmltodict.parse(request)
-    data = json.dumps(data)
-    data = json.loads(data)
-    return data['Request']
+to 
 
-def _parseRequesToDicWithoutLibrary(xml):
+{
+   "requestname": "ISSpos",
+   "params":{
+       "timestamp":"2012-12-15 01-21-05",
+       "latitude": "-17.9617",
+       "longitude": "162.6117"
+    }
+}
+
+'''
+def parseRequestParamsXMLToDic(xml):
     requestDic = {}
     request = xml.split("<Request>", 1)[1]
     requestName = request.split("<requestName>")[1]
@@ -370,15 +385,11 @@ def _parseRequesToDicWithoutLibrary(xml):
     for i in requestData:
         if i == '<':
             count = count + 1
-    for i in range(0,count,2):
-        xparam = requestData.split("<")[i+1]
+    for i in range(0, count, 2):
+        xparam = requestData.split("<")[i + 1]
         xparam = xparam.split(">")[0]
         yparamValue = requestData.split("<" + xparam + ">")[1]
         yparamValue = yparamValue.split("</")[0]
         paramsDic[xparam] = yparamValue
     requestDic['params'] = paramsDic
     return requestDic
-
-
-# xml="<Request> <requestName>ISS-Pos</requestName> <data>   <latitude>...</latitude>  <longitude>...</longitude></data></Request>"
-# print(_parseRequestParamsXMLtoDic(xml))
