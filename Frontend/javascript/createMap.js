@@ -28,7 +28,6 @@ function createMap() {
     // mymap.on('drag', function() {
     //     mymap.panInsideBounds(bounds, { animate: false });
     // });
-
 }
 
 // trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
@@ -136,5 +135,8 @@ $(document).ready(function () {
     // drawSVG();
     drawGeoJSON();
     coordinate2pixel('xml/germany.xml');
-    renderGPX();
+    // renderGPX();
+    addMarker(50.5,30.5);
+    getRadiusSliderValue();
+    getSliderValue();
 });

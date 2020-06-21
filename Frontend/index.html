@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/map.css" />
     <link rel="stylesheet" type="text/css" href="css/sidebar.css" />
     <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="css/slider.css" />
     <!------------------------------------------------------------------------------------------>
     <!----------------------------------- Javascripts ------------------------------------------>
     <!------------------------------------------------------------------------------------------>        
@@ -24,6 +25,7 @@
     <script type="text/javascript" src="javascript/xmlParser.js"></script>  
     <script type="text/javascript" src="javascript/slider.js"></script>
     <script type="text/javascript" src="javascript/gpxRender.js"></script>
+    <script type="text/javascript" src="javascript/positionMarker.js"></script>
 </head>
 
 <body style="height:100%;margin:0">   
@@ -47,8 +49,13 @@
         </div>  
         
         <div class="three" id="sliderLeft" style="display:none">
-          <input type="range" min="1" max="720" value="360" class="slider" id="iss_range">
-          <p>Last positions in minutes: <span id="last_pos"></span></p>
+          <input type="range" min="1" max="72" value="36" class="slider" id="iss_range">
+          <p class="slider-text">Last positions in minutes: <span id="last_pos"></span>&nbsp;min</p>
+        </div>
+
+        <div class="four" id="sliderRadius" style="display:none">
+          <input type="range" min="20" max="500" value="100" class="slider" id="position_radius">
+          <p class="slider-text">Radius around position: <span id="radius"> </span>&nbsp;km</p>
         </div>
 
       </div>

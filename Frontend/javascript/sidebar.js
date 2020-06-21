@@ -40,4 +40,6 @@ function toggleNavL() {
     document.getElementById("openbtnLeft").style.display = "";
     document.getElementById("sliderLeft").style.display = "";
     document.getElementById("sliderLeft").style.pointerEvents = "auto";
+    document.getElementById("sliderRadius").style.display = "";
+    document.getElementById("sliderRadius").style.pointerEvents = "auto";
   }
