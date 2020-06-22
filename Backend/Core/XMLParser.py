@@ -258,7 +258,7 @@ def _convertISSpastPasses(requestData):
 
 
 def _convertISSCountryPasses(requestData):
-    return _convertFlyBystoXML(requestData, 'ISSCountryPass')
+    return _convertFlyBystoXML(requestData, 'ISSCountryPasses')
 
 
 '''
@@ -342,7 +342,7 @@ def reformatData(requestData, requestName):
     functions = {
         'ISSDB': _convertISSDBKeyToXML,
         'ISSpos': _convertISSPosToXML,
-        "ISSCountryPass": _convertISSCountryPasses,
+        "ISSCountryPasses": _convertISSCountryPasses,
         "ISSpastPasses": _convertISSpastPasses,
         "ISSfuturePasses": _convertISSFuturePassesToXML,
         'GeoJson': _convertGeoJSONToXML,
@@ -410,47 +410,47 @@ def parseRequestParamsXMLToDic(xml):
         raise Exception("no tag 'params' found ")
 
 # for debugging purposes
-# ISSPOS = {"requestname": "ISSpos",
-#         "data": {"timestamp": "2012-12-15 01-21-05", "latitude": "-17.9617", "longitude": "162.6117"}}
-# Isspast={'numberOfPasses': 1, 'passes': [{'startTime': '2020-06-19 22-55-21', 'endTime': '2020-06-19 22-55-26'}]}
-# isscountry={'numberOfPasses': 1, 'passes': [{'startTime': '2020-06-19 22-55-21', 'endTime': '2020-06-19 22-55-26'}]}
-# issfurute=[{'futurePassDatetime': '2020-06-20 21-30-15', 'duration': 602}, {'futurePassDatetime': '2020-06-20 23-06-23', 'duration': 652}, {'futurePassDatetime': '2020-06-21 00-43-49', 'duration': 625}, {'futurePassDatetime': '2020-06-21 02-21-08', 'duration': 635}, {'futurePassDatetime': '2020-06-21 03-57-59', 'duration': 651}]
-# rssfeed={'rssFeedName':'spacetoground',
-# 'items':
-# [
-# {'title': 'Space to Ground: Round Three: 12/6/2019', 'summary': 'There is never a dull moment onboard the orbiting laboratory. There were three spacewalks to fix a cosmic particle detector and now two space cargo ships are on their way to the station.', 'published': 'Fri, 06 Dec 2019 11:19 EST', 'link': 'http://www.nasa.gov/mediacast/space-to-ground-round-three-1262019'},
-# {'title': 'Space to Ground: Keeping it Cool: 11/29/2019', 'summary': 'The Expedition 61 crew enjoyed a Thanksgiving feast ahead of another spacewalk set for this Monday. A European experiment also tests controlling a rover on Earth from the station.', 'published': 'Fri, 29 Nov 2019 08:00 EST', 'link': 'http://www.nasa.gov/mediacast/space-to-ground-keeping-it-cool-11292019'}
-# ]
-# }
-# astros=database.redisDB._getAstros(database.redisDB,None)
-# issdbkey=database.redisDB._getISS(database.redisDB,{
-#     "requestname": "ISSDB",
-#     "params": {
-#              "startTime": "2020-06-15 16-16-32",
-#              "endTime": "2020-06-15 16-16-33"
-#          }
-# })
-#
-# print(reformatData(ISSPOS['data'], 'ISSpos'))
-# print("\n")
-# print(reformatData(Isspast, 'ISSpastPasses'))
-# print("\n")
-# print(reformatData(isscountry, 'ISSCountryPass'))
-# print("\n")
-# print(reformatData(issfurute, 'ISSfuturePasses'))
-# print("\n")
-# print(reformatData(rssfeed['items'], 'RSS-Feed'))
-# print("\n")
-# print(reformatData(astros, 'AstrosOnISS'))
-# print("\n")
-# print(reformatData(issdbkey, 'ISSDB'))
-# print("\n")
-# # 'ISSDB': _convertISSDBKeyToXML,
-# #         'ISSpos': _convertISSPosToXML,
-# #         "ISSCountryPass": _convertISSCountryPasses,
-# #         "ISSpastPasses": _convertISSpastPasses,
-# #         "ISSfuturePasses": _convertISSFuturePassesToXML,
-# #         'GeoJson': _convertGeoJSONToXML,
-# #         'AstrosOnISS': _convertAstrosToXML,
-# #         "RSS-Feed": _convertRSSFeedToXML
+ISSPOS = {"requestname": "ISSpos",
+        "data": {"timestamp": "2012-12-15 01-21-05", "latitude": "-17.9617", "longitude": "162.6117"}}
+Isspast={'numberOfPasses': 1, 'passes': [{'startTime': '2020-06-19 22-55-21', 'endTime': '2020-06-19 22-55-26'}]}
+isscountry={'numberOfPasses': 1, 'passes': [{'startTime': '2020-06-19 22-55-21', 'endTime': '2020-06-19 22-55-26'}]}
+issfurute=[{'futurePassDatetime': '2020-06-20 21-30-15', 'duration': 602}, {'futurePassDatetime': '2020-06-20 23-06-23', 'duration': 652}, {'futurePassDatetime': '2020-06-21 00-43-49', 'duration': 625}, {'futurePassDatetime': '2020-06-21 02-21-08', 'duration': 635}, {'futurePassDatetime': '2020-06-21 03-57-59', 'duration': 651}]
+rssfeed={'rssFeedName':'spacetoground',
+'items':
+[
+{'title': 'Space to Ground: Round Three: 12/6/2019', 'summary': 'There is never a dull moment onboard the orbiting laboratory. There were three spacewalks to fix a cosmic particle detector and now two space cargo ships are on their way to the station.', 'published': 'Fri, 06 Dec 2019 11:19 EST', 'link': 'http://www.nasa.gov/mediacast/space-to-ground-round-three-1262019'},
+{'title': 'Space to Ground: Keeping it Cool: 11/29/2019', 'summary': 'The Expedition 61 crew enjoyed a Thanksgiving feast ahead of another spacewalk set for this Monday. A European experiment also tests controlling a rover on Earth from the station.', 'published': 'Fri, 29 Nov 2019 08:00 EST', 'link': 'http://www.nasa.gov/mediacast/space-to-ground-keeping-it-cool-11292019'}
+]
+}
+astros=database.redisDB._getAstros(database.redisDB,None)
+issdbkey=database.redisDB._getISS(database.redisDB,{
+    "requestname": "ISSDB",
+    "params": {
+             "startTime": "2020-06-15 16-16-32",
+             "endTime": "2020-06-15 16-16-33"
+         }
+})
+
+print(reformatData(ISSPOS['data'], 'ISSpos'))
+print("\n")
+print(reformatData(Isspast, 'ISSpastPasses'))
+print("\n")
+print(reformatData(isscountry, 'ISSCountryPasses'))
+print("\n")
+print(reformatData(issfurute, 'ISSfuturePasses'))
+print("\n")
+print(reformatData(rssfeed['items'], 'RSS-Feed'))
+print("\n")
+print(reformatData(astros, 'AstrosOnISS'))
+print("\n")
+print(reformatData(issdbkey, 'ISSDB'))
+print("\n")
+# 'ISSDB': _convertISSDBKeyToXML,
+#         'ISSpos': _convertISSPosToXML,
+#         "ISSCountryPasses": _convertISSCountryPasses,
+#         "ISSpastPasses": _convertISSpastPasses,
+#         "ISSfuturePasses": _convertISSFuturePassesToXML,
+#         'GeoJson': _convertGeoJSONToXML,
+#         'AstrosOnISS': _convertAstrosToXML,
+#         "RSS-Feed": _convertRSSFeedToXML
 
