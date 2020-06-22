@@ -254,11 +254,11 @@ def _convertFlyBystoXML(requestData, requestname):
 
 
 def _convertISSpastPasses(requestData):
-    _convertFlyBystoXML(requestData, 'ISSpastPasses')
+    return _convertFlyBystoXML(requestData, 'ISSpastPasses')
 
 
 def _convertISSCountryPasses(requestData):
-    _convertFlyBystoXML(requestData, 'ISSCountryPasses')
+    return _convertFlyBystoXML(requestData, 'ISSCountryPasses')
 
 
 '''
