@@ -25,7 +25,7 @@ function load(url, callback) {
     );
   }
 
-  function transform2(xml, xsl,target) {  
+  function transform2(xml, xsl, target) {  
         load(
           xsl,
           function(xsltSheet) {
