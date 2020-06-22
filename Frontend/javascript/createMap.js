@@ -46,14 +46,14 @@ function createMap() {
     active = "context-menu--active";
 
     mymap.on('contextmenu', function(e) {
+        removePopUps();
         console.log(e);    
         markerLatlng = e.latlng;
         toggleMenuOn(e.originalEvent);    
       });
     
     mymap.on('click', function() {
-        if  (menuState == 1)
-         toggleMenuOn();    
+        removePopUps(); 
       });
 
       
@@ -88,9 +88,8 @@ function drawGeoJSON(){
                             opacity: .2,
                             fillOpacity: 0};
                 }
-            }).bindPopup(function (layer) {
-                if  (menuState == 1)
-                toggleMenuOn(); 
+            }).bindPopup(function (layer) {  
+                removePopUps();            
             return layer.feature.properties.name_sort;
         })//**.bindTooltip('click for more information')
         .addTo(mymap);
@@ -99,6 +98,12 @@ function drawGeoJSON(){
 
 function showCoordinate(){
 
+}
+
+function removePopUps(){
+    if  (menuState == 1)
+    toggleMenuOn(); 
+    document.getElementById("issOnBoard").innerHTML="";
 }
 
 // function drawGeoJSON(){
@@ -137,6 +142,7 @@ var issPNG = L.icon({
 //  function draws ISS icon to map an starts moving it. 
 function create(strecke) {
     issIcon = L.Marker.movingMarker(strecke, [100000], { icon: issPNG }).addTo(mymap);
+    issIcon.on("click", onBoard);
     //L.polyline(strecke).addTo(mymap);
     /*
     marker1.once('click', function () {

@@ -6,6 +6,5 @@ function setMarker(){
 
 function getPosition(){
    toggleMenuOn();  
-   document.getElementById("plz").value = markerLatlng.lat +", "+ markerLatlng.lng;
-    
+   document.getElementById("plz").value = markerLatlng.lat +", "+ markerLatlng.lng;    
 }

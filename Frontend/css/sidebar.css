@@ -63,17 +63,19 @@
     border-bottom: 10px solid transparent;       
 }
 
+/* Standard syntax */
+@keyframes infinite-rotate {  
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(180deg); }
+}
+
   /* Safari 4.0 - 8.0 */
-  @-webkit-keyframes infiniteRotate {    
+@-webkit-keyframes infiniteRotate {    
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(180deg); }
 }
 
-/* Standard syntax */
-@keyframes infinite-rotate {  
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(180deg); }
-}
+
 
  /* The sidebar menu */
  .sidebarLeft {

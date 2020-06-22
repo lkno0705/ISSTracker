@@ -1,0 +1,22 @@
+#issOnBoard{
+    pointer-events: none;
+    background:none;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    overflow-y: hidden;  
+    position: absolute;
+}
+
+#astrosOnIss{
+    background-color: #111;
+    pointer-events: auto;
+}
+
+.portrait{
+    height: 100px;
+}
+
+.flag{
+height: 50px;
+}

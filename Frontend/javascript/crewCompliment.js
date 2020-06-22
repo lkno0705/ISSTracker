@@ -10,5 +10,15 @@ function callBackEnd(){
     error: function() {  console.log('Failed!'); }
 })
 }
+// callBackEnd();
 
-callBackEnd();
+function onBoard(e){
+  removePopUps();
+  transform('xml/astosoniss.xml', 'xsl/astrosoniss.xsl',"issOnBoard");
+  var xpos = document.getElementById("issOnBoard").style.left=e.originalEvent.x + "px";
+  var ypos = document.getElementById("issOnBoard").style.top=e.originalEvent.y + "px";
+  var divHeight = document.getElementById("issOnBoard").style.height;
+  var divWidth = document.getElementById("issOnBoard").style.width;
+  console.log("xpos: " + xpos + " | ypos: " + ypos + " | divHeight: " + divHeight + " | divWidth: " + divWidth);
+  console.log("onBoard");
+}

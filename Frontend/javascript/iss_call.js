@@ -39,6 +39,7 @@ function moveISS() {
         //latlng1 = L.latLng(lat, lon);
         // moveISS();
     });
+
     setTimeout(moveISS, 5000);
 }
 
