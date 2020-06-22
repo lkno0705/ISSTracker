@@ -3,17 +3,19 @@
     position: absolute;
     z-index: 10;
     background-color: #111;
+    border-radius: 5px;
     
   }
 
   .context-menu__item:hover{
     background-color: grey;
-    cursor: pointer;
+    cursor: pointer;  
+    padding: none;
   }
   
  .context-menu__items{
-     margin: auto;
-     padding: 5px;
+    margin: auto; 
+    padding: 10px 0; 
  }
   
 .context-menu--active {
@@ -23,4 +25,5 @@
   .context-menu__item{
     list-style-type: none;
     color: white;
+    padding: 4px 10px;
   }
