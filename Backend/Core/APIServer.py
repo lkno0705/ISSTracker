@@ -68,7 +68,7 @@ class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             content_len = int(self.headers.get('Content-Length'))
-            body = json.loads(self.rfile.read(content_len))  # TODO: Json.loads has to be replaced with XML Parser
+            body = parseRequestParamsXMLToDic(self.rfile.read(content_len))
         except TypeError:
             body = None
         # print(self.path.split("/"))
