@@ -1,0 +1,26 @@
+  .context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background-color: #111;
+    
+  }
+
+  .context-menu__item:hover{
+    background-color: grey;
+    cursor: pointer;
+  }
+  
+ .context-menu__items{
+     margin: auto;
+     padding: 5px;
+ }
+  
+.context-menu--active {
+    display: block;
+  }
+
+  .context-menu__item{
+    list-style-type: none;
+    color: white;
+  }

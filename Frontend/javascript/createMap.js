@@ -1,11 +1,26 @@
 // Mag gets created, for options check leaflet docu
+
+var markerLatlng;
+var menu;
+var menuState;
+var active;
+
 function createMap() {
     console.log("create map");
     mymap = L.map('mapid',{
         // continuousWorld:false,
         worldCopyJump:true,
         maxBoundsViscosity: 1,
-        zoomControl:false
+        zoomControl:false,
+        contextmenu:true,
+        contextmenuWidth: 140,
+        contextmenuItems:[{
+            text: 'show coordinate',
+            callback: showCoordinate
+        },{
+            text: 'set marker',
+            callback: setMarker
+        }]
     }).setView([51.5, -0.09], 5);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -25,9 +40,37 @@ function createMap() {
     var bounds = L.latLngBounds(southWest, northEast);
     
     mymap.setMaxBounds(bounds);
-    // mymap.on('drag', function() {
-    //     mymap.panInsideBounds(bounds, { animate: false });
-    // });
+
+    menu = document.querySelector(".context-menu");
+    menuState = 0;
+    active = "context-menu--active";
+
+    mymap.on('contextmenu', function(e) {
+        console.log(e);    
+        markerLatlng = e.latlng;
+        toggleMenuOn(e.originalEvent);    
+      });
+    
+    mymap.on('click', function() {
+        if  (menuState == 1)
+         toggleMenuOn();    
+      });
+
+      
+   
+}
+
+function toggleMenuOn(e) {
+    if ( menuState !== 1 ) {
+    menuState = 1;
+    menu.classList.add(active);
+    menu.style.left = e.x+"px";
+    menu.style.top = e.y+"px";
+    }
+    else{
+        menuState = 0;
+        menu.classList.remove(active);
+    }
 }
 
 // trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
@@ -46,10 +89,16 @@ function drawGeoJSON(){
                             fillOpacity: 0};
                 }
             }).bindPopup(function (layer) {
+                if  (menuState == 1)
+                toggleMenuOn(); 
             return layer.feature.properties.name_sort;
         })//**.bindTooltip('click for more information')
         .addTo(mymap);
     });
+}
+
+function showCoordinate(){
+
 }
 
 // function drawGeoJSON(){
@@ -136,7 +185,7 @@ $(document).ready(function () {
     drawGeoJSON();
     coordinate2pixel('xml/germany.xml');
     // renderGPX();
-    addMarker(50.5,30.5);
+    // addMarker(50.5,30.5);
     getRadiusSliderValue();
     getSliderValue();
 });

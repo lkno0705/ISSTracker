@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="css/slider.css" />
     <link rel="stylesheet" type="text/css" href="css/controls.css" />
+    <link rel="stylesheet" type="text/css" href="css/contextMenu.css" />
     <!------------------------------------------------------------------------------------------>
     <!----------------------------------- Javascripts ------------------------------------------>
     <!------------------------------------------------------------------------------------------>        
@@ -27,9 +28,10 @@
     <script type="text/javascript" src="javascript/slider.js"></script>
     <script type="text/javascript" src="javascript/gpxRender.js"></script>
     <script type="text/javascript" src="javascript/positionMarker.js"></script>
+    <script type="text/javascript" src="javascript/contexMenu.js"></script>
 </head>
 
-<body style="height:100%;margin:0">   
+<body style="height:100%;margin:0">    
 
   <!------------------------ Class for loading animation, can be dismissed when loading times improve ----------------------------------------->
     <div class="loadwrapper"> <div class="loader" style="position:relative; z-index:1"></div><span id="loadingText"style="position:relative; z-index:1"></span></div>   
@@ -73,5 +75,16 @@
   <div id="main" style="position: absolute; right: 0;">
     <button class="openbtn" onclick="toggleNav()"><div id="arrowright" class="triangle-left"></div></button>
   </div> 
+
+  <nav class="context-menu">
+    <ul class="context-menu__items">
+      <li class="context-menu__item" onclick="setMarker()">       
+         Add marker      
+      </li>
+      <li class="context-menu__item" onclick="getPosition()">        
+          Get position     
+      </li>  
+    </ul>
+  </nav>
 </body>
 </html> 
