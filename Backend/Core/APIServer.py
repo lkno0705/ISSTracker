@@ -6,6 +6,7 @@ from Backend.Requests.userPosition import getUserPosition as userPosition
 from Backend.Core.database import redisDB
 from Backend.Requests.issPastPasses import pastPasses
 from Backend.Requests.issFuturePasses import getFuturePass
+from Backend.Core.XMLParser import reformatData, parseRequestParamsXMLToDic
 
 import json
 
@@ -25,7 +26,7 @@ class requestHandler(BaseHTTPRequestHandler):
             "GeoJson": [
                 "country"
             ],
-            "ISSCountryPass": [
+            "ISSCountryPasses": [
                 "startTime",
                 "endTime",
                 "country"
@@ -65,12 +66,6 @@ class requestHandler(BaseHTTPRequestHandler):
 
     # Implements GET request
     def do_GET(self):
-        # Dictonary containg Links assigned with their correct functions
-        linksWithoutParams = {
-            "/?ISSpos": issCurrentPosition,
-            "/?RSS": rssFeed,
-            "/?userPosition": userPosition,
-        }
         try:
             content_len = int(self.headers.get('Content-Length'))
             body = json.loads(self.rfile.read(content_len))  # TODO: Json.loads has to be replaced with XML Parser
@@ -78,39 +73,37 @@ class requestHandler(BaseHTTPRequestHandler):
             body = None
         # print(self.path.split("/"))
         requestName = self.path.split("/")[1]
-        # Executing function based on link; Works kinda like a switch case statement
-        function = linksWithoutParams.get(self.path)
 
         code = 1
-        if function is not None and body is None:
-            data = function()
+        if self._checkData(requestName.strip("?"), body):
             code = 200
+            if self.path == "/?ISSDB":
+                data = redisDB().getData(body, self.path.strip("/?"))
+            elif self.path == "/?GeoJson":
+                data = redisDB().getData(body, self.path.strip("/?"))
+            elif self.path == "/?AstrosOnISS":
+                data = redisDB().getData(body, self.path.strip("/?"))
+            elif self.path == "/?ISSCountryPasses":
+                data = ISScountryPasses(requestData=body)
+            elif self.path == "/?RSS-Feed":
+                data = redisDB().getData(requestData=body, requestName=self.path.strip("/?"))
+            elif self.path == "/?ISSpastPasses":
+                data = pastPasses().pastPasses(requestData=body)
+            elif self.path == "/?ISSfuturePasses":
+                data = getFuturePass(params=body["params"])
+            elif self.path == "/?ISSpos":
+                data = issCurrentPosition()
+
+            data = reformatData(requestData=data, requestName=self.path.strip("/?"))
+
         else:
-            if self._checkData(requestName.strip("?"), body):
-                code = 200
-                if self.path == "/?ISSDB":
-                    data = redisDB().getData(body, self.path.strip("/?"))
-                elif self.path == "/?GeoJson":
-                    data = redisDB().getData(body, self.path.strip("/?"))
-                elif self.path == "/?AstrosOnISS":
-                    data = redisDB().getData(body, self.path.strip("/?"))
-                elif self.path == "/?ISSCountryPass":
-                    data = ISScountryPasses(requestData=body)
-                elif self.path == "/?RSS-Feed":
-                    data = redisDB().getData(requestData=body, requestName=self.path.strip("/?"))
-                elif self.path == "/?ISSpastPasses":
-                    data = pastPasses().pastPasses(requestData=body)
-                elif self.path == "/?ISSfuturePasses":
-                    data = getFuturePass(params=body["params"])
-                # TODO: parse data to XML with XML parser
-            else:
-                # Setting Error Message if Body data is incorrect
-                data = '<?xml version="1.0" encoding="UTF-8"?>' \
-                       '<message>' \
-                       '<error>Error 400: Bad Request</error>' \
-                       '<description>Incorrect parameters!</description>' \
-                       '</message>'
-                code = 400
+            # Setting Error Message if Body data is incorrect
+            data = '<?xml version="1.0" encoding="UTF-8"?>' \
+                   '<message>' \
+                   '<error>Error 400: Bad Request</error>' \
+                   '<description>Incorrect parameters!</description>' \
+                   '</message>'
+            code = 400
         if code == 1:
             # Setting Error Message
             data = '<?xml version="1.0" encoding="UTF-8"?>' \

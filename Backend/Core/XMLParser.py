@@ -344,10 +344,10 @@ def reformatData(requestData, requestName):
         'ISSpos': _convertISSPosToXML,
         "ISSCountryPasses": _convertISSCountryPasses,
         "ISSpastPasses": _convertISSpastPasses,
-        "ISSFuturePasses": _convertISSFuturePassesToXML,
-        'GeoJSON': _convertGeoJSONToXML,
+        "ISSfuturePasses": _convertISSFuturePassesToXML,
+        'GeoJson': _convertGeoJSONToXML,
         'AstrosOnISS': _convertAstrosToXML,
-        "RSSFeed": _convertRSSFeedToXML
+        "RSS-Feed": _convertRSSFeedToXML
         # List of Requests
     }
     return functions.get(requestName)(requestData)
