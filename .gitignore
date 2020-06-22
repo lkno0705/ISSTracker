@@ -6,5 +6,4 @@ Backend/Tools/__pycache__/*
 ./dump.rdb
 ./dev/*
 dev/
-dump.rdb
 
