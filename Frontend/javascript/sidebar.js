@@ -43,8 +43,14 @@ function toggleNavL() {
   function start(){
     document.getElementById("mySidebarLeft").style.backgroundColor = "#111";
     document.getElementById("openbtnLeft").style.display = "";
-    document.getElementById("sliderLeft").style.display = "";
-    document.getElementById("sliderLeft").style.pointerEvents = "auto";
+    document.getElementById("sliderLeft").style.display = "";    
     document.getElementById("sliderRadius").style.display = "";
-    document.getElementById("sliderRadius").style.pointerEvents = "auto";
+    document.getElementById("mySidebarLeft").style.pointerEvents = "auto";
+   
+    var checkboxes = document.getElementsByClassName("checkbox-hidden");
+
+    for (var i =0; i < checkboxes.length;i++)
+    {
+      checkboxes[i].className = "checkbox-show";
+    }
   }

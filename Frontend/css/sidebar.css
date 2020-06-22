@@ -170,12 +170,21 @@ pointer-events: auto;
   pointer-events: auto;
 }
 
-.three {
-  margin-top: 2em;
-  width: 100%;
-
+.checkbox-hidden{
+  display: none;
 }
 
-.four {
-  width: 100%;
+
+
+.checkbox-show{
+  margin-top: 1em;
+  display: "";
 }
+
+
+.checkbox-show:first-of-type{
+  margin-top:2em;
+  display: "";
+}
+
+
