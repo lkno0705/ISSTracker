@@ -25,6 +25,17 @@ function load(url, callback) {
     );
   }
 
+  function transform2(xml, xsl,target) {  
+        load(
+          xsl,
+          function(xsltSheet) {
+            displayResult(xml, xsltSheet,target);
+          }
+        );
+      }
+   
+
+
 // display result of xsl tranformation
   function displayResult(xmlInput, xsltSheet,target) {
     if (typeof XSLTProcessor !== 'undefined') {
