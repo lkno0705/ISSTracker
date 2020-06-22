@@ -4,8 +4,8 @@ function createMap() {
     mymap = L.map('mapid',{
         // continuousWorld:false,
         worldCopyJump:true,
-        maxBoundsViscosity: 1
-        
+        maxBoundsViscosity: 1,
+        zoomControl:false
     }).setView([51.5, -0.09], 5);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -19,7 +19,7 @@ function createMap() {
         zoomOffset: -1
     }).addTo(mymap); 
     
-    L.control.zoom({position:"bottomright"});
+    L.control.zoom({position:"bottomright"}).addTo(mymap);
 
     var southWest = L.latLng(-90, -190), northEast = L.latLng(90, 190);
     var bounds = L.latLngBounds(southWest, northEast);

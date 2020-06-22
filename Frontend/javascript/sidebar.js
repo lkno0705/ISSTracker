@@ -20,17 +20,20 @@ function toggleNavL() {
 //  right menu
   function toggleNav() {   
     var x = document.getElementById("mySidebar").style.right;
+    var controls = document.getElementsByClassName("leaflet-control-zoom")[0];
       if (document.getElementById("mySidebar").style.right == "-250px" || document.getElementById("mySidebar").style.right == "" )
       {
         document.getElementById("mySidebar").style.right = "0";
         document.getElementById("main").style.marginRight = "250px";
         document.getElementById("arrowright").style.transform = "rotate(180deg)";
+        document.getElementsByClassName("leaflet-control-zoom")[0].style.right = "250px";
       }
       else
       {
         document.getElementById("mySidebar").style.right = "-250px";
         document.getElementById("main").style.marginRight = "0px";
         document.getElementById("arrowright").style.transform = "rotate(0deg)";
+        document.getElementsByClassName("leaflet-control-zoom")[0].style.right = "0";
       }
   }     
 
