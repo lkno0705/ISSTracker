@@ -67,9 +67,9 @@ class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         # Dictonary containg Links assigned with their correct functions
         linksWithoutParams = {
-            "/ISSpos": issCurrentPosition,
-            "/RSS": rssFeed,
-            "/userPosition": userPosition,
+            "/?ISSpos": issCurrentPosition,
+            "/?RSS": rssFeed,
+            "/?userPosition": userPosition,
         }
         try:
             content_len = int(self.headers.get('Content-Length'))
@@ -86,21 +86,21 @@ class requestHandler(BaseHTTPRequestHandler):
             data = function()
             code = 200
         else:
-            if self._checkData(requestName, body):
+            if self._checkData(requestName.strip("?"), body):
                 code = 200
-                if self.path == "/ISSDB":
-                    data = redisDB().getData(body, self.path.strip("/"))
-                elif self.path == "/GeoJson":
-                    data = redisDB().getData(body, self.path.strip("/"))
-                elif self.path == "/AstrosOnISS":
-                    data = redisDB().getData(body, self.path.strip("/"))
-                elif self.path == "/ISSCountryPass":
+                if self.path == "/?ISSDB":
+                    data = redisDB().getData(body, self.path.strip("/?"))
+                elif self.path == "/?GeoJson":
+                    data = redisDB().getData(body, self.path.strip("/?"))
+                elif self.path == "/?AstrosOnISS":
+                    data = redisDB().getData(body, self.path.strip("/?"))
+                elif self.path == "/?ISSCountryPass":
                     data = ISScountryPasses(requestData=body)
-                elif self.path == "/RSS-Feed":
-                    data = redisDB().getData(requestData=body, requestName=self.path.strip("/"))
-                elif self.path == "/ISSpastPasses":
+                elif self.path == "/?RSS-Feed":
+                    data = redisDB().getData(requestData=body, requestName=self.path.strip("/?"))
+                elif self.path == "/?ISSpastPasses":
                     data = pastPasses().pastPasses(requestData=body)
-                elif self.path == "/ISSfuturePasses":
+                elif self.path == "/?ISSfuturePasses":
                     data = getFuturePass(params=body["params"])
                 # TODO: parse data to XML with XML parser
             else:
