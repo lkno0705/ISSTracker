@@ -118,6 +118,7 @@ class requestHandler(BaseHTTPRequestHandler):
 
         # set http header to define body content type as XML
         self.send_header('Content-type', 'text/xml')
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
 
         # send body
