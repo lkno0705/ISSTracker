@@ -1,6 +1,6 @@
-from xml.etree.ElementTree import Element
+from xml.etree.ElementTree import Element, ElementTree
 from xml.etree.ElementTree import tostring
-
+from Backend.Core import database
 
 # Create XML out of dictionary with specific tag- and requestname
 def _genericDictToXML(d):
@@ -158,7 +158,7 @@ def _convertGeoJSONToXML(requestData):
 
 '''
 <Request>
-	<requestName> ISS Future Passes </requestName>
+	<requestName> ISSfuturePasses </requestName>
 	<data>
         <timeValue>
             <time index=1>
@@ -179,7 +179,7 @@ def _convertGeoJSONToXML(requestData):
 def _convertISSFuturePassesToXML(requestData):
     elem = Element('Request')
     requestChild = Element('requestName')
-    requestChild.text = 'ISS Future Passes'
+    requestChild.text = 'ISSfuturePasses'
     elem.append(requestChild)
     dataChild = Element('data')
     timeValueElem = Element('timeValue')
@@ -262,22 +262,22 @@ def _convertISSCountryPasses(requestData):
 
 
 '''
-XML-Structure for RSSFeed
+XML-Structure for RSS-Feed
 <Request>
-  <requestName>RssFeed</requestName>
+  <requestName>RSS-Feed</requestName>
   <data>
-      <RSSFeed>
+      <RSS-Feed>
          <title></title>
          <summary></summary>
          <published></published>
          <link></link>
-      </RSSFeed>
-      <RSSFeed>
+      </RSS-Feed>
+      <RSS-Feed>
          <title></title>
          <summary></summary>
          <published></published>
          <link></link>
-      </RSSFeed>
+      </RSS-Feed>
   </data>
 </Request>
 '''
@@ -286,11 +286,11 @@ XML-Structure for RSSFeed
 def _convertRSSFeedToXML(requestData):
     elem = Element('Request')
     requestChild = Element("requestName")
-    requestChild.text = "RSSFeed"
+    requestChild.text = "RSS-Feed"
     elem.append(requestChild)
     dataChild = Element("data")
     for feed in requestData:
-        RSSFeedChild = Element("RSSFeed")
+        RSSFeedChild = Element("RSS-Feed")
         title = Element("title")
         summary = Element("summary")
         published = Element("published")
@@ -350,7 +350,11 @@ def reformatData(requestData, requestName):
         "RSS-Feed": _convertRSSFeedToXML
         # List of Requests
     }
-    return functions.get(requestName)(requestData)
+    # get xml
+    xmlData = functions.get(requestName)(requestData)
+    # add header and convert from bytestring to normal string
+    xmlData = "<?xml version='1.0' encoding='UTF-8'?>" + str(xmlData, 'utf-8')
+    return xmlData
 
 
 '''
@@ -404,3 +408,41 @@ def parseRequestParamsXMLToDic(xml):
         return requestDic
     else:
         raise Exception("no tag 'params' found ")
+
+# # for debugging purposes
+# ISSPOS = {"requestname": "ISSpos",
+#         "data": {"timestamp": "2012-12-15 01-21-05", "latitude": "-17.9617", "longitude": "162.6117"}}
+# Isspast={'numberOfPasses': 1, 'passes': [{'startTime': '2020-06-19 22-55-21', 'endTime': '2020-06-19 22-55-26'}]}
+# isscountry={'numberOfPasses': 1, 'passes': [{'startTime': '2020-06-19 22-55-21', 'endTime': '2020-06-19 22-55-26'}]}
+# issfurute=[{'futurePassDatetime': '2020-06-20 21-30-15', 'duration': 602}, {'futurePassDatetime': '2020-06-20 23-06-23', 'duration': 652}, {'futurePassDatetime': '2020-06-21 00-43-49', 'duration': 625}, {'futurePassDatetime': '2020-06-21 02-21-08', 'duration': 635}, {'futurePassDatetime': '2020-06-21 03-57-59', 'duration': 651}]
+# rssfeed={'rssFeedName':'spacetoground',
+# 'items':
+# [
+# {'title': 'Space to Ground: Round Three: 12/6/2019', 'summary': 'There is never a dull moment onboard the orbiting laboratory. There were three spacewalks to fix a cosmic particle detector and now two space cargo ships are on their way to the station.', 'published': 'Fri, 06 Dec 2019 11:19 EST', 'link': 'http://www.nasa.gov/mediacast/space-to-ground-round-three-1262019'},
+# {'title': 'Space to Ground: Keeping it Cool: 11/29/2019', 'summary': 'The Expedition 61 crew enjoyed a Thanksgiving feast ahead of another spacewalk set for this Monday. A European experiment also tests controlling a rover on Earth from the station.', 'published': 'Fri, 29 Nov 2019 08:00 EST', 'link': 'http://www.nasa.gov/mediacast/space-to-ground-keeping-it-cool-11292019'}
+# ]
+# }
+# astros=database.redisDB._getAstros(database.redisDB,None)
+# issdbkey=database.redisDB._getISS(database.redisDB,{
+#     "requestname": "ISSDB",
+#     "params": {
+#              "startTime": "2020-06-15 16-16-32",
+#              "endTime": "2020-06-15 16-16-33"
+#          }
+# })
+#
+# print(reformatData(ISSPOS['data'], 'ISSpos'))
+# print("\n")
+# print(reformatData(Isspast, 'ISSpastPasses'))
+# print("\n")
+# print(reformatData(isscountry, 'ISSCountryPasses'))
+# print("\n")
+# print(reformatData(issfurute, 'ISSfuturePasses'))
+# print("\n")
+# print(reformatData(rssfeed['items'], 'RSS-Feed'))
+# print("\n")
+# print(reformatData(astros, 'AstrosOnISS'))
+# print("\n")
+# print(reformatData(issdbkey, 'ISSDB'))
+# print("\n")
+
