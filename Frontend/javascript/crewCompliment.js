@@ -7,8 +7,8 @@ function onBoard(e){
 // Call to back end
 function callBackEnd(e){
   $.ajax({
-    url: 'http://127.0.0.1:8082',
-    data:"AstrosOnISS",
+    url: 'http://127.0.0.1:8082/AstrosOnISS',
+    data:"",
     type: 'GET',
     crossDomain: true,
     dataType: 'xml',
