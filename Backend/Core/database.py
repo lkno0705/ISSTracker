@@ -137,7 +137,7 @@ class redisDB:
 
     def _getRssFeed(self, requestData):
         requestTime = requestData['params']['time']
-        numbOfItems = requestData['params']['numberOfItems']
+        numbOfItems = int(requestData['params']['numberOfItems'])
         keys = self.__redisDB__.keys("RSS-Feed:*")
         timeKeys = []
         # get keys(datetime in 'published') of rssFeeds

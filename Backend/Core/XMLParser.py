@@ -282,7 +282,6 @@ XML-Structure for RSS-Feed
 </Request>
 '''
 
-
 def _convertRSSFeedToXML(requestData):
     elem = Element('Request')
     requestChild = Element("requestName")

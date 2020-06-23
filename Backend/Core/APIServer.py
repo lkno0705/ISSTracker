@@ -68,7 +68,8 @@ class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             content_len = int(self.headers.get('Content-Length'))
-            body = parseRequestParamsXMLToDic(self.rfile.read(content_len))
+            body = self.rfile.read(content_len)
+            body = parseRequestParamsXMLToDic(body.decode("utf-8"))
         except TypeError:
             body = None
         # print(self.path.split("/"))
