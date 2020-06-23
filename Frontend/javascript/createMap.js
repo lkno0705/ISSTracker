@@ -89,7 +89,8 @@ function drawGeoJSON(){
                             fillOpacity: 0};
                 }
             }).bindPopup(function (layer) {  
-                removePopUps();            
+                removePopUps();   
+                //functins        
             return layer.feature.properties.name_sort;
         })//**.bindTooltip('click for more information')
         .addTo(mymap);
