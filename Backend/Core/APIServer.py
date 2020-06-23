@@ -78,21 +78,21 @@ class requestHandler(BaseHTTPRequestHandler):
         code = 1
         if self._checkData(requestName.strip("?"), body):
             code = 200
-            if self.path == "/?ISSDB":
+            if self.path == "/ISSDB":
                 data = redisDB().getData(body, self.path.strip("/?"))
-            elif self.path == "/?GeoJson":
+            elif self.path == "/GeoJson":
                 data = redisDB().getData(body, self.path.strip("/?"))
-            elif self.path == "/?AstrosOnISS":
+            elif self.path == "/AstrosOnISS":
                 data = redisDB().getData(body, self.path.strip("/?"))
-            elif self.path == "/?ISSCountryPasses":
+            elif self.path == "/ISSCountryPasses":
                 data = ISScountryPasses(requestData=body)
-            elif self.path == "/?RSS-Feed":
+            elif self.path == "/RSS-Feed":
                 data = redisDB().getData(requestData=body, requestName=self.path.strip("/?"))
-            elif self.path == "/?ISSpastPasses":
+            elif self.path == "/ISSpastPasses":
                 data = pastPasses().pastPasses(requestData=body)
-            elif self.path == "/?ISSfuturePasses":
+            elif self.path == "/ISSfuturePasses":
                 data = getFuturePass(params=body["params"])
-            elif self.path == "/?ISSpos":
+            elif self.path == "/ISSpos":
                 data = issCurrentPosition()
 
             data = reformatData(requestData=data, requestName=self.path.strip("/?"))
