@@ -8,6 +8,16 @@
     position: absolute;
 }
 
+#issOnBoardWrapper{
+    pointer-events: none;
+    background:none;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    /* overflow-y: hidden;   */
+    position: absolute;
+}
+
 #astrosOnIss{
     background-color: #111;
     pointer-events: auto;
@@ -19,4 +29,8 @@
 
 .flag{
 height: 50px;
+}
+
+.hide{
+    display: none;
 }
