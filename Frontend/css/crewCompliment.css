@@ -21,6 +21,8 @@
 #astrosOnIss{
     background-color: #111;
     pointer-events: auto;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .portrait{
@@ -34,3 +36,4 @@ height: 50px;
 .hide{
     display: none;
 }
+

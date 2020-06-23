@@ -3,30 +3,34 @@
 <xsl:template match="/">	
 		<div id="astrosOnIss">	
 		  <h2>Crew on board the ISS</h2>		  
-		<div class="slideshow-container">		 
+		<div class="slideshow-container">
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>		
 			<xsl:for-each select="Request/data/Astro">
 			<div class="mySlides fade">
 			<div class="innerSlider">
-			  <span><xsl:value-of select="./@name"/></span>
-			  <span>
+			
+			  <div class="image">
 				<img class="portrait">
 					<xsl:attribute name="SRC">			
 						<xsl:value-of select="picture"/>
 					</xsl:attribute>
 				</img>
-			  </span>
-			  <span>
-				<img class="flag">
-					<xsl:attribute name="SRC">
-						<xsl:value-of select="flag"/>
-					</xsl:attribute>
-				</img>
-			  </span>
-			  <span><xsl:value-of select="nation"/></span>
+			  </div>
+			  <div class="astroinfo">
+				  <div class="text name"><xsl:value-of select="./@name"/></div>
+				  <div class="divflag">
+					<img class="flag">
+						<xsl:attribute name="SRC">
+							<xsl:value-of select="flag"/>
+						</xsl:attribute>
+					</img>
+				  </div>
+				  <div class="text country"><xsl:value-of select="nation"/></div>
+			  </div>
 			</div>
 			</div>
 			</xsl:for-each>		
-			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			
 			<a class="next" onclick="plusSlides(1)">&#10095;</a>			
 		  </div>
 		</div>	
