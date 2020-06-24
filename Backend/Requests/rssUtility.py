@@ -21,4 +21,6 @@ def getRssFeed(url):
                     'link': e.link}
             list.append(dict)
     # Return list of dictionaries with RSS-Feeds
+
+    list = sorted(list, key=lambda x: (x['published']), reverse=True)
     return list

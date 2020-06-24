@@ -1,13 +1,11 @@
 // Backendcall for RSS-Feed
 
 function rssClick(e){
-    currentTime = getCurrentTime();
     callBackEnd(currentTime);
 }
 
 function rssCall(){
-    currentTime = getCurrentTime();
-    callBackEnd(currentTime);
+    callBackEnd(0, 5);
 }
 
 function getCurrentTime(){
@@ -22,17 +20,17 @@ function getCurrentTime(){
     return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
 }
 
-function callBackEnd(time){
+function callBackEnd(start, end){
     $.ajax({
         url: 'http://127.0.0.1:8082/RSS-Feed',
-        data:"<?xml version='1.0' encoding='UTF-8'?>\n" +
-            "<Request>" +
-            "    <requestName>RSS-Feed<requestName>" +
-            "    <params>\n" +
-            "        <time>" + time +"</time>\n" +
-            "        <numberOfItems>5</numberOfItems>\n" +
-            "    </params>\n" +
-            "</Request>",
+        data:"<?xml version='1.0' encoding='UTF-8'?>" +
+                "<Request>" +
+                    "<requestName>RSS-Feed<requestName>" +
+                    "<params>" +
+                        "<startID>" + start + "</startID>" +
+                        "<endID>" + end + "</endID>" +
+                    "</params>" +
+                "</Request>",
         type: 'POST',
         crossDomain: true,
         dataType: 'xml',
