@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:output method="html" encoding="UTF-8"/>
+<xsl:output method="html"/>
 <xsl:template match="/">
   <div class="rss">
   <h2>RSS Feeds</h2>
