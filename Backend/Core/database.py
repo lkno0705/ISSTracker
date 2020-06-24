@@ -127,7 +127,7 @@ class redisDB:
         id = 0
         for i in range(len(feedItems)):
             # convert date into utc and format yyyy-mm-dd HH-MM-S
-            publishDate = dateConverter.convert(feedItems[i]['published'])
+            publishDate = feedItems[i]['published']
             expireTime = 3600  # expiration time in seconds: 3600sec = 1H
             firstKeyPart = "RSS-Feed:" + str(id)
             self.__redisDB__.set(name=firstKeyPart + ":title", value=feedItems[i]['title'], ex=expireTime)

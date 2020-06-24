@@ -1,5 +1,5 @@
 import ssl
-
+from Backend.Tools.rssFeedTimeConverter import convert
 import feedparser
 
 
@@ -17,7 +17,7 @@ def getRssFeed(url):
         for e in rssFeed.entries:
             dict = {'title': e.title,
                     'summary': e.summary,
-                    'published': e.published,
+                    'published': convert(e.published),
                     'link': e.link}
             list.append(dict)
     # Return list of dictionaries with RSS-Feeds
