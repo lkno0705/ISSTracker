@@ -1,11 +1,23 @@
 // Backendcall for RSS-Feed
 
+var startRss = 0;
+var endRss = 5;
+
 function rssClick(e){
-    callBackEnd(currentTime);
+    if (e === -1 && startRss !== 0){
+        endRss = startRss;
+        startRss = startRss - 5;
+    }
+    else if (e === 1){
+        startRss = endRss
+        endRss = endRss + 5
+    }
+    document.getElementById("mySidebar").innerHTML="";
+    rssCallBackEnd(startRss, endRss);
 }
 
 function rssCall(){
-    callBackEnd(0, 5);
+    rssCallBackEnd(0, 5);
 }
 
 function getCurrentTime(){
@@ -20,7 +32,7 @@ function getCurrentTime(){
     return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
 }
 
-function callBackEnd(start, end){
+function rssCallBackEnd(start, end){
     $.ajax({
         url: 'http://127.0.0.1:8082/RSS-Feed',
         data:"<?xml version='1.0' encoding='UTF-8'?>" +

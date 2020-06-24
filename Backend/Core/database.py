@@ -126,13 +126,11 @@ class redisDB:
         feedItems = data['items']
         id = 0
         for i in range(len(feedItems)):
-            # convert date into utc and format yyyy-mm-dd HH-MM-S
-            publishDate = feedItems[i]['published']
             expireTime = 3600  # expiration time in seconds: 3600sec = 1H
             firstKeyPart = "RSS-Feed:" + str(id)
             self.__redisDB__.set(name=firstKeyPart + ":title", value=feedItems[i]['title'], ex=expireTime)
             self.__redisDB__.set(name=firstKeyPart + ":summary", value=feedItems[i]['summary'], ex=expireTime)
-            self.__redisDB__.set(name=firstKeyPart + ":published", value=publishDate, ex=expireTime)
+            self.__redisDB__.set(name=firstKeyPart + ":published", value=feedItems[i]['published'], ex=expireTime)
             self.__redisDB__.set(name=firstKeyPart + ":link", value=feedItems[i]['link'], ex=expireTime)
             id += 1
 
@@ -140,14 +138,19 @@ class redisDB:
         requestIds = (requestData['params']['startID'], requestData['params']['endID'])
         keys = self.__redisDB__.keys("RSS-Feed:*")
         items = []
+        idset = set()
         for key in keys:
             keyElements = key.split(':')
             # read publishing date out of key
             id = keyElements[1]
             # check if number of rssfeeds wished is not exceeded and this rssFeed published before the getRequest was done
-            if len(items) < (int(requestIds[1]) - int(requestIds[0])) and int(requestIds[0]) <= int(id) <= int(requestIds[1]):
-                items.append({'title': self.__redisDB__.get("RSS-Feed:" + id + ':title'), 'summary': self.__redisDB__.get("RSS-Feed:" + id + ':summary'),
-                              'published': self.__redisDB__.get("RSS-Feed:" + id + ':published'), 'link': self.__redisDB__.get("RSS-Feed:" + id + ':link')})
+            if len(items) < (int(requestIds[1]) - int(requestIds[0])) and int(requestIds[0]) <= int(id) < int(requestIds[1]):
+                idset.add(id)
+
+        for ids in idset:
+            items.append({'title': self.__redisDB__.get("RSS-Feed:" + ids + ':title'), 'summary': self.__redisDB__.get("RSS-Feed:" + ids + ':summary'),
+                          'published': self.__redisDB__.get("RSS-Feed:" + ids + ':published'), 'link': self.__redisDB__.get("RSS-Feed:" + ids + ':link')})
+
         items = sorted(items, key=lambda i: (i['published']), reverse=True)
         return items
 
