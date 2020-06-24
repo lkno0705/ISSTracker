@@ -23,29 +23,23 @@ function getCurrentTime(){
 }
 
 function callBackEnd(time){
-
-    var data = "<?xml version='1.0' encoding='UTF-8'?>"
-        + "\n<Request>"
-        + "\n    <requestName>RSS-Feed<requestName>"
-        + "\n    <params>"
-        + "\n        <time>2020-07-05 16-36-00</time>"
-        + "\n        <numberOfItems>5</numberOfItems>"
-        + "\n    </params>"
-        + "\n</Request>";
-
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function() {
-        if(this.readyState === 4) {
-            console.log(this.responseText);
-        }
+    $.ajax({
+        url: 'http://127.0.0.1:8082/RSS-Feed',
+        data:"<?xml version='1.0' encoding='UTF-8'?>\n" +
+            "<Request>" +
+            "    <requestName>RSS-Feed<requestName>" +
+            "    <params>\n" +
+            "        <time>" + time +"</time>\n" +
+            "        <numberOfItems>5</numberOfItems>\n" +
+            "    </params>\n" +
+            "</Request>",
+        type: 'POST',
+        crossDomain: true,
+        dataType: 'xml',
+        success: function() { console.log("Success!")},
+        error: function() { console.log('Failed!')},
+        complete: function(oData){ RSSCallback(oData);}
     });
-
-    xhr.open("GET", "http://127.0.0.1:8082/RSS-Feed");
-    xhr.setRequestHeader("Content-Type", "application/xml");
-
-    xhr.send(data);
 }
 
 function RSSCallback(oData){

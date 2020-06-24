@@ -8,8 +8,6 @@ from Backend.Requests.issPastPasses import pastPasses
 from Backend.Requests.issFuturePasses import getFuturePass
 from Backend.Core.XMLParser import reformatData, parseRequestParamsXMLToDic
 
-import json
-
 # Reimplementign Request Handler with custom Functions to handle GET Requests
 class requestHandler(BaseHTTPRequestHandler):
 
@@ -32,8 +30,8 @@ class requestHandler(BaseHTTPRequestHandler):
                 "country"
             ],
             "RSS-Feed": [
-                "time",
-                "numberOfItems"
+                "startID",
+                "endID"
             ],
             "ISSpastPasses": [
                 "latitude",
@@ -66,6 +64,37 @@ class requestHandler(BaseHTTPRequestHandler):
 
     # Implements GET request
     def do_GET(self):
+        # print(self.path.split("/"))
+        requestName = self.path.split("/")[1]
+        code = 200
+        if self.path == "/AstrosOnISS":
+            data = redisDB().getData(None, self.path.strip("/?"))
+            data = reformatData(requestData=data, requestName=self.path.strip("/?"))
+        elif self.path == "/ISSpos":
+            data = issCurrentPosition()
+            data = reformatData(requestData=data, requestName=self.path.strip("/?"))
+        else:
+            # Setting Error Message
+            data = '<?xml version="1.0" encoding="UTF-8"?>' \
+                   '<message>' \
+                   '<error>Error 400: Bad Request</error>' \
+                   '<description></description>' \
+                   '</message>'
+            code = 400
+
+        # set response code
+        self.send_response(code=code)
+
+        # set http header to define body content type as XML
+        self.send_header('Content-type', 'text/xml')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+
+        # send body
+        self.wfile.write(bytes(str(data), "utf-8"))
+
+
+    def do_POST(self):
         try:
             content_len = int(self.headers.get('Content-Length'))
             body = self.rfile.read(content_len)
@@ -82,8 +111,6 @@ class requestHandler(BaseHTTPRequestHandler):
                 data = redisDB().getData(body, self.path.strip("/?"))
             elif self.path == "/GeoJson":
                 data = redisDB().getData(body, self.path.strip("/?"))
-            elif self.path == "/AstrosOnISS":
-                data = redisDB().getData(body, self.path.strip("/?"))
             elif self.path == "/ISSCountryPasses":
                 data = ISScountryPasses(requestData=body)
             elif self.path == "/RSS-Feed":
@@ -92,8 +119,6 @@ class requestHandler(BaseHTTPRequestHandler):
                 data = pastPasses().pastPasses(requestData=body)
             elif self.path == "/ISSfuturePasses":
                 data = getFuturePass(params=body["params"])
-            elif self.path == "/ISSpos":
-                data = issCurrentPosition()
 
             data = reformatData(requestData=data, requestName=self.path.strip("/?"))
 
@@ -124,7 +149,6 @@ class requestHandler(BaseHTTPRequestHandler):
 
         # send body
         self.wfile.write(bytes(str(data), "utf-8"))
-
 
 
 def startAPIServer():
