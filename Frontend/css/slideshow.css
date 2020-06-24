@@ -135,6 +135,7 @@ img {vertical-align: middle;}
 .astroinfo{
   float: right;
   padding: 20px 0;
+  display: grid;
 }
 
 .name, .country{
