@@ -14,7 +14,7 @@ def process(data):
         print("Astronaut:" + astros[i]['name'] + ": picture"+astros[i]['picture'])
 
 
-file = open(r"C:\Users\i516369\Desktop\DH\ISSTracker\Backend\Tools\astros_pics_flags_nations.json")
+file = open(r"astros_pics_flags_nations.json")
 data = json.load(file)
 process(data)
 file.close()

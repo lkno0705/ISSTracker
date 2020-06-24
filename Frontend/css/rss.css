@@ -1,0 +1,64 @@
+.rss-image{
+    float: left;
+    width: 10%;
+}
+
+.rss-image img{
+    width: 100%;
+    margin-top: 50%;
+    border-radius: 20px;
+}
+
+.rss-text{
+    float: right;
+    text-align: left;
+    vertical-align: top;
+    width: 90%;
+}
+
+.rss-text p{
+    height: 80px;
+    overflow: hidden;
+}
+
+.rss-text p:hover{
+    overflow: auto;
+}
+
+.rss-item{
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 0 5px;
+}
+
+.rss-prev{
+    float: left;
+    width: 50%;
+    text-align: right;
+}
+.rss-prev span:hover {
+    cursor: pointer;
+    color: white;
+}
+.rss-next span:hover{
+    cursor: pointer;
+    color: white;
+}
+
+.rss-next{
+    float: right;
+    width: 50%;
+    text-align: left;
+}
+
+.rss{
+    margin: 5px;
+}
+
+.rss h2{
+    text-align: center;
+    border-bottom: solid white 2px;
+    margin: 0 10px;
+    padding-bottom: 5px;
+}

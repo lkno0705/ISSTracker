@@ -4,13 +4,7 @@ from Backend.Core.database import redisDB
 def rssFeed():
     db = redisDB()
     # Feed URL
-    url = "https://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss"
+    urls = ("https://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss", "http://blogs.nasa.gov/stationreport/feed/")
     # set rssFeedName and read Feed into items
-    data = {'rssFeedName': 'spacetoground', 'items': rssUtility.getRssFeed(url)}
-    db.setData(data=data, requestname="RSS-Feed")
-
-    # Feed URL
-    url = "http://blogs.nasa.gov/stationreport/feed/"
-    # set rssFeedName and read Feed
-    data = {'rssFeedName': 'stationreport', 'items': rssUtility.getRssFeed(url)}
+    data = {'items': rssUtility.getRssFeed(urls)}
     db.setData(data=data, requestname="RSS-Feed")
