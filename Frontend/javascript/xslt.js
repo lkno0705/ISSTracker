@@ -47,6 +47,3 @@ function load(url, callback) {
       document.getElementById(target).innerHTML = xmlInput.transformNode(xsltSheet);
     }
   }
-
-//  test call
-  transform('xml/spacetoground_vodcast.xml', 'xsl/rssfeednasa.xsl',"mySidebar");

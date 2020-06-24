@@ -1,27 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<channel>   
-    <item> <title>Space to Ground: Keeping it Cool: 11/29/2019</title>
-    <link>http://www.nasa.gov/mediacast/space-to-ground-keeping-it-cool-11292019</link>
-    <description>The Expedition 61 crew enjoyed a Thanksgiving feast ahead of another spacewalk set for this Monday. A European experiment also tests controlling a rover on Earth from the station.</description>
-    <enclosure url="http://www.nasa.gov/sites/default/files/atoms/video/jsc2019m000047_space_to_ground_299_191129_facebook.mp4" length="95514505" type="video/mp4" />
-    <guid isPermaLink="false">http://www.nasa.gov/mediacast/space-to-ground-keeping-it-cool-11292019</guid>
-    <pubDate>Fri, 29 Nov 2019 08:00 EST</pubDate>
-    <source url="http://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss">Space to Ground Video Podcasts</source>
-    </item>
-    <item> <title>Space to Ground: History Made: 10/18/2019</title>
-    <link>http://www.nasa.gov/mediacast/space-to-ground-history-made-10182019</link>
-    <description>Throughout spaceflight history, 14 women have completed spacewalks. On October 18, Jessica Meir brought that number up to 15 when she floated outside the airlock alongside 4-time spacewalker Christina Koch for the first all-female extravehicular activity.</description>
-    <enclosure url="http://www.nasa.gov/sites/default/files/atoms/video/jsc2019m000041_space_to_ground_293_191018_facebook.mp4" length="82880528" type="video/mp4" />
-    <guid isPermaLink="false">http://www.nasa.gov/mediacast/space-to-ground-history-made-10182019</guid>
-    <pubDate>Fri, 18 Oct 2019 15:35 EDT</pubDate>
-    <source url="http://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss">Space to Ground Video Podcasts</source>
-    </item>
-    <item> <title>Space to Ground: History&#039;s Greatest Adventure: 07/19/2019</title>
-    <link>http://www.nasa.gov/mediacast/space-to-ground-historys-greatest-adventure-07192019</link>
-    <description>50 years ago flight controllers managed history&#039;s greatest adventure. Astronauts Christina Koch and Nick Hague reflected on the historic moon landing ahead of the arrival of a new crew Saturday.</description>
-    <enclosure url="http://www.nasa.gov/sites/default/files/atoms/video/jsc2019m000028_space_to_ground_280_190719_facebook.mp4" length="106498234" type="video/mp4" />
-    <guid isPermaLink="false">http://www.nasa.gov/mediacast/space-to-ground-historys-greatest-adventure-07192019</guid>
-    <pubDate>Fri, 19 Jul 2019 09:00 EDT</pubDate>
-    <source url="http://www.nasa.gov/rss/dyn/spacetoground_vodcast.rss">Space to Ground Video Podcasts</source>
-    </item> 
-</channel>
+<?xml version='1.0' encoding='UTF-8'?>
+<Request>
+    <requestName>RSS-Feed</requestName>
+    <data>
+        <RSS-Feed>
+            <title>ISS Daily Summary Report &#8211; 6/10/2020</title>
+            <summary>Payloads Capillary Structures: &#160;The crew set up and performed the Infill Foam Capillary Structures experiment.&#160; The setup allows investigators to observe the wicking of fluid into the foam and out of air passages.&#160; The ground team was very happy with the results and report all science objectives and more were completed.&#160; Current life-support systems on &amp;#8230;</summary>
+            <published>2020-06-10 16-00-26</published>
+            <link>https://blogs.nasa.gov/stationreport/2020/06/10/iss-daily-summary-report-6102020/</link>
+        </RSS-Feed>
+        <RSS-Feed>
+            <title>Space to Ground: Meet CIMON: 07/06/2018</title>
+            <summary>The station crew has a new AI-based assistant called CIMON delivered on Dragon this week. CIMON is a test case possibly offering space-based solutions to astronauts on future long-term missions.</summary>
+            <published>2018-07-05 23-32-00</published>
+            <link>http://www.nasa.gov/mediacast/space-to-ground-meet-cimon-07062018</link>
+        </RSS-Feed>
+        <RSS-Feed>
+            <title>Space to Ground: Operating an Outpost: 04/20/2018</title>
+            <summary>NASA released a free e-book describing how flight directors operate the station and the astronauts studied unique molecules vital to the design of newer, more stable product mixtures. #SpaceToGround</summary>
+            <published>2018-04-21 00-00-00</published>
+            <link>http://www.nasa.gov/mediacast/space-to-ground-operating-an-outpost-04202018</link>
+        </RSS-Feed>
+        <RSS-Feed>
+            <title>Space-to-Ground: A Churning Storm: 10/07/2016</title>
+            <summary>The station trained its cameras on Hurricane Matthew this week while Orbital ATK&#8203; scheduled its sixth Cygnus cargo mission to launch on Oct. 13.</summary>
+            <published>2016-10-07 14-00-00</published>
+            <link>http://www.nasa.gov/mediacast/space-to-ground-a-churning-storm-10072016</link>
+        </RSS-Feed>
+        <RSS-Feed>
+            <title>Space to Ground: Station Sleep: 10/23/2015</title>
+            <summary>OUR BODIES CHANGE A LOT WHEN WE GET TO SPACE, AND THE BRAIN IS NO EXCEPTION.</summary>
+            <published>2015-10-23 02-57-00</published>
+            <link>http://www.nasa.gov/mediacast/space-to-ground-station-sleep-10232015</link>
+        </RSS-Feed>
+    </data>
+</Request>

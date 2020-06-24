@@ -1,11 +1,11 @@
  /* The sidebar menu */
  .sidebar {
     height: 100%; /* 100% Full-height */
-    width: 250px; /* 0 width - change this with JavaScript */
+    width: 800px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
-    right: -250px;
+    right: -800px;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
@@ -24,9 +24,9 @@
   }
   
   /* When you mouse over the navigation links, change their color */
-  .sidebar a:hover {
-    color: #f1f1f1;
-  }
+  /*.sidebar a:hover {*/
+  /*  color: #f1f1f1;*/
+  /*}*/
 
   /* The button used to open the sidebar */
   .openbtn {  
@@ -37,6 +37,7 @@
     padding: 10px 15px;
     border: none;
     margin-top: 30px;
+    border-radius: 10px 0 0 10px;
   }
   
   .openbtn:hover {
@@ -118,7 +119,8 @@
   padding: 10px 15px;
   border: none;
   margin-top: 30px;
-  margin-left: 250px; 
+  margin-left: 250px;
+  border-radius: 0 10px 10px 0;
 }
 
 .openbtnLeft:hover {
