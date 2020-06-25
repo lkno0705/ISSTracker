@@ -190,3 +190,72 @@ pointer-events: auto;
 }
 
 
+/* Checkbox Styling */
+ input[type="checkbox"] {
+     display:none;
+ }
+ input[type="checkbox"] + label {
+     width: 52px;
+     height: 25px;
+     border-radius: 25px;
+     border: 2px solid #ddd;
+     background-color: #EEE;
+     display: inline-block;
+     content: "";
+     float: left;
+     margin-right: 5px;
+     transition: background-color 0.5s linear;
+     margin-top: 15px;
+     position: relative;
+ }
+ input[type="checkbox"] + label:hover {
+     cursor: pointer;
+ }
+ input[type="checkbox"] + label::before {
+     width: 20px;
+     height: 20px;
+     border-radius: 25px;
+     background-color: #fff;
+     display: block;
+     content: "";
+     float: left;
+     margin-right: 5px;
+     transition: margin 0.1s linear;
+     box-shadow: 0px 0px 2px #aaa;
+ }
+ input[type="checkbox"]:checked+label{
+     background-color: rgb(11, 61, 145);
+ }
+ input[type="checkbox"]:checked+label::before {
+     margin: 0 0 0 30px;
+ }
+ .checkbox1 input[type="checkbox"] + label::after {
+     content: "follow ISS";
+     position: absolute;
+     left: 70px;
+     top: 0;
+     width: 100px;
+     font-family: Verdana, sans-serif;
+ }
+ .checkbox2 input[type="checkbox"] + label::after {
+     content: "draw ISS route";
+     position: absolute;
+     left: 70px;
+     top: 0;
+     width: 150px;
+     font-family: Verdana, sans-serif;
+ }
+
+ .checkbox1{
+     width: 100%;
+     position: static;
+     height: 40px;
+ }
+
+ .checkbox2{
+     width: 100%;
+     position: static;
+     height: 30px;
+     margin-bottom: 30px;
+ }
+
