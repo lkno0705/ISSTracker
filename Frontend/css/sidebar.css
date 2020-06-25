@@ -8,9 +8,11 @@
     right: -800px;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    padding: 5px; 
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
     color: #FFFFFF;
+    display: flex;
+    align-items: center;
   }
   
   /* The sidebar links */
