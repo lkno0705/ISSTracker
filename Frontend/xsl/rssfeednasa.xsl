@@ -20,10 +20,11 @@
       </div>
   </div>
   </xsl:for-each>
-  </div>
+  
     <div class="rss-buttons">
         <a class="rss-prev" onclick="rssClick(-1)"><span>&#10094;</span></a>
         <a class="rss-next" onclick="rssClick(1)"><span>&#10095;</span></a>
+    </div>
     </div>
 </xsl:template>
 </xsl:stylesheet>
