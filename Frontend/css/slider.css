@@ -19,7 +19,7 @@
     appearance: none;
     width: 25px;
     height: 25px;
-    background: rgb(0 64 221);
+    background: rgb(11, 61, 145);
     cursor: pointer;
     border-radius: 20px;
   }
@@ -27,7 +27,7 @@
   .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    background: rgb(0 64 221);
+    background: rgb(11, 61, 145);
     cursor: pointer;
     border-radius: 20px;
   }
