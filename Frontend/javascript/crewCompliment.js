@@ -1,7 +1,13 @@
 // Function that handles click on ISSIcon
-function onBoard(e){
+var bCrewPopUp = false;
+function onBoard(e){  
+ 
+  if (!bCrewPopUp)
+  {
   removePopUps();
+  bCrewPopUp = true;  
   callBackEnd(e);
+  }
 }
 
 // Call to back end
@@ -33,7 +39,9 @@ function onBoardCallback(e,oData){
 function waitForXSL(){
   var slides = document.getElementsByClassName("mySlides");
   if (slides.length!=0) 
+  {
   showSlides(1);
+  }
 
   setTimeout(waitForXSL, 50);
 } 
