@@ -80,7 +80,6 @@ else
 
 var issPNG = L.icon({
     iconUrl: 'images/issicon_hell.png',   
-
     iconSize: [100, 100], // size of the icon
     shadowSize: [50, 64], // size of the shadow
     iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
@@ -92,6 +91,7 @@ var issPNG = L.icon({
 function create(strecke) {
     issIcon = L.Marker.movingMarker(strecke, [100000], { icon: issPNG }).addTo(mymap);
     issIcon.on("click", onBoard);
+    issIcon.on("mouseover", addBorder);
 }
 
 
