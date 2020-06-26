@@ -61,9 +61,8 @@ function moveISS() {
         console.log("Lang: " + lat + " Long: " + lon);
         //latlng1 = L.latLng(lat, lon);
         // moveISS();
-    });
-
-    setTimeout(moveISS, 5000);
+    }); 
+     setTimeout(moveISS, 5000);
 }
 
 function drawISS(){
