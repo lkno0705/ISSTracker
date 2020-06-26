@@ -90,7 +90,7 @@ var issPNG = L.icon({
 function create(strecke) {
     issIcon = L.Marker.movingMarker(strecke, [100000], { icon: issPNG }).addTo(mymap);
     issIcon.on("click", onBoard);
-    issIcon.on("mouseover", addBorder);
+    // issIcon.on("mouseover", addBorder);
 }
 
 
