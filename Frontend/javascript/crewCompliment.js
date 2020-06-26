@@ -45,3 +45,7 @@ function waitForXSL(){
 
   setTimeout(waitForXSL, 50);
 } 
+
+// function addBorder(e){
+//   console.log("Border");
+// }

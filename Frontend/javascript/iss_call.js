@@ -2,7 +2,7 @@
 var bFollowISS = false;
 var oldLng;
 
-function createISS() {
+function createISS(bReFocus) {
     console.log("createISS");
     $.getJSON('http://api.open-notify.org/iss-now.json?callback=?', function (data) {
         var lat = data['iss_position']['latitude'];
@@ -10,8 +10,12 @@ function createISS() {
 
         var latlng = L.latLng(lat, lon);
         create([latlng, latlng]);
-        //marker.setLatLng([lat, lon]);            
+        //marker.setLatLng([lat, lon]); 
+        if (!bReFocus) 
+        {   
+        console.log("refocus");
         mymap.setView(latlng, 4);
+        }
         oldLng = lon;
         console.log("Lang: " + lat + " Long: " + lon);
         console.log("moveISSbefore");
@@ -37,7 +41,7 @@ function moveISS() {
         if (Math.abs(parseFloat(oldLng) - parseFloat(lon))>1)
         {
          issIcon.removeFrom(mymap);
-         createISS();
+         createISS(true);
         }
 
         oldLng = lon;
@@ -57,9 +61,8 @@ function moveISS() {
         console.log("Lang: " + lat + " Long: " + lon);
         //latlng1 = L.latLng(lat, lon);
         // moveISS();
-    });
-
-    setTimeout(moveISS, 5000);
+    }); 
+     setTimeout(moveISS, 5000);
 }
 
 function drawISS(){
@@ -75,8 +78,7 @@ else
 };
 
 var issPNG = L.icon({
-    iconUrl: 'images/issicon_hell.png',   
-
+    iconUrl: 'images/issicon_hell_rand.png',   
     iconSize: [100, 100], // size of the icon
     shadowSize: [50, 64], // size of the shadow
     iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
@@ -88,6 +90,7 @@ var issPNG = L.icon({
 function create(strecke) {
     issIcon = L.Marker.movingMarker(strecke, [100000], { icon: issPNG }).addTo(mymap);
     issIcon.on("click", onBoard);
+    // issIcon.on("mouseover", addBorder);
 }
 
 
