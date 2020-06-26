@@ -2,7 +2,7 @@
 var bFollowISS = false;
 var oldLng;
 
-function createISS() {
+function createISS(bReFocus) {
     console.log("createISS");
     $.getJSON('http://api.open-notify.org/iss-now.json?callback=?', function (data) {
         var lat = data['iss_position']['latitude'];
@@ -10,8 +10,12 @@ function createISS() {
 
         var latlng = L.latLng(lat, lon);
         create([latlng, latlng]);
-        //marker.setLatLng([lat, lon]);            
+        //marker.setLatLng([lat, lon]); 
+        if (!bReFocus) 
+        {   
+        console.log("refocus");
         mymap.setView(latlng, 4);
+        }
         oldLng = lon;
         console.log("Lang: " + lat + " Long: " + lon);
         console.log("moveISSbefore");
@@ -37,7 +41,7 @@ function moveISS() {
         if (Math.abs(parseFloat(oldLng) - parseFloat(lon))>1)
         {
          issIcon.removeFrom(mymap);
-         createISS();
+         createISS(true);
         }
 
         oldLng = lon;
