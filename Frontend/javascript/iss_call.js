@@ -78,7 +78,7 @@ else
 };
 
 var issPNG = L.icon({
-    iconUrl: 'images/issicon_hell.png',   
+    iconUrl: 'images/issicon_hell_rand.png',   
     iconSize: [100, 100], // size of the icon
     shadowSize: [50, 64], // size of the shadow
     iconAnchor: [22, 94], // point of the icon which will correspond to marker's location

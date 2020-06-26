@@ -1,5 +1,5 @@
 img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive:first-of-type:hover{
-    border: solid white 1px;
+    border: solid rgb(11, 61, 145) 1px;
     border-radius: 100%;
     background-color: rgba(255, 255, 255, 0.1);
 }
