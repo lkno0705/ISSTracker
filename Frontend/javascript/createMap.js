@@ -56,8 +56,21 @@ function createMap() {
         removePopUps(); 
       });
 
-      
-   
+    // Load kml file
+    fetch('kml/TM_WORLD_BORDERS-0.3.kml')
+        .then(res => res.text())
+        .then(kmltext => {
+            // Create new kml overlay
+            const parser = new DOMParser();
+            const kml = parser.parseFromString(kmltext, 'text/xml');
+            const track = new L.KML(kml);
+            map.addLayer(track);
+
+            // Adjust map to show the kml
+            const bounds = track.getBounds();
+            map.fitBounds(bounds);
+        });
+
 }
 
 function toggleMenuOn(e) {
