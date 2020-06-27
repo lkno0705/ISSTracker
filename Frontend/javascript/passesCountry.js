@@ -34,9 +34,9 @@ function countryCallBack(oData){
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     transform2(xmlDoc, 'xsl/countryflyby.xsl',"infoOnCountry"); // XSL transformation
-    console.log("ISSDB");
-    document.getElementById("infoOnCountry").style.left=e.originalEvent.x + "px";
-    document.getElementById("infoOnCountry").style.top=e.originalEvent.y + "px"; 
+    console.log("PassBy");
+   // document.getElementById("infoOnCountry").style.left=e.originalEvent.x + "px";
+   // document.getElementById("infoOnCountry").style.top=e.originalEvent.y + "px"; 
     console.log("onCountry");
     //waitForXSL();
 }

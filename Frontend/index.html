@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <meta charset="UTF-8"></meta>
 <html>
 <head>
     <title>ISS Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!------------------------------------------------------------------------------------------>
     <!-------------------------------- CSS Stylesheets ----------------------------------------->
     <!------------------------------------------------------------------------------------------>
@@ -16,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="css/crewCompliment.css"/>
     <link rel="stylesheet" type="text/css" href="css/slideshow.css"/>
     <link rel="stylesheet" type="text/css" href="css/rss.css"/>
+    <link rel="stylesheet" type="text/css" href="css/movingMarker.css"/>
 
     <!------------------------------------------------------------------------------------------>
     <!----------------------------------- Javascripts ------------------------------------------>
@@ -36,7 +38,6 @@
     <script type="text/javascript" src="javascript/crewCompliment.js"></script>
     <script type="text/javascript" src="javascript/slideshow.js"></script>
     <script type="text/javascript" src="javascript/rss.js"></script>
-    <script type="text/javascript" src="javascript/passesCountry.js"></script>
 </head>
 
 <body style="height:100%;margin:0">
@@ -91,7 +92,7 @@
 </div>
 
 <!------------------------ Map body -------------------------------------------------------------------->
-<div id="mapid" style="width:100%;height:100%; position:fixed;left:0;right:0; z-index:-10"></div>
+<div id="mapid" style="width: 100%;height:100%; position:fixed;left:0;right:0; z-index:-10"></div>
 
 <!------------------------ Right sidebar  -------------------------------------------------------------------->
 <div id="mySidebar" class="sidebar"></div>
@@ -112,6 +113,5 @@
     </ul>
 </nav>
 <div id="issOnBoard"></div>
-<div id="infoOnCountry"></div>
 </body>
 </html> 
