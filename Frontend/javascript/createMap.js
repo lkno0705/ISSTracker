@@ -88,12 +88,14 @@ function drawGeoJSON(){
                             opacity: .2,
                             fillOpacity: 0};
                 }
-            }).bindPopup(function (layer) {  
-                removePopUps();   
+            }).bindPopup(function (layer) { 
+                console.log("PopUp: " + layer.feature.properties.name_sort) 
+                //removePopUps();   
                 //functins        
-            return layer.feature.properties.name_sort;
-        })//**.bindTooltip('click for more information')
+            return onCountry(layer.feature.properties.name_sort);//layer.feature.properties.name_sorton.onCountry();
+        })//.on('click', onCountry) // should notice an event when clicked
         .addTo(mymap);
+        //mainLayer.on("click", onCountry);
     });
 }
 
