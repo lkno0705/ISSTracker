@@ -4,31 +4,53 @@ var oldLng;
 
 function createISS(bReFocus) {
     console.log("createISS");
-    $.getJSON('http://api.open-notify.org/iss-now.json?callback=?', function (data) {
-        var lat = data['iss_position']['latitude'];
-        var lon = data['iss_position']['longitude'];
-
-        var latlng = L.latLng(lat, lon);
-        create([latlng, latlng]);
-        //marker.setLatLng([lat, lon]); 
-        if (!bReFocus) 
-        {   
-        console.log("refocus");
-        mymap.setView(latlng, 4);
+    $.ajax({
+        url: 'http://127.0.0.1:8082/ISSpos',
+        data:"",
+        type: 'GET',
+        crossDomain: true,
+        dataType: 'xml',
+        // success: function() { console.log("Success!")},
+        // error: function() { console.log('Failed!')},
+        complete: function(oData){
+            var xmlString = oData.responseText;
+            var parser = new DOMParser; 
+            var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+            var lat = xmlDoc.getElementsByTagName("latitude")[0].innerHTML;
+            var lon = xmlDoc.getElementsByTagName("longitude")[0].innerHTML;
+    
+            var latlng = L.latLng(lat, lon);
+            create([latlng, latlng]);
+            //marker.setLatLng([lat, lon]); 
+            if (!bReFocus) 
+            {   
+            console.log("refocus");
+            mymap.setView(latlng, 4);
+            }
+            oldLng = lon;
+            console.log("Lang: " + lat + " Long: " + lon);
+            console.log("moveISSbefore");
         }
-        oldLng = lon;
-        console.log("Lang: " + lat + " Long: " + lon);
-        console.log("moveISSbefore");
-        // setTimeout(moveISS(), 5000);
-    });
+      });
     setTimeout(moveISS, 5000);
 }
 
 // function to move the ISS along the Map
 function moveISS() {
-    $.getJSON('http://api.open-notify.org/iss-now.json?callback=?', function (data) {
-        var lat = data['iss_position']['latitude'];
-        var lon = data['iss_position']['longitude'];
+    $.ajax({
+        url: 'http://127.0.0.1:8082/ISSpos',
+        data:"",
+        type: 'GET',
+        crossDomain: true,
+        dataType: 'xml',
+        // success: function() { console.log("Success!")},
+        // error: function() { console.log('Failed!')},
+        complete: function(oData){
+            var xmlString = oData.responseText;
+            var parser = new DOMParser; 
+            var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+            var lat = xmlDoc.getElementsByTagName("latitude")[0].innerHTML;
+            var lon = xmlDoc.getElementsByTagName("longitude")[0].innerHTML;
         iss =
             {
                 "Latitide": lat,
@@ -36,17 +58,13 @@ function moveISS() {
             };
         var x = parseFloat(oldLng);
         var y = parseFloat(lon);       
-        console.log("Possition difference: " +(x-y) );
-
+        console.log("Possition difference: " + (x - y) );
         if (Math.abs(parseFloat(oldLng) - parseFloat(lon))>1)
         {
          issIcon.removeFrom(mymap);
          createISS(true);
         }
-
         oldLng = lon;
-        //marker.setLatLng([lat, lon]);
-        //mymap.setView(marker.getLatLng(), mymap.getZoom()); 
         console.log("moveISS");
         latlng = L.latLng(lat, lon);
         issIcon.moveTo(latlng, 5000)
@@ -59,8 +77,7 @@ function moveISS() {
         $(".loadwrapper").hide();
         issIcon.start();
         console.log("Lang: " + lat + " Long: " + lon);
-        //latlng1 = L.latLng(lat, lon);
-        // moveISS();
+    }
     }); 
      setTimeout(moveISS, 5000);
 }
