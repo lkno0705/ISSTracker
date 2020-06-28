@@ -56,8 +56,13 @@ function createMap() {
         removePopUps(); 
       });
 
+    drawCounties(mymap);
+
+}
+
+function drawCounties(map) {
     // Load kml file
-    fetch('kml/TM_WORLD_BORDERS-0.3.kml')
+    fetch('kml/test.kml')
         .then(res => res.text())
         .then(kmltext => {
             // Create new kml overlay
@@ -70,7 +75,6 @@ function createMap() {
             const bounds = track.getBounds();
             map.fitBounds(bounds);
         });
-
 }
 
 function toggleMenuOn(e) {
@@ -88,27 +92,26 @@ function toggleMenuOn(e) {
 
 // trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
 
-var mainLayer;
 
-// funtion to draw geoJson to map, just for test purposes 
-function drawGeoJSON(){
-    $.getJSON("json/world_med_res.json", function(json) {
-        data = json;
-        console.log(json); // this will show the info it in firebug console
-        mainLayer=L.geoJSON(json, {
-                style: function (feature) {
-                    return {color: '#FFFFFF',
-                            opacity: .2,
-                            fillOpacity: 0};
-                }
-            }).bindPopup(function (layer) {  
-                removePopUps();   
-                //functins        
-            return layer.feature.properties.name_sort;
-        })//**.bindTooltip('click for more information')
-        .addTo(mymap);
-    });
-}
+// // funtion to draw geoJson to map, just for test purposes
+// function drawGeoJSON(){
+//     $.getJSON("json/world_med_res.json", function(json) {
+//         data = json;
+//         console.log(json); // this will show the info it in firebug console
+//         mainLayer=L.geoJSON(json, {
+//                 style: function (feature) {
+//                     return {color: '#FFFFFF',
+//                             opacity: .2,
+//                             fillOpacity: 0};
+//                 }
+//             }).bindPopup(function (layer) {
+//                 removePopUps();
+//                 //functins
+//             return layer.feature.properties.name_sort;
+//         })//**.bindTooltip('click for more information')
+//         .addTo(mymap);
+//     });
+// }
 
 function showCoordinate(){
 
@@ -146,7 +149,6 @@ $(document).ready(function () {
     createMap();
     loadingText(1);
     // drawSVG();
-    drawGeoJSON();
     coordinate2pixel('xml/germany.xml');
     // renderGPX();
     // addMarker(50.5,30.5);
