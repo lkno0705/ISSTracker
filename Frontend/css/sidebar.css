@@ -227,7 +227,7 @@ pointer-events: auto;
      width: 20px;
      height: 20px;
      border-radius: 25px;
-     background-color: #fff;
+     background-color: rgb(11, 61, 145);
      display: block;
      content: "";
      float: left;
@@ -240,6 +240,7 @@ pointer-events: auto;
  }
  input[type="checkbox"]:checked+label::before {
      margin: 0 0 0 30px;
+     background-color: white;
  }
  .checkbox1 input[type="checkbox"] + label::after {
      content: "follow ISS";
