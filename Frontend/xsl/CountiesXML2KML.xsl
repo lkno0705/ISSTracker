@@ -20,15 +20,16 @@
                             </Style>
                             <MultiGeometry>
                                 <Polygon>
-                                    <innerBoundaryIs>
+                                    <outerBoundaryIs>
                                         <LinearRing>
                                             <coordinates>
                                                 <xsl:for-each select="./point">
-                                                    <xsl:value-of select="longitude"/>,<xsl:value-of select="latitude"/> &#160;
+                                                    <xsl:value-of select="latitude"/>,<xsl:value-of select="longitude"/>
+                                                    &#160;
                                                 </xsl:for-each>
                                             </coordinates>
                                         </LinearRing>
-                                    </innerBoundaryIs>
+                                    </outerBoundaryIs>
                                 </Polygon>
                             </MultiGeometry>
                         </Placemark>
