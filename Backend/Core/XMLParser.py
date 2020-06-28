@@ -444,9 +444,3 @@ def parseRequestParamsXMLToDic(xml):
 # print("\n")
 # print(reformatData(issdbkey, 'ISSDB'))
 # print("\n")
-geo={"countryname": "Brazil",
-"0": {"latitude": "-57.62513342958296", "longitude": "-30.216294854454258"},
-"1": {"latitude": "-56.29089962423908", "longitude": "-28.85276051200089"},
-"2": {"latitude": "-55.16228634298457", "longitude": "-27.881915378533463"}}
-
-print(reformatData(geo,"GeoJson"))
