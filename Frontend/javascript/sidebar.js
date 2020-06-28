@@ -1,5 +1,5 @@
 // function to toggle width of menues, function needs to be adjusted for responsive use
-
+var counter = 0;
 // left menu
 function toggleNavL() {   
   var x = document.getElementById("mySidebarLeft").style.left;
@@ -39,6 +39,28 @@ function toggleNavL() {
       }
   }     
 
+  function toggleClose(event) {
+    var mouseClickWidth = event.clientX;
+    var controls = document.getElementsByClassName("leaflet-control-zoom");
+    // close left & right
+    if (counter >= 1 && mouseClickWidth<=800 && mouseClickWidth>=250) {
+      document.getElementById("mySidebar").style.right = "-800px";
+      document.getElementById("main").style.marginRight = "0px";
+      document.getElementById("arrowright").style.transform = "rotate(0deg)";
+      controls[0].style.right = "0";
+
+      document.getElementById("mySidebarLeft").style.left = "-250px";
+      document.getElementById("mainLeft").style.marginLeft = "-250px";
+      document.getElementById("arrowleft").style.transform = "rotate(180deg)";
+      // close only right -> implemented because of side-effects from start() function
+    } else if (mouseClickWidth<=800 && mouseClickWidth>=250) {
+      document.getElementById("mySidebar").style.right = "-800px";
+      document.getElementById("main").style.marginRight = "0px";
+      document.getElementById("arrowright").style.transform = "rotate(0deg)";
+      controls[0].style.right = "0";
+    }
+  }
+
   // left menu after serch button pressed. 
   function start(){
     document.getElementById("mySidebarLeft").style.backgroundColor = "#111";
@@ -53,4 +75,7 @@ function toggleNavL() {
     {
       checkboxes[i].className = "checkbox-show";
     }
+    counter++;
   }
+
+  document.addEventListener("click", toggleClose)
