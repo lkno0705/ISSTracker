@@ -24,7 +24,7 @@ function createMap() {
     }).setView([51.5, -0.09], 5);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        maxZoom: 7,
+        maxZoom: 13,
         minZoom: 2,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
             '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -127,6 +127,34 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+function getSliderTime(){    
+  return  getCurrentTime( getSliderValue());
+}
+
+function getCurrentTime(past){
+ 
+
+    var date = new Date(); 
+    if (past) {
+        var time = date.setTime( date.getTime() - past*60*1000);
+        date = new Date(time);
+    }
+    var day = pad(date.getUTCDate(),2);
+    var month = pad(date.getUTCMonth() + 1,2);
+    var year = date.getUTCFullYear();
+    var hour = pad(date.getUTCHours(),2);
+    var minute  = pad(date.getUTCMinutes(),2);
+    var seconds = pad(date.getUTCSeconds(),2);
+
+    return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
+}
+
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
 $(document).ready(function () {
     console.log("create map call");
     var mymap;  
@@ -136,6 +164,7 @@ $(document).ready(function () {
     drawGeoJSON();
     coordinate2pixel('xml/germany.xml');
     // renderGPX();
+    // callBackEndISSDB();
     // addMarker(50.5,30.5);
     getRadiusSliderValue();
     getSliderValue();

@@ -7,6 +7,7 @@ function getSliderValue() {
         output.innerHTML = this.value*10;
         console.log("SLIDER VALUE: " + output.innerHTML);
     }
+    return parseInt(output.innerHTML);
 
 }
 

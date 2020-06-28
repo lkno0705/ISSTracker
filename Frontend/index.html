@@ -38,6 +38,7 @@
     <script type="text/javascript" src="javascript/crewCompliment.js"></script>
     <script type="text/javascript" src="javascript/slideshow.js"></script>
     <script type="text/javascript" src="javascript/rss.js"></script>
+    <script type="text/javascript" src="javascript/gpxRender.js"></script>
 </head>
 
 <body style="height:100%;margin:0">
@@ -67,7 +68,7 @@
                 <label for="followISS"></label>
             </div>
             <div class="checkbox2">
-                <input type="checkbox" id="drawISSroute" name="drawISSroute" onchange="drawISS()" class="radioBtn">
+                <input type="checkbox" id="drawISSroute" name="drawISSroute" onchange="callBackEndISSDB()" class="radioBtn">
                 <label for="drawISSroute"></label>
             </div>
         </div>
