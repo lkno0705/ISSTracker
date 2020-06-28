@@ -62,7 +62,7 @@ function createMap() {
 
 function drawCounties(map) {
     // Load kml file
-    fetch('kml/test.kml')
+    fetch('kml/TM_WORLD_BORDERS-0.3.kml')
         .then(res => res.text())
         .then(kmltext => {
             // Create new kml overlay
