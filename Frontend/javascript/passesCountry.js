@@ -30,7 +30,32 @@ function callCountryBackEnd(countryName){
 // creation of html DOM
 
 function countryCallBack(oData){
-    var xmlString = oData.responseText;
+    var xmlString = "<?xml version='1.0' encoding='UTF-8'?>" +
+    "<Request>"+
+       "<requestName>ISSCountryPasses</requestName>"+
+        "<data>"+
+            "<numberOfPasses>4</numberOfPasses>"+
+            "<passes>"+
+                "<pass>"+
+                   "<startTime>2020-06-26 18-15-03</startTime>"+
+                    "<endTime>2020-06-26 22-56-39</endTime>"+
+                "</pass>"+
+                "<pass>"+
+                    "<startTime>2020-06-26 19-47-55</startTime>"+
+                    "<endTime />"+
+                "</pass>"+
+                "<pass>"+
+                    "<startTime>2020-06-26 21-20-48</startTime>"+
+                    "<endTime />"+
+                "</pass>"+
+                "<pass>"+
+                    "<startTime>2020-06-26 22-56-28</startTime>"+
+                    "<endTime />"+
+                "</pass>"+
+            "</passes>"+
+        "</data>"+
+    "</Request>"
+    // var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     transform2(xmlDoc, 'xsl/countryflyby.xsl',"infoOnCountry"); // XSL transformation
@@ -40,11 +65,3 @@ function countryCallBack(oData){
     console.log("onCountry");
     //waitForXSL();
 }
-
-function waitForXSL(){
-    var slides = document.getElementsByClassName("mySlides");
-    if (slides.length!=0) 
-    showSlides(1);
-  
-    setTimeout(waitForXSL, 50);
-  } 
