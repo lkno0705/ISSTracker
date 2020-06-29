@@ -56,7 +56,7 @@ function createMap() {
         removePopUps(); 
       });
 
-    // drawCounties(mymap);
+    drawCounties(mymap);
 
 }
 
