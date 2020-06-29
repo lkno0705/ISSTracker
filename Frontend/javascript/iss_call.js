@@ -32,7 +32,7 @@ function createISS(bReFocus) {
             console.log("moveISSbefore");
         }
       });
-    setTimeout(moveISS, 5000);
+    moveISS();
 }
 
 // function to move the ISS along the Map
