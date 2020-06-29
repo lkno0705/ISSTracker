@@ -40,18 +40,18 @@ function countryCallBack(oData){
                    "<startTime>2020-06-26 18-15-03</startTime>"+
                     "<endTime>2020-06-26 22-56-39</endTime>"+
                 "</pass>"+
-                "<pass>"+
-                    "<startTime>2020-06-26 19-47-55</startTime>"+
-                    "<endTime />"+
-                "</pass>"+
-                "<pass>"+
-                    "<startTime>2020-06-26 21-20-48</startTime>"+
-                    "<endTime />"+
-                "</pass>"+
-                "<pass>"+
-                    "<startTime>2020-06-26 22-56-28</startTime>"+
-                    "<endTime />"+
-                "</pass>"+
+                // "<pass>"+
+                //     "<startTime>2020-06-26 19-47-55</startTime>"+
+                //     "<endTime />"+
+                // "</pass>"+
+                // "<pass>"+
+                //     "<startTime>2020-06-26 21-20-48</startTime>"+
+                //     "<endTime />"+
+                // "</pass>"+
+                // "<pass>"+
+                //     "<startTime>2020-06-26 22-56-28</startTime>"+
+                //     "<endTime />"+ 
+                // "</pass>"+
             "</passes>"+
         "</data>"+
     "</Request>"
