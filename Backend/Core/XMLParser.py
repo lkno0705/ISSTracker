@@ -138,17 +138,17 @@ def _convertGeoJSONToXML(requestData):
 
         count = 0
         while str(count) in country:
-            countElem = Element(str(count))
+            pointElem = Element("point")
 
             latElem = Element('latitude')
             latElem.text = country[str(count)]['latitude']
-            countElem.append(latElem)
+            pointElem.append(latElem)
 
             lonElem = Element('longitude')
             lonElem.text = country[str(count)]['longitude']
-            countElem.append(lonElem)
+            pointElem.append(lonElem)
 
-            countryChild.append(countElem)
+            countryChild.append(pointElem)
             count = count + 1
 
     dataChild.append(countriesElem)
@@ -444,4 +444,3 @@ def parseRequestParamsXMLToDic(xml):
 # print("\n")
 # print(reformatData(issdbkey, 'ISSDB'))
 # print("\n")
-

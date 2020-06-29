@@ -17,6 +17,8 @@ function addCircle(latlng){
     if (circle)
      circle.removeFrom(mymap);
     var slider = document.getElementById("position_radius");
-    circle = L.circle(latlng, slider.value*1000).addTo(mymap);
+    circle = L.circle(latlng, slider.value*1000,{
+        className: "circle"
+    }).addTo(mymap);
 }
 
