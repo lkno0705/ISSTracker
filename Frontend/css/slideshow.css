@@ -8,7 +8,7 @@ img {vertical-align: middle;}
 
 #astrosOnIss h2{
 	margin:auto;
-    text-align:center;	
+    text-align:center;
 }
 
 /* Slideshow container */
@@ -52,7 +52,7 @@ img {vertical-align: middle;}
 
 /* Caption text */
 .text {
-  color: #f2f2f2;
+  color: var(--color-rss);
   font-size: 15px;
   padding: 8px 12px;
   position: static;
@@ -95,12 +95,12 @@ img {vertical-align: middle;}
 }
 
 @-webkit-keyframes fade {
-  from {opacity: .4} 
+  from {opacity: .4}
   to {opacity: 1}
 }
 
 @keyframes fade {
-  from {opacity: .4} 
+  from {opacity: .4}
   to {opacity: 1}
 }
 
@@ -124,7 +124,7 @@ img {vertical-align: middle;}
 
 .innerSlider span{
   margin: 5px;
- 
+
 }
 
 .image{
