@@ -149,7 +149,7 @@ $(document).ready(function () {
     createMap();
     loadingText(1);
     // drawSVG();
-    coordinate2pixel('xml/germany.xml');
+    // coordinate2pixel('xml/germany.xml');
     // renderGPX();
     // addMarker(50.5,30.5);
     getRadiusSliderValue();
