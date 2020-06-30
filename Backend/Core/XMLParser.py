@@ -42,18 +42,31 @@ def _convertISSDBKeyToXML(requestData):
 
     dataChild = Element("data")
 
+    roundChild = Element("round")
     timeValueElem = Element("timeValue")
 
-    for x in range(0, len(requestData), 2):
+    longNow = 0
+    LongLast = 0
+    test = False
 
+    for x in range(0, len(requestData), 2):
         timeValueElem.attrib = {"time": requestData[x].timeValue}
 
         for i in range(0, 2):
+            name = requestData[x + i].key
+            if name == "longitude":
+                longNow = float(requestData[x + i].value)
+                test = True
             keyElem = Element(requestData[x + i].key)
             keyElem.text = str(requestData[x + i].value)
             timeValueElem.append(keyElem)
 
-        dataChild.append(timeValueElem)
+        if longNow < LongLast != 0 and test:
+            dataChild.append(roundChild)
+            roundChild = Element("round")
+            test = False
+        LongLast = longNow
+        roundChild.append(timeValueElem)
         timeValueElem = Element("timeValue")
 
     elem.append(dataChild)
