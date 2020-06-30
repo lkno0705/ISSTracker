@@ -75,6 +75,7 @@ function moveISS() {
         }
         $(".overlay").hide();
         $(".loadwrapper").hide();
+        changeCursor('default');
         issIcon.start();
         console.log("Lang: " + lat + " Long: " + lon);
     }

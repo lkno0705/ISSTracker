@@ -143,6 +143,12 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+
+function changeCursor(cursor){
+    document.body.style.cursor = cursor;  
+}
+
+
 function getSliderTime(){    
   return  getCurrentTime( getSliderValue());
 }
@@ -171,8 +177,9 @@ function pad(n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
+
 $(document).ready(function () {
-    console.log("create map call");
+    console.log("create map call");   
     var mymap;  
     createMap();
     loadingText(1);
@@ -183,6 +190,8 @@ $(document).ready(function () {
     // addMarker(50.5,30.5);
     getRadiusSliderValue();
     getSliderValue();
-    rssCall()
+    rssCall();
     // callBackEnd();
+    countriesCallBackEnd();
+    changeCursor('wait');
 });

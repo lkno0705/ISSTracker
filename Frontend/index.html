@@ -43,13 +43,14 @@
     <script type="text/javascript" src="javascript/crewCompliment.js"></script>
     <script type="text/javascript" src="javascript/slideshow.js"></script>
     <script type="text/javascript" src="javascript/rss.js"></script>
+    <script type="text/javascript" src="javascript/geoCoding.js"></script>
     <script type="text/javascript" src="javascript/gpxRender.js"></script>
 </head>
 
 <body style="height:100%;margin:0" data-theme="dark">
 
 <!------------------------ Class for loading animation, can be dismissed when loading times improve ----------------------------------------->
-<div class="loadwrapper outer">    
+<div class="loadwrapper outer" style="pointer-events: auto;">    
     <div class="middle">
         <div class="loader inner" style="position: absolute;"></div>
         <div class="logo inner" style="position: absolute;">
@@ -106,7 +107,7 @@
         <div class="one">
             <div id="input" style="float:left;z-index:1; background-color :transparent">
                 <form>
-                    <input type="text" id="plz" name="plz" autofocus placeholder="Enter ZIP Code" style="height: 30px">
+                    <input class="input" type="text" id="plz" name="plz" autofocus placeholder="Enter ZIP Code" style="height: 30px">
                 </form>
             </div>
         </div>
@@ -114,6 +115,12 @@
             <button id="close-image" onclick="start()" class="issButton"><img
                     src="images/iss_top.png"></button>
         </div>
+		<form>
+            <input class="input" list="countries" name="countries" placeholder="Enter country" style="height: 30px;">
+            <datalist id="countries">                  
+            </datalist>
+            <input type="hidden">
+        </form>
         <div class="checkbox-hidden">
             <div class="checkbox1">
                 <input type="checkbox" id="followISS" name="followISS" onchange="followISS()" class="radioBtn">

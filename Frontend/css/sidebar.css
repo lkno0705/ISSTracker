@@ -180,7 +180,7 @@ margin: auto;
 
 .one {
 float: left;
-pointer-events: auto;
+
 }
 
 .two {
@@ -291,14 +291,15 @@ pointer-events: auto;
  }
 
 /* Input styling*/
- input[type="text"]{
+ .input{
      border-radius: 5px;
      border: 2px solid #ddd;
      color: black;
      margin-top: 2.5px;
+     pointer-events: auto;
  }
 
- input[type="text"]:focus{
+ .input:focus{
      border: 3px solid rgb(11, 61, 145);
  }
 
