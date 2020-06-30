@@ -15,6 +15,7 @@ issRoute.removeFrom(mymap);
     
   },
     polyline_options: {
+      className: "gpx",
       color: 'green',
       opacity: 0.75,
       weight: 3,
