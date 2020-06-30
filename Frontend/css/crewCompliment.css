@@ -1,7 +1,7 @@
 #issOnBoard{
     pointer-events: none;
     background:none;
-    color: white;
+    color:  var(--color-color);
     width: fit-content;
     height: fit-content;
     overflow-y: hidden;  
@@ -11,7 +11,7 @@
 #issOnBoardWrapper{
     pointer-events: none;
     background:none;
-    color: white;
+    color: var(--color-color);
     width: fit-content;
     height: fit-content;
     /* overflow-y: hidden;   */
@@ -19,7 +19,7 @@
 }
 
 #astrosOnIss{
-    background-color: #111;
+    background-color: var(--color-bg);
     pointer-events: auto;
     padding: 10px;
     border-radius: 5px;

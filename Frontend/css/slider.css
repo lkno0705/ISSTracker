@@ -2,18 +2,19 @@
     -webkit-appearance: none;
     width: 100%;
     height: 10px;
-    background: white;
+    border: 2px solid var(--color-slider-border);
+    background-color: var(--color-slider);
     outline: none;
     opacity: 1;
     -webkit-transition: .2s;
     transition: opacity .2s;
     border-radius: 5px;
   }
-  
+
   .slider:hover {
     opacity: 1;
   }
-  
+
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -23,7 +24,7 @@
     cursor: pointer;
     border-radius: 20px;
   }
-  
+
   .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
@@ -40,7 +41,7 @@
     margin-top: 1em;
     width: 100%;
   }
-  
+
   .four {
     margin-top: 1em;
     width: 100%;

@@ -62,7 +62,7 @@ function createMap() {
 
 function drawCounties(map) {
     // Load kml file
-    fetch('kml/TM_WORLD_BORDERS-0.3.kml')
+    fetch('kml/world_med_res.kml')
         .then(res => res.text())
         .then(kmltext => {
             // Create new kml overlay
@@ -143,17 +143,55 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+
+function changeCursor(cursor){
+    document.body.style.cursor = cursor;  
+}
+
+
+function getSliderTime(){    
+  return  getCurrentTime( getSliderValue());
+}
+
+function getCurrentTime(past){
+ 
+
+    var date = new Date(); 
+    if (past) {
+        var time = date.setTime( date.getTime() - past*60*1000);
+        date = new Date(time);
+    }
+    var day = pad(date.getUTCDate(),2);
+    var month = pad(date.getUTCMonth() + 1,2);
+    var year = date.getUTCFullYear();
+    var hour = pad(date.getUTCHours(),2);
+    var minute  = pad(date.getUTCMinutes(),2);
+    var seconds = pad(date.getUTCSeconds(),2);
+
+    return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
+}
+
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+
 $(document).ready(function () {
-    console.log("create map call");
+    console.log("create map call");   
     var mymap;  
     createMap();
     loadingText(1);
     // drawSVG();
-    coordinate2pixel('xml/germany.xml');
+    // coordinate2pixel('xml/germany.xml');
     // renderGPX();
+    // callBackEndISSDB();
     // addMarker(50.5,30.5);
     getRadiusSliderValue();
     getSliderValue();
-    rssCall()
+    rssCall();
     // callBackEnd();
+    countriesCallBackEnd();
+    changeCursor('wait');
 });
