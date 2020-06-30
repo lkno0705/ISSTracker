@@ -3,7 +3,7 @@ function countriesCallBackEnd(){
         url: 'http://127.0.0.1:8082/GeoJson',
         data: "<?xml version='1.0' encoding='UTF-8'?>"+
         "<Request>"+
-        "<requestName>ISSDB<requestName>"+
+        "<requestName>GeoJson<requestName>"+
         "<params>"+
         "<country>all</country>"+
         "</params>"+
