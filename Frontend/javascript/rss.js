@@ -20,18 +20,6 @@ function rssCall(){
     rssCallBackEnd(0, 5);
 }
 
-function getCurrentTime(){
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    var hour = date.getHours();
-    var minute  = date.getMinutes();
-    var seconds = date.getSeconds();
-
-    return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
-}
-
 function rssCallBackEnd(start, end){
     $.ajax({
         url: 'http://127.0.0.1:8082/RSS-Feed',

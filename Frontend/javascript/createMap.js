@@ -143,6 +143,34 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+function getSliderTime(){    
+  return  getCurrentTime( getSliderValue());
+}
+
+function getCurrentTime(past){
+ 
+
+    var date = new Date(); 
+    if (past) {
+        var time = date.setTime( date.getTime() - past*60*1000);
+        date = new Date(time);
+    }
+    var day = pad(date.getUTCDate(),2);
+    var month = pad(date.getUTCMonth() + 1,2);
+    var year = date.getUTCFullYear();
+    var hour = pad(date.getUTCHours(),2);
+    var minute  = pad(date.getUTCMinutes(),2);
+    var seconds = pad(date.getUTCSeconds(),2);
+
+    return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
+}
+
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
 $(document).ready(function () {
     console.log("create map call");
     var mymap;  
@@ -151,6 +179,7 @@ $(document).ready(function () {
     // drawSVG();
     // coordinate2pixel('xml/germany.xml');
     // renderGPX();
+    // callBackEndISSDB();
     // addMarker(50.5,30.5);
     getRadiusSliderValue();
     getSliderValue();
