@@ -33,7 +33,15 @@ function load(url, callback) {
           }
         );
       }
-   
+
+  function transform3(xml, xsl, callback) {  
+        load(
+          xsl,
+          function(xsltSheet) {
+            callback(returnResult(xml, xsltSheet));
+          }
+        );
+      }
 
 
 // display result of xsl tranformation
@@ -45,5 +53,18 @@ function load(url, callback) {
     }
     else if (typeof xmlInput.transformNode !== 'undefined') {
       document.getElementById(target).innerHTML = xmlInput.transformNode(xsltSheet);
+    }
+  }
+
+  function returnResult(xmlInput, xsltSheet) {
+    if (typeof XSLTProcessor !== 'undefined') {
+      var proc = new XSLTProcessor();
+      proc.importStylesheet(xsltSheet);
+      xml = proc.transformToFragment(xmlInput, document);
+      xmlText = new XMLSerializer().serializeToString(xml)
+     return xmlText
+    }
+    else if (typeof xmlInput.transformNode !== 'undefined') {
+      return xmlInput.transformNode(xsltSheet);
     }
   }
