@@ -143,8 +143,12 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+function changeCursor(cursor){
+    document.body.style.cursor = cursor;  
+}
+
 $(document).ready(function () {
-    console.log("create map call");
+    console.log("create map call");   
     var mymap;  
     createMap();
     loadingText(1);
@@ -157,4 +161,5 @@ $(document).ready(function () {
     rssCall();
     // callBackEnd();
     countriesCallBackEnd();
+    changeCursor('wait');
 });
