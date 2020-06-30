@@ -1,0 +1,45 @@
+.leaflet-popup-content-wrapper{
+    min-width: 500px;
+    width: fit-content;
+    min-height: 400px;
+    height: fit-content;
+    background: black;
+}
+
+#infoOnCountry{
+    pointer-events: none;
+    background:none;
+    color: white;
+    width: 400px;
+    height: fit-content;
+    overflow-y: hidden;  
+    position: absolute;
+}
+
+#issOnCountryWrapper{
+    pointer-events: none;
+    background:none;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+}
+
+#countryPasses{
+    background-color: black;
+    pointer-events: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.issCountyPasses-container{
+    height: 100px;
+}
+
+.text-startTime{
+    height: 50px;
+}
+
+.text-endTime{
+    height: 50px;
+}

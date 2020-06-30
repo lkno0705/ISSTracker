@@ -53,11 +53,28 @@ function createMap() {
       });
     
     mymap.on('click', function() {
-        removePopUps(); 
+        removePopUps();
       });
 
-      
-   
+    drawCounties(mymap);
+
+}
+
+function drawCounties(map) {
+    // Load kml file
+    fetch('kml/TM_WORLD_BORDERS-0.3.kml')
+        .then(res => res.text())
+        .then(kmltext => {
+            // Create new kml overlay
+            const parser = new DOMParser();
+            const kml = parser.parseFromString(kmltext, 'text/xml');
+            const track = new L.KML(kml);
+            map.addLayer(track);
+
+            // Adjust map to show the kml
+            const bounds = track.getBounds();
+            map.fitBounds(bounds);
+        });
 }
 
 function toggleMenuOn(e) {
@@ -75,29 +92,26 @@ function toggleMenuOn(e) {
 
 // trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
 
-var mainLayer;
 
-// funtion to draw geoJson to map, just for test purposes 
-function drawGeoJSON(){
-    $.getJSON("json/world_med_res.json", function(json) {
-        data = json;
-        console.log(json); // this will show the info it in firebug console
-        mainLayer=L.geoJSON(json, {
-                style: function (feature) {
-                    return {color: '#FFFFFF',
-                            opacity: .2,
-                            fillOpacity: 0};
-                }
-            }).bindPopup(function (layer) {  
-                console.log("PopUp: " + layer.feature.properties.name_sort) 
-                //removePopUps();   
-                //functins        
-            return onCountry(layer.feature.properties.name_sort);//layer.feature.properties.name_sorton.onCountry();
-        })//.on('click', onCountry) // should notice an event when clicked
-        .addTo(mymap);
-        //mainLayer.on("click", onCountry);
-    });
-}
+// // funtion to draw geoJson to map, just for test purposes
+// function drawGeoJSON(){
+//     $.getJSON("json/world_med_res.json", function(json) {
+//         data = json;
+//         console.log(json); // this will show the info it in firebug console
+//         mainLayer=L.geoJSON(json, {
+//                 style: function (feature) {
+//                     return {color: '#FFFFFF',
+//                             opacity: .2,
+//                             fillOpacity: 0};
+//                 }
+//             }).bindPopup(function (layer) {
+//                 removePopUps();
+//                 //functins
+//             return layer.feature.properties.name_sort;
+//         })//**.bindTooltip('click for more information')
+//         .addTo(mymap);
+//     });
+// }
 
 function showCoordinate(){
 
@@ -135,7 +149,6 @@ $(document).ready(function () {
     createMap();
     loadingText(1);
     // drawSVG();
-    drawGeoJSON();
     coordinate2pixel('xml/germany.xml');
     // renderGPX();
     // addMarker(50.5,30.5);

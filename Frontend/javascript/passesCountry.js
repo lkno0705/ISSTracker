@@ -1,4 +1,7 @@
 // function that handles click on country 
+var oneTime = 5;
+// var stylesheet = [];
+
 function onCountry(countryName){
     removePopUps();
     callCountryBackEnd(countryName);
@@ -13,7 +16,7 @@ function callCountryBackEnd(countryName){
        "<Request>" +
             "<requestName>ISSDB<requestName>" +
             "<params>" + 
-                    "<startTime>2019-06-15 12-00-00</startTime>" +
+                    "<startTime>" + getCurrentTime(720) +"</startTime>" +
                     "<endTime>" + getCurrentTime() +"</endTime>" +
                     "<country>" + countryName + "</country>" +
             "</params>" +
@@ -23,7 +26,7 @@ function callCountryBackEnd(countryName){
         dataType: 'xml',
         success: function() { console.log("Success!")},
         error: function() { console.log('Failed!')},
-        complete: function(oData){ countryCallBack(oData);}
+        complete: function(oData){countryCallBack(oData);}
     });
 }
 
@@ -39,29 +42,38 @@ function countryCallBack(oData){
                 "<pass>"+
                    "<startTime>2020-06-26 18-15-03</startTime>"+
                     "<endTime>2020-06-26 22-56-39</endTime>"+
-                "</pass>"+
-                // "<pass>"+
-                //     "<startTime>2020-06-26 19-47-55</startTime>"+
-                //     "<endTime />"+
-                // "</pass>"+
-                // "<pass>"+
-                //     "<startTime>2020-06-26 21-20-48</startTime>"+
-                //     "<endTime />"+
-                // "</pass>"+
-                // "<pass>"+
-                //     "<startTime>2020-06-26 22-56-28</startTime>"+
-                //     "<endTime />"+ 
-                // "</pass>"+
+                "</pass>" +
             "</passes>"+
         "</data>"+
     "</Request>"
     // var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
-    transform2(xmlDoc, 'xsl/countryflyby.xsl',"infoOnCountry"); // XSL transformation
-    console.log("PassBy");
-   // document.getElementById("infoOnCountry").style.left=e.originalEvent.x + "px";
-   // document.getElementById("infoOnCountry").style.top=e.originalEvent.y + "px"; 
-    console.log("onCountry");
-    //waitForXSL();
+    document.getElementById("infoOnCountry").innerHTML='';
+    transform2(xmlDoc, 'xsl/countryflyby.xsl', "infoOnCountry")
+    // waitForPopUp();
+    console.log("PopUp: onCountry"); // XSL transformation
+}
+
+// function setDelay(i){
+//     setTimeout(countryCallBack);
+//     console.log(i);
+// }
+
+//setTimeout for PopUp
+function waitForPopUp(){
+    // setTimeout(countryCallBack, 500);
+
+    // for(var i=0; i <= 5; i++){
+    //     setDelay(i);
+    // }
+
+    if(oneTime<=4){
+        let time = setTimeout(waitForPopUp, 50);
+        oneTime += 1;
+        // clearTimeout(time);
+    }else{
+        // clearTimeout(countryCallBack, 50);
+        oneTime = 1;
+    }
 }
