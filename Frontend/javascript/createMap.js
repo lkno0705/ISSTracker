@@ -62,7 +62,7 @@ function createMap() {
 
 function drawCounties(map) {
     // Load kml file
-    fetch('kml/TM_WORLD_BORDERS-0.3.kml')
+    fetch('kml/world_med_res.kml')
         .then(res => res.text())
         .then(kmltext => {
             // Create new kml overlay
@@ -177,7 +177,7 @@ $(document).ready(function () {
     createMap();
     loadingText(1);
     // drawSVG();
-    coordinate2pixel('xml/germany.xml');
+    // coordinate2pixel('xml/germany.xml');
     // renderGPX();
     // callBackEndISSDB();
     // addMarker(50.5,30.5);
