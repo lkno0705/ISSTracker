@@ -6,27 +6,32 @@ var xmlDoc = parser.parseFromString(xmlString, "text/xml");
 transform3(xmlDoc, 'xsl/xml2gpx.xsl', function(gpx){
 if (issRoute)
 issRoute.removeFrom(mymap);
- issRoute = new L.GPX(gpx, {async: true, 
+ issRoute = new L.GPX(gpx, {
+  async: true, 
   marker_options: {
     startIconUrl: '',
     endIconUrl: '',
     shadowUrl: ''
-  },    wptIconUrls: {
-    
-  },
+  },    wptIconUrls: '',
     polyline_options: {
       className: "gpx",
       color: 'green',
       opacity: 0.75,
       weight: 3,
       lineCap: 'round'
-    } }).on('loaded', function(e) {
+    }
+  }).on('loaded', function(e) {
   mymap.fitBounds(e.target.getBounds());
 }).addTo(mymap);
 })
 };
 
 function callBackEndISSDB(){
+  var checkbox =  document.getElementById("drawISSroute")
+  if (!checkbox.checked) {
+    if (issRoute)
+    issRoute.removeFrom(mymap);
+  } else {
   var x =  getCurrentTime();
   var y = getSliderTime();
   $.ajax({
@@ -46,4 +51,5 @@ function callBackEndISSDB(){
     error: function() { console.log('Failed!')},
     complete: function(oData){ renderGPX(oData);}
   });
+ }
 }
