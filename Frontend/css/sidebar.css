@@ -2,7 +2,9 @@
 
 [data-theme="dark"] {
   --color-bg: #000000;
+  --color-left:#000000;
   --color-color: #FFFFFF;
+  --color-color-left: #FFFFFF;
   --color-rss: #f2f2f2;
   --color-slider: #EEE;
   --color-slider-border: #DDD;
@@ -11,11 +13,24 @@
 
 [data-theme="light"] {
   --color-bg: #FFFFFF;
+  --color-left:#FFFFFF;
   --color-color: #000000;
+  --color-color-left: #000000;
   --color-rss: #000000;
   --color-slider: #EEE;
   --color-slider-border: #DDD;
   --color-button-hover: #aaa
+}
+
+[data-theme="opacity"] {
+  --color-bg: #000000;
+  --color-left:#00000000;
+  --color-color: #FFFFFF;
+  --color-color-left: #FFFFFF00;
+  --color-rss: #f2f2f2;
+  --color-slider: #EEE;
+  --color-slider-border: #DDD;
+  --color-button-hover: #444
 }
 
  /* The sidebar menu */
@@ -97,7 +112,7 @@
   pointer-events: none;
   height: 100%; /* 100% Full-height */
   width: 250px; /* 0 width - change this with JavaScript */
-  background-color: var(--color-bg);
+  background-color: var(--color-left);
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0;
@@ -127,10 +142,11 @@
 
 /* The button used to open the sidebar */
 .openbtnLeft {
+  /* pointer-events: none; */
   font-size: 20px;
   cursor: pointer;
-  background-color: var(--color-bg);
-  color: white;
+  background-color: var(--color-left);
+  color: var(--color-color-left);
   padding: 10px 15px;
   border: none;
   margin-top: 30px;
@@ -158,7 +174,7 @@
 width: 0;
 height: 0;
 border-top: 10px solid transparent;
-border-right: 15px solid var(--color-color);
+border-right: 15px solid var(--color-color-left);
 border-bottom: 10px solid transparent;
 }
 
@@ -168,7 +184,7 @@ height: 0;
 border-top: 10px solid transparent;
 border-right: 15px solid var(--color-color);
 border-bottom: 10px solid transparent;
-transform: rotate(180deg);
+transform: rotate(0deg);
 }
 
 .container {
@@ -274,6 +290,7 @@ float: left;
      width: 100%;
      position: static;
      height: 40px;
+     margin-bottom: 30px;
  }
 
 
@@ -286,8 +303,8 @@ float: left;
  .checkbox2{
      width: 100%;
      position: static;
-     height: 30px;
-     margin-bottom: 30px;
+     height: 40px;
+     /* margin-bottom: 30px; */
  }
 
 /* Input styling*/

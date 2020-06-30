@@ -50,6 +50,7 @@ function toggleNavL() {
 
   // left menu after serch button pressed.
   function start(){
+    document.body.setAttribute('data-theme', 'dark');
     document.getElementById("openbtnLeft").style.display = "";
     document.getElementById("sliderLeft").style.display = "";
     document.getElementById("sliderRadius").style.display = "";
