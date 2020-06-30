@@ -336,6 +336,33 @@ def _convertISSPosToXML(requestData):
     elem.append(dataChild)
     return tostring(elem)
 
+#<Request>
+#    <requestName> Geocoding </requestName>
+#    <data>
+#       <latitude>-57.62513342958296</latitude>
+#       <longitude>-30.216294854454258</longitude>
+#    </data>
+#</Request>
+
+
+
+def _convertGeocodingToXML(requestData):
+    elem = Element('Request')
+    requestChild = Element('requestName')
+    requestChild.text = 'Geocoding'
+    elem.append(requestChild)
+    dataChild = Element('data')
+    latElem = Element('latitude')
+    latElem.text = str(requestData['latitude'])
+    dataChild.append(latElem)
+    lonElem = Element('longitude')
+    lonElem.text = str(requestData['longitude'])
+    dataChild.append(lonElem)
+
+    elem.append(dataChild)
+    return tostring(elem)
+
+
 
 def reformatData(requestData, requestName):
     functions = {
@@ -346,7 +373,8 @@ def reformatData(requestData, requestName):
         "ISSfuturePasses": _convertISSFuturePassesToXML,
         'GeoJson': _convertGeoJSONToXML,
         'AstrosOnISS': _convertAstrosToXML,
-        "RSS-Feed": _convertRSSFeedToXML
+        "RSS-Feed": _convertRSSFeedToXML,
+        "GeocodingAddress": _convertGeocodingToXML
         # List of Requests
     }
     # get xml
@@ -357,7 +385,7 @@ def reformatData(requestData, requestName):
 
 
 '''
-Example 
+Example
 #
 <Request>
    <requestName>ISS-Pos</requestName>
@@ -368,7 +396,7 @@ Example
    </params>
 </Request>
 
-to 
+to
 
 {
    "requestname": "ISSpos",
