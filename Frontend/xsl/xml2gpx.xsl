@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template match="/">
-		<gpx version="1.0">	
-			<wpt></wpt>
+		<gpx version="1.0">				
 				<trk>		
 					<xsl:for-each select="Request/data/timeValue">		
 						<trkpt>

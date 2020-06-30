@@ -3,3 +3,8 @@ img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive:first-of-type:
     border-radius: 100%;
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive:first-of-type{
+    margin-top: -50px !important;
+    margin-left: -50px !important;
+}
