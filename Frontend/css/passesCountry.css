@@ -1,45 +1,89 @@
 .leaflet-popup-content-wrapper{
-    min-width: 500px;
+    min-width: 380px;
     width: fit-content;
-    min-height: 400px;
+    min-height: 125px;
     height: fit-content;
-    background: black;
+    background: var(--color-bg);
+}
+
+.leaflet-popup-content{
+    display: contents;
+}
+
+.leaflet-popup-tip-container{
+    display: none;
+}
+
+.leaflet-popup-close-button{
+    display: none;
+}
+
+.leaflet-popup-tip{
+    background: var(--color-bg);
 }
 
 #infoOnCountry{
     pointer-events: none;
     background:none;
-    color: white;
-    width: 400px;
+    color: var(--color-color);
+    min-width: 380px;
+    width: fit-content;
+    min-height: 110px;
     height: fit-content;
-    overflow-y: hidden;  
     position: absolute;
+}
+
+#infoOnCountry h2{
+    margin:10px;
+    margin-bottom: 0px;
+    text-align:center;
 }
 
 #issOnCountryWrapper{
     pointer-events: none;
     background:none;
-    color: white;
+    color:var(--color-color);
     width: fit-content;
     height: fit-content;
     position: absolute;
 }
 
-#countryPasses{
-    background-color: black;
+.info-container{
+    background-color: var(--color-bg);
     pointer-events: auto;
     padding: 10px;
-    border-radius: 5px;
+    padding-top: 0px;
+    border-radius: 12px;
+    height: fit-content;
 }
+
+#infoOnCountry td{
+    text-align: center;
+}
+
+#infoOnCountry th{
+    text-align: center;
+}
+
+/* #countryPasses h2{ */
+	/* margin:auto;
+    text-align:center;
+} */
 
 .issCountyPasses-container{
-    height: 100px;
+    min-height: 15px;
+    height: fit-content;
+    font-size: 1em;
 }
 
-.text-startTime{
-    height: 50px;
+.text.startTime{
+    font-size: 1em;
+    min-height: 15px;
+    height: fit-content;
 }
 
-.text-endTime{
-    height: 50px;
+.text.endTime{
+    font-size: 1em;
+    min-height: 15px;
+    height: fit-content;
 }

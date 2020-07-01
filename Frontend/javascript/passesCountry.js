@@ -26,13 +26,13 @@ function callCountryBackEnd(countryName){
         dataType: 'xml',
         success: function() { console.log("Success!")},
         error: function() { console.log('Failed!')},
-        complete: function(oData){countryCallBack(oData);}
+        complete: function(oData){countryCallBack(oData, countryName);}
     });
 }
 
 // creation of html DOM
 
-function countryCallBack(oData){
+function countryCallBack(oData, countryName){
     var xmlString = "<?xml version='1.0' encoding='UTF-8'?>" +
     "<Request>"+
        "<requestName>ISSCountryPasses</requestName>"+
@@ -43,16 +43,25 @@ function countryCallBack(oData){
                    "<startTime>2020-06-26 18-15-03</startTime>"+
                     "<endTime>2020-06-26 22-56-39</endTime>"+
                 "</pass>" +
+                // "<pass>"+
+                //     "<startTime>2020-06-26 18-15-03</startTime>"+
+                //     "<endTime />"+
+                // "</pass>" +
+                // "<pass>"+
+                //    "<startTime>2020-06-26 18-15-03</startTime>"+
+                //     "<endTime>2020-06-26 22-56-39</endTime>"+
+                // "</pass>" +
             "</passes>"+
         "</data>"+
     "</Request>"
     // var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
-    document.getElementById("infoOnCountry").innerHTML='';
-    transform2(xmlDoc, 'xsl/countryflyby.xsl', "infoOnCountry")
+    transform2(xmlDoc, 'xsl/countryflyby.xsl', "infoOnCountry");
+    // document.getElementById("infoOnCountry").innerHTML='';
     // waitForPopUp();
     console.log("PopUp: onCountry"); // XSL transformation
+    // document.getElementById("countryPasses").append(countryName);
 }
 
 // function setDelay(i){
