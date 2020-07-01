@@ -4,6 +4,7 @@
 <xsl:template match="/">
   <div class="rss">
   <h2>RSS Feeds</h2>
+  <div class="border"></div>
   <xsl:for-each select="Request/data/RSS-Feed">
   <div class="rss-item">
       <div class="rss-image">
@@ -22,8 +23,8 @@
   </xsl:for-each>
   
     <div class="rss-buttons">
-        <a class="rss-prev" onclick="rssClick(-1)"><span>&#10094;</span></a>
-        <a class="rss-next" onclick="rssClick(1)"><span>&#10095;</span></a>
+        <a class="rss-prev"><span onclick="rssClick(-1)">&#10094;</span></a>
+        <a class="rss-next"><span onclick="rssClick(1)">&#10095;</span></a>
     </div>
     </div>
 </xsl:template>

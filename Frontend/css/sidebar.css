@@ -41,6 +41,7 @@
     z-index: 1; /* Stay on top */
     top: 0;
     right: -800px;
+    opacity: .9;
     background-color: var(--color-bg);
     overflow-x: hidden; /* Disable horizontal scroll */
     padding: 5px;
@@ -48,6 +49,10 @@
     color: #FFFFFF;
     display: flex;
     align-items: center;
+  }
+
+  .sidebar:hover {
+    opacity: 1.0;
   }
 
   /* The sidebar links */
@@ -116,13 +121,17 @@
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0;
-  left: 0px;
+  left: 0px; 
+  opacity: 0.9; 
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  padding-top: 10px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
   color: var(--color-color);
 }
 
+.sidebarLeft:hover {
+  opacity: 1.0;
+}
 
 /* The sidebar links */
 .sidebarLeft a {
