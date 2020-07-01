@@ -2,6 +2,7 @@
 var clickedBoth = false;
 var clickedL = false;
 var clickedR = false;
+var bContextMenu = false;
 // left menu
 function toggleNavL() {
   var x = document.getElementById("mySidebarLeft").style.left;
@@ -46,6 +47,8 @@ function toggleNavL() {
   }     
 
   function toggleClose(event) {
+    if (!bContextMenu)
+    {
     var mouseClickWidth = event.clientX;
     var controls = document.getElementsByClassName("leaflet-control-zoom");
 
@@ -82,6 +85,9 @@ function toggleNavL() {
       clickedL = false;
     }
   }
+  else
+   bContextMenu=false;
+  }
 
   function switchToLightmode() {
     //document.body.setAttribute('data-theme', 'light');
@@ -98,6 +104,8 @@ function toggleNavL() {
     document.getElementById("openbtnLeft").style.display = "";
     document.getElementById("sliderLeft").style.display = "";
     document.getElementById("sliderRadius").style.display = "";
+    document.getElementById("flyby").style.display = "";
+    document.getElementById("pastpasses").style.display = "";
     document.getElementById("mySidebarLeft").style.pointerEvents = "auto";
 
     var checkboxes = document.getElementsByClassName("checkbox-hidden");
@@ -108,4 +116,4 @@ function toggleNavL() {
     }
     clickedL = true;
   }
-  document.addEventListener("click", toggleClose)
+   document.addEventListener("click", toggleClose)

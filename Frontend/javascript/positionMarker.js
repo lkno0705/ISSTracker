@@ -6,11 +6,17 @@ function addMarker(lat,lng){
     posMarker.removeFrom(mymap);
    var latlng = L.latLng(lat, lng);
    posMarker = L.marker(latlng,{draggable:true}).addTo(mymap);
+   getFlyByInfo(latlng);
    addCircle(latlng,radius);
    posMarker.on('drag', function(e){
+    bContextMenu = true;
     var chagedPos = e.target.getLatLng();
     addCircle(chagedPos);
    });
+   posMarker.on('moveend', function(e){
+    bContextMenu = true;   
+    getFlyByInfo(e.target._latlng);
+   })
 }
 
 function addCircle(latlng){
