@@ -1,4 +1,4 @@
-// Map gets created, for options check leaflet docu
+// Mag gets created, for options check leaflet docu
 
 var markerLatlng;
 var menu;
@@ -57,6 +57,7 @@ function createMap() {
       });
 
     drawCounties(mymap);
+
 }
 
 function drawCounties(map) {
@@ -89,6 +90,33 @@ function toggleMenuOn(e) {
     }
 }
 
+// trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
+
+
+// // funtion to draw geoJson to map, just for test purposes
+// function drawGeoJSON(){
+//     $.getJSON("json/world_med_res.json", function(json) {
+//         data = json;
+//         console.log(json); // this will show the info it in firebug console
+//         mainLayer=L.geoJSON(json, {
+//                 style: function (feature) {
+//                     return {color: '#FFFFFF',
+//                             opacity: .2,
+//                             fillOpacity: 0};
+//                 }
+//             }).bindPopup(function (layer) {
+//                 removePopUps();
+//                 //functins
+//             return layer.feature.properties.name_sort;
+//         })//**.bindTooltip('click for more information')
+//         .addTo(mymap);
+//     });
+// }
+
+function showCoordinate(){
+
+}
+
 function removePopUps(){
     if  (menuState == 1)
     toggleMenuOn(); 
@@ -98,7 +126,6 @@ function removePopUps(){
 
 var i_text = 1;
 var i_start = 5;
-
 // loading text animation, can be scapped, when loading times improve. 
 function loadingText() {
     var s = "establishing satelite link...";
@@ -116,15 +143,19 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+
 function changeCursor(cursor){
     document.body.style.cursor = cursor;  
 }
+
 
 function getSliderTime(){    
   return  getCurrentTime( getSliderValue());
 }
 
 function getCurrentTime(past){
+ 
+
     var date = new Date(); 
     if (past) {
         var time = date.setTime( date.getTime() - past*60*1000);
@@ -146,8 +177,8 @@ function pad(n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
+
 $(document).ready(function () {
-    changeCursor('wait');
     console.log("create map call");   
     var mymap;  
     createMap();
@@ -162,4 +193,5 @@ $(document).ready(function () {
     rssCall();
     // callBackEnd();
     countriesCallBackEnd();
+    changeCursor('wait');
 });
