@@ -1,3 +1,4 @@
+/* leaflet-PopUp */
 .leaflet-popup-content-wrapper{
     min-width: 380px;
     width: fit-content;
@@ -15,11 +16,8 @@
     display: contents;
 }
 
+/* popup-tip & close-button */
 .leaflet-popup-tip-container{
-    display: none;
-}
-
-.leaflet-popup-close-button{
     display: none;
 }
 
@@ -27,6 +25,11 @@
     background: var(--color-bg);
 }
 
+.leaflet-popup-close-button{
+    display: none;
+}
+
+/* content-PupUp */
 #infoOnCountry{
     pointer-events: none;
     background:none;
@@ -38,12 +41,6 @@
     position: absolute;
 }
 
-#infoOnCountry h2{
-    margin:10px;
-    margin-bottom: 0px;
-    text-align:center;
-}
-
 #issOnCountryWrapper{
     pointer-events: none;
     background:none;
@@ -53,6 +50,14 @@
     position: absolute;
 }
 
+/* headline */
+#infoOnCountry h2{
+    margin:10px;
+    margin-bottom: 0px;
+    text-align:center;
+}
+
+/* info-sentence */
 .info-container{
     background-color: var(--color-bg);
     pointer-events: auto;
@@ -62,33 +67,58 @@
     height: fit-content;
 }
 
-#infoOnCountry td{
-    text-align: center;
-}
-
-#infoOnCountry th{
-    text-align: center;
-}
-
-/* #countryPasses h2{ */
-	/* margin:auto;
-    text-align:center;
-} */
-
 .issCountyPasses-container{
     min-height: 15px;
     height: fit-content;
     font-size: 1em;
 }
 
+.issCountyPasses-container p{
+    margin: 0px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 0px;
+    text-align: left;
+}
+
+/* table-content */
+.myPopUp{
+    background: var(--color-color);
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+#countryPasses th{
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-bg);
+}
+
+#countryPasses td{
+    text-align: center;
+    border: none;
+    background-color: var(--color-bg);
+    border-radius: 5px;
+    padding-block-start: 0px;
+    padding-block-end: 0px;
+}
+
 .text.startTime{
     font-size: 1em;
     min-height: 15px;
     height: fit-content;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-inline-end: 15px;
 }
 
 .text.endTime{
     font-size: 1em;
     min-height: 15px;
     height: fit-content;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-inline-end: 15px;
 }
