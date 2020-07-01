@@ -36,13 +36,13 @@ function callBackEndISSDB(){
   var y = getSliderTime();
   $.ajax({
     url: 'http://127.0.0.1:8082/ISSDB',
-    data: "<?xml version='1.0' encoding='UTF-8'?>"+
-    "<Request>"+
-    "<requestName>ISSDB<requestName>"+ 
-    "<params>"+
-    "<startTime>"+getSliderTime() +"</startTime>"+
-    "<endTime>"+getCurrentTime() +"</endTime>"+
-    "</params>"+
+    data: "<?xml version='1.0' encoding='UTF-8'?>" +
+    "<Request>" +
+    "<requestName>ISSDB<requestName>" + 
+    "<params>" +
+    "<startTime>" + getSliderTime() + "</startTime>"+
+    "<endTime>" + getCurrentTime() + "</endTime>"+
+    "</params>" +
     "</Request>",
     type: 'POST',
     crossDomain: true,
