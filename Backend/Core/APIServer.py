@@ -7,6 +7,7 @@ from Backend.Core.database import redisDB
 from Backend.Requests.issPastPasses import pastPasses
 from Backend.Requests.issFuturePasses import getFuturePass
 from Backend.Core.XMLParser import reformatData, parseRequestParamsXMLToDic
+from Backend.Requests.addressGeocoding import geocoder
 
 # Reimplementign Request Handler with custom Functions to handle GET Requests
 class requestHandler(BaseHTTPRequestHandler):
@@ -42,6 +43,9 @@ class requestHandler(BaseHTTPRequestHandler):
                 "latitude",
                 "longitude",
                 "number"
+            ],
+            "GeocodingAddress": [
+                "q"
             ]
         }
 
@@ -119,6 +123,8 @@ class requestHandler(BaseHTTPRequestHandler):
                 data = pastPasses().pastPasses(requestData=body)
             elif self.path == "/ISSfuturePasses":
                 data = getFuturePass(params=body["params"])
+            elif self.path == "/GeocodingAddress":
+                data = geocoder(params=body["params"])
 
             data = reformatData(requestData=data, requestName=self.path.strip("/?"))
 
