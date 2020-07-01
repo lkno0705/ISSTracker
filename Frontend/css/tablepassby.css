@@ -1,0 +1,15 @@
+.table-left-sidebar{
+    border: solid white 1px;
+    padding: 5px;
+    border-collapse: collapse;
+}
+
+#flyby, #pastpasses{
+    padding: 5px;   
+    position: relative;
+    min-height: 200px;
+}
+
+.flyOver h2{
+    text-align: center;
+}
