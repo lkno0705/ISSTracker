@@ -1,5 +1,7 @@
 // function to toggle width of menues, function needs to be adjusted for responsive use
-var counter = 0;
+var clickedBoth = false;
+var clickedL = false;
+var clickedR = false;
 // left menu
 function toggleNavL() {   
   var x = document.getElementById("mySidebarLeft").style.left;
@@ -8,13 +10,16 @@ function toggleNavL() {
       document.getElementById("mySidebarLeft").style.left = "-250px";
       document.getElementById("mainLeft").style.marginLeft = "-250px";
       document.getElementById("arrowleft").style.transform = "rotate(180deg)";
+      clickedL = false;
     }
     else
     {
       document.getElementById("mySidebarLeft").style.left = "0px";
       document.getElementById("mainLeft").style.marginLeft = "0px";
       document.getElementById("arrowleft").style.transform = "rotate(0deg)";
+      clickedL = true;
     }
+    
 }  
 
 //  right menu
@@ -28,6 +33,7 @@ function toggleNavL() {
         document.getElementById("arrowright").style.transform = "rotate(180deg)";
        
          controls[0].style.right = "800px";
+         clickedR = true;
       }
       else
       {
@@ -36,14 +42,19 @@ function toggleNavL() {
         document.getElementById("arrowright").style.transform = "rotate(0deg)";
        
           controls[0].style.right = "0";
+          clickedR = false;
       }
+      
   }     
 
   function toggleClose(event) {
     var mouseClickWidth = event.clientX;
     var controls = document.getElementsByClassName("leaflet-control-zoom");
+
+    if (clickedL && clickedR) clickedBoth = true;
+
     // close left & right
-    if (counter >= 1 && mouseClickWidth<=800 && mouseClickWidth>=250) {
+    if (clickedBoth && mouseClickWidth<=800 && mouseClickWidth>=250) {
       document.getElementById("mySidebar").style.right = "-800px";
       document.getElementById("main").style.marginRight = "0px";
       document.getElementById("arrowright").style.transform = "rotate(0deg)";
@@ -52,12 +63,25 @@ function toggleNavL() {
       document.getElementById("mySidebarLeft").style.left = "-250px";
       document.getElementById("mainLeft").style.marginLeft = "-250px";
       document.getElementById("arrowleft").style.transform = "rotate(180deg)";
+
+      clickedL = false;
+      clickedR = false;
+      clickedBoth = false;
+
       // close only right -> implemented because of side-effects from start() function
-    } else if (mouseClickWidth<=800 && mouseClickWidth>=250) {
+    } else if (clickedR && !clickedL && mouseClickWidth<=755 && window.getComputedStyle(document.getElementById("mySidebarLeft")).getPropertyValue('left') === "-250px") {
       document.getElementById("mySidebar").style.right = "-800px";
       document.getElementById("main").style.marginRight = "0px";
       document.getElementById("arrowright").style.transform = "rotate(0deg)";
       controls[0].style.right = "0";
+      
+      clickedR = false;
+    } else if (clickedL && !clickedR && mouseClickWidth>=295 && window.getComputedStyle(document.getElementById("mySidebar")).getPropertyValue('right') === "-800px") {
+      document.getElementById("mySidebarLeft").style.left = "-250px";
+      document.getElementById("mainLeft").style.marginLeft = "-250px";
+      document.getElementById("arrowleft").style.transform = "rotate(180deg)";
+
+      clickedL = false;
     }
   }
 
@@ -75,7 +99,7 @@ function toggleNavL() {
     {
       checkboxes[i].className = "checkbox-show";
     }
-    counter++;
+    clickedL = true;
   }
 
   document.addEventListener("click", toggleClose)
