@@ -56,8 +56,25 @@ function createMap() {
         removePopUps(); 
       });
 
-      
-   
+    drawCounties(mymap);
+
+}
+
+function drawCounties(map) {
+    // Load kml file
+    fetch('kml/world_med_res.kml')
+        .then(res => res.text())
+        .then(kmltext => {
+            // Create new kml overlay
+            const parser = new DOMParser();
+            const kml = parser.parseFromString(kmltext, 'text/xml');
+            const track = new L.KML(kml);
+            map.addLayer(track);
+
+            // Adjust map to show the kml
+            const bounds = track.getBounds();
+            map.fitBounds(bounds);
+        });
 }
 
 function toggleMenuOn(e) {
@@ -75,27 +92,26 @@ function toggleMenuOn(e) {
 
 // trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
 
-var mainLayer;
 
-// funtion to draw geoJson to map, just for test purposes 
-function drawGeoJSON(){
-    $.getJSON("json/world_med_res.json", function(json) {
-        data = json;
-        console.log(json); // this will show the info it in firebug console
-        mainLayer=L.geoJSON(json, {
-                style: function (feature) {
-                    return {color: '#FFFFFF',
-                            opacity: .2,
-                            fillOpacity: 0};
-                }
-            }).bindPopup(function (layer) {  
-                removePopUps();   
-                //functins        
-            return layer.feature.properties.name_sort;
-        })//**.bindTooltip('click for more information')
-        .addTo(mymap);
-    });
-}
+// // funtion to draw geoJson to map, just for test purposes
+// function drawGeoJSON(){
+//     $.getJSON("json/world_med_res.json", function(json) {
+//         data = json;
+//         console.log(json); // this will show the info it in firebug console
+//         mainLayer=L.geoJSON(json, {
+//                 style: function (feature) {
+//                     return {color: '#FFFFFF',
+//                             opacity: .2,
+//                             fillOpacity: 0};
+//                 }
+//             }).bindPopup(function (layer) {
+//                 removePopUps();
+//                 //functins
+//             return layer.feature.properties.name_sort;
+//         })//**.bindTooltip('click for more information')
+//         .addTo(mymap);
+//     });
+// }
 
 function showCoordinate(){
 
@@ -127,18 +143,55 @@ function loadingText() {
     setTimeout(loadingText, 20);
 }
 
+
+function changeCursor(cursor){
+    document.body.style.cursor = cursor;  
+}
+
+
+function getSliderTime(){    
+  return  getCurrentTime( getSliderValue());
+}
+
+function getCurrentTime(past){
+ 
+
+    var date = new Date(); 
+    if (past) {
+        var time = date.setTime( date.getTime() - past*60*1000);
+        date = new Date(time);
+    }
+    var day = pad(date.getUTCDate(),2);
+    var month = pad(date.getUTCMonth() + 1,2);
+    var year = date.getUTCFullYear();
+    var hour = pad(date.getUTCHours(),2);
+    var minute  = pad(date.getUTCMinutes(),2);
+    var seconds = pad(date.getUTCSeconds(),2);
+
+    return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
+}
+
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+
 $(document).ready(function () {
-    console.log("create map call");
+    console.log("create map call");   
     var mymap;  
     createMap();
     loadingText(1);
     // drawSVG();
-    drawGeoJSON();
-    coordinate2pixel('xml/germany.xml');
+    // coordinate2pixel('xml/germany.xml');
     // renderGPX();
+    // callBackEndISSDB();
     // addMarker(50.5,30.5);
     getRadiusSliderValue();
     getSliderValue();
-    rssCall()
+    rssCall();
     // callBackEnd();
+    countriesCallBackEnd();
+    changeCursor('wait');
 });
