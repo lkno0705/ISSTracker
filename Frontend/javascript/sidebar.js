@@ -4,8 +4,9 @@ var clickedL = false;
 var clickedR = false;
 var bContextMenu = false;
 // left menu
-function toggleNavL() {
+function toggleNavL(show) {
   var x = document.getElementById("mySidebarLeft").style.left;
+  if (!show){
     if (document.getElementById("mySidebarLeft").style.left == "0px" || document.getElementById("mySidebarLeft").style.left == "")
     {
       document.getElementById("mySidebarLeft").style.left = "-250px";
@@ -18,8 +19,16 @@ function toggleNavL() {
       document.getElementById("mySidebarLeft").style.left = "0px";
       document.getElementById("mainLeft").style.marginLeft = "0px";
       document.getElementById("arrowleft").style.transform = "rotate(0deg)";
-      clickedL = true;
+      clickedL = true; 
     }
+  }
+  else
+  {
+    document.getElementById("mySidebarLeft").style.left = "0px";
+    document.getElementById("mainLeft").style.marginLeft = "0px";
+    document.getElementById("arrowleft").style.transform = "rotate(0deg)";
+    clickedL = true; 
+  }
 }  
 
 //  right menu

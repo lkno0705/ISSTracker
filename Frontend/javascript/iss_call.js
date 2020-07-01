@@ -1,6 +1,8 @@
 // this function directly calls the ISS-Api, will be refactored to call our own BE
 var bFollowISS = false;
 var oldLng;
+var latlng;
+var issIcon;
 
 function createISS(bReFocus) {
     console.log("createISS");
@@ -19,7 +21,8 @@ function createISS(bReFocus) {
             var lat = xmlDoc.getElementsByTagName("latitude")[0].innerHTML;
             var lon = xmlDoc.getElementsByTagName("longitude")[0].innerHTML;
     
-            var latlng = L.latLng(lat, lon);
+            latlng = L.latLng(lat, lon);
+            mymap.flyTo(latlng, 6);
             create([latlng, latlng]);
             //marker.setLatLng([lat, lon]); 
             if (!bReFocus) 
@@ -70,14 +73,18 @@ function moveISS() {
         issIcon.moveTo(latlng, 5000)
         if (bFollowISS)
         {
-            mymap.panTo(latlng);
-            mymap.setZoom(5);
+            mymap.panTo(issIcon._latlng,{
+                animate: true,
+                duration: 5.0,
+                easeLinearity: 1
+            });             
         }
+
+        issIcon.start();
+        console.log("Lang: " + lat + " Long: " + lon);
         $(".overlay").hide();
         $(".loadwrapper").hide();
         changeCursor('default');
-        issIcon.start();
-        console.log("Lang: " + lat + " Long: " + lon);
     }
     }); 
      setTimeout(moveISS, 5000);
@@ -88,11 +95,24 @@ function drawISS(){
 }
 
 function followISS(){
-console.log("followISS");
-if (document.getElementById("followISS").checked)
-    bFollowISS=true;
-else
-    bFollowISS=false;
+    console.log("followISS");
+    if (document.getElementById("followISS").checked)
+        {
+            console.log(issIcon);
+            mymap.setView(latlng,6);  
+            // mymap.setZoom(6);
+            mymap.setMinZoom(6);
+            mymap.setMaxZoom(6);
+            bFollowISS=true;
+            document.getElementById("mapid").style.pointerEvents ="none";
+        }
+    else
+        {
+            bFollowISS=false;
+            mymap.setMinZoom(3);
+            mymap.setMaxZoom(7);
+            document.getElementById("mapid").style['pointer-events'] = "auto";
+        }
 };
 
 var issPNG = L.icon({
@@ -113,7 +133,3 @@ function create(strecke) {
     issIcon.on("click", onBoard);
     // issIcon.on("mouseover", addBorder);
 }
-
-
-var issIcon;
-createISS();  
