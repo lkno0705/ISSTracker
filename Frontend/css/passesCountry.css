@@ -4,7 +4,12 @@
     min-height: 125px;
     height: fit-content;
     background: var(--color-bg);
+    opacity: .9;
 }
+
+.leaflet-popup-content-wrapper:hover{
+    opacity: 1;
+    }
 
 .leaflet-popup-content{
     display: contents;
