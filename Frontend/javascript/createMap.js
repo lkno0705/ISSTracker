@@ -53,7 +53,7 @@ function createMap() {
       });
     
     mymap.on('click', function() {
-        removePopUps(); 
+        removePopUps();
       });
 
     drawCounties(mymap);
@@ -146,6 +146,7 @@ function loadingText() {
 
 function changeCursor(cursor){
     document.body.style.cursor = cursor;  
+    // document.getElementById("mapid").style.cursor = "none";
 }
 
 
