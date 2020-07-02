@@ -43,6 +43,12 @@ function callBackEndFlyBy(latlng){
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     document.getElementById("pastpasses").innerHTML = "";
+    if(xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes.length){
+    for (var i = 0; i < xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes.length; i++)
+    {
+      xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[0].innerHTML = parse2localTime(xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[0].innerHTML);
+      xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[1].innerHTML = parse2localTime(xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[1].innerHTML);
+    }}
     transform2(xmlDoc, 'xsl/pastpasses.xsl',"pastpasses"); // XSL transformation
     console.log("renderFlyBy");
     var objDiv = document.getElementById("mySidebarLeft");
@@ -83,6 +89,10 @@ function callBackEndFlyBy(latlng){
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     document.getElementById("flyby").innerHTML = "";
+    for (var i = 0; i < xmlDoc.childNodes[0].childNodes[1].childNodes[0].childNodes.length; i++)
+    {
+      xmlDoc.childNodes[0].childNodes[1].childNodes[0].childNodes[i].firstChild.innerHTML = parse2localTime(xmlDoc.childNodes[0].childNodes[1].childNodes[0].childNodes[i].firstChild.innerHTML);
+    }
     transform2(xmlDoc, 'xsl/flyby.xsl',"flyby"); // XSL transformation
     console.log("renderFutureFlyBy");   
     // var objDiv = document.getElementById("mySidebarLeft");
@@ -91,4 +101,22 @@ function callBackEndFlyBy(latlng){
     document.getElementById("flyby").innerHTML = "<h2>No passes in the near future</h2>";
     objDiv.scrollTop = objDiv.scrollHeight;    
     //waitForXSL();
+}
+
+function parse2localTime(s){
+  s = s.split(" ")
+  date = s[0];
+  time = s[1];
+  date = date.split("-");
+  time = time.split("-");
+
+  var oDate = new Date();
+  oDate.setUTCDate(parseInt(date[2]));
+  oDate.setUTCMonth(parseInt(date[1]-1));
+  oDate.setUTCFullYear(parseInt(date[0]));
+  oDate.setUTCHours(parseInt(time[0]));
+  oDate.setUTCMinutes(parseInt(time[1]));
+  oDate.setUTCSeconds(parseInt(time[2]));
+  test =  oDate.toLocaleString();
+  return oDate.toLocaleString();
 }
