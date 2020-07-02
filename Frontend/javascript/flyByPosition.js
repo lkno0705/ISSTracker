@@ -1,10 +1,18 @@
+var bStarted = false;
+
 function getFlyByInfo(latlng){
     console.log("Now getting infos for: ");
     console.log(latlng);
     callBackEndFlyBy(latlng);
-    callBackEndFutureFlyBy(latlng);       
-    start();
-}
+    callBackEndFutureFlyBy(latlng);   
+    if (!bStarted) 
+    {   
+      start();
+      bStarted=true;
+    }
+      else
+    toggleNavL(true);
+  }
 
 function callBackEndFlyBy(latlng){
     document.getElementById("pastpasses").innerHTML = "";
@@ -30,12 +38,15 @@ function callBackEndFlyBy(latlng){
    }
 
    function renderFlyBy(oData){
+    // objDiv.scrollTop = objDiv.scrollHeight;  
     var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     document.getElementById("pastpasses").innerHTML = "";
     transform2(xmlDoc, 'xsl/pastpasses.xsl',"pastpasses"); // XSL transformation
     console.log("renderFlyBy");
+    var objDiv = document.getElementById("mySidebarLeft");
+    objDiv.scrollTop = objDiv.scrollHeight;
     //waitForXSL();
 }
   
@@ -51,7 +62,7 @@ function callBackEndFlyBy(latlng){
       "<params>" +
       "<latitude>" + latlng.lat + "</latitude>" +
       "<longitude>" + latlng.lng + "</longitude>" +
-      "<number>10</number>" +
+      "<number>6</number>" +
       "</params>" +
       "</Request>",
       type: 'POST',
@@ -64,11 +75,20 @@ function callBackEndFlyBy(latlng){
    }
   
    function renderFutureFlyBy(oData){
+    var objDiv = document.getElementById("mySidebarLeft");
+    objDiv.scrollTop = objDiv.scrollHeight;  
+    if (oData.responseText)
+    {
     var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     document.getElementById("flyby").innerHTML = "";
     transform2(xmlDoc, 'xsl/flyby.xsl',"flyby"); // XSL transformation
-    console.log("renderFutureFlyBy");       
+    console.log("renderFutureFlyBy");   
+    // var objDiv = document.getElementById("mySidebarLeft");
+    }
+    else
+    document.getElementById("flyby").innerHTML = "<h2>No passes in the near future</h2>";
+    objDiv.scrollTop = objDiv.scrollHeight;    
     //waitForXSL();
 }

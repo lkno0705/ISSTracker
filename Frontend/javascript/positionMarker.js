@@ -26,5 +26,30 @@ function addCircle(latlng){
     circle = L.circle(latlng, slider.value*1000,{
         className: "circle"
     }).addTo(mymap);
+    circle.on('mouseover', function(e){
+        mymap.scrollWheelZoom.disable();
+        window.addEventListener("wheel", mousewheelHandler, true);
+    });
+    circle.on('mouseout', function(e){
+        mymap.scrollWheelZoom.enable();
+        window.removeEventListener("wheel", mousewheelHandler, true);    
+    });
 }
 
+function mousewheelHandler(e) {
+    if (e.deltaY)
+    {
+    var slider = document.getElementById("position_radius");
+    var output = document.getElementById("radius");
+    if (output.innerHTML >= 0 && output.innerHTML <= 500)
+        output.innerHTML = parseInt(output.innerHTML) + parseInt((-e.deltaY/3)*10);
+    if (output.innerHTML <= 0)
+        output.innerHTML = 10;
+    if (output.innerHTML >= 500)
+        output.innerHTML = 500;
+    circle.setRadius( parseInt(output.innerHTML) * 1000);
+    slider.value = output.innerHTML
+    // circle.setRadius(slider.value*1000)
+    console.log(e.deltaY);
+    }
+}
