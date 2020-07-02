@@ -1,6 +1,7 @@
 from xml.etree.ElementTree import Element, ElementTree
 from xml.etree.ElementTree import tostring
 from Backend.Core import database
+from lxml import etree
 
 # Create XML out of dictionary with specific tag- and requestname
 def _genericDictToXML(d):
@@ -431,6 +432,14 @@ to
 
 
 def parseRequestParamsXMLToDic(xml):
+
+    try:
+        parser = etree.XMLParser(dtd_validation=True, encoding="utf-8")
+        etree.fromstring(xml, parser)
+    except etree.XMLSyntaxError:
+        return "INVALID XML"
+
+    xml = xml.decode(encoding="utf-8")
     requestDic = {}
     if xml.__contains__("requestName"):
         request = xml.split("<Request>", 1)[1]
@@ -453,8 +462,6 @@ def parseRequestParamsXMLToDic(xml):
             paramsDic[xparam] = yparamValue
         requestDic['params'] = paramsDic
         return requestDic
-    else:
-        raise Exception("no tag 'params' found ")
 
 
 # # for debugging purposes
