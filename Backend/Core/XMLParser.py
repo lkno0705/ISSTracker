@@ -2,7 +2,6 @@ from xml.etree.ElementTree import Element, ElementTree
 from xml.etree.ElementTree import tostring
 from Backend.Core import database
 
-
 # Create XML out of dictionary with specific tag- and requestname
 def _genericDictToXML(d):
     elem = Element("Request")
@@ -472,13 +471,13 @@ def parseRequestParamsXMLToDic(xml):
 # ]
 # }
 # astros=database.redisDB._getAstros(database.redisDB,None)
-issdbkey = database.redisDB._getISS(database.redisDB, {
-    "requestname": "ISSDB",
-    "params": {
-        "startTime": "2020-06-15 16-16-32",
-        "endTime": "2020-06-29 16-16-33"
-    }
-})
+# issdbkey = database.redisDB._getISS(database.redisDB, {
+#     "requestname": "ISSDB",
+#     "params": {
+#         "startTime": "2020-06-15 16-16-32",
+#         "endTime": "2020-06-29 16-16-33"
+#     }
+# })
 #
 # print(reformatData(ISSPOS['data'], 'ISSpos'))
 # print("\n")
@@ -492,5 +491,5 @@ issdbkey = database.redisDB._getISS(database.redisDB, {
 # print("\n")
 # print(reformatData(astros, 'AstrosOnISS'))
 # print("\n")
-reformatData(issdbkey, 'ISSDB')
+# reformatData(issdbkey, 'ISSDB')
 # print("\n")
