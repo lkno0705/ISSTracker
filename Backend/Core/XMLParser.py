@@ -68,7 +68,7 @@ def _convertISSDBKeyToXML(requestData):
         LongLast = longNow
         roundChild.append(timeValueElem)
         timeValueElem = Element("timeValue")
-
+    dataChild.append(roundChild)
     elem.append(dataChild)
     return tostring(elem)
 
