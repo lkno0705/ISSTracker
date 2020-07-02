@@ -49,6 +49,7 @@
     color: #FFFFFF;
     display: flex;
     align-items: center;
+    scrollbar-width: thin;
   }
 
   .sidebar:hover {
@@ -127,12 +128,12 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 10px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
-  color: var(--color-color);
+  color: var(--color-color);  
 }
 
 .sidebarLeft:hover {
   opacity: 1.0;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 /* The sidebar links */
@@ -221,13 +222,13 @@ float: left;
 
 
 .checkbox-show{
-  margin-top: 1em;
+  /* margin-top: 1em; */
   display: "";
 }
 
 
 .checkbox-show:first-of-type{
-  margin-top:2em;
+  /* margin-top:2em; */
   display: "";
 }
 
@@ -349,3 +350,20 @@ float: left;
  .issButton:hover{
      border: 3px solid rgb(11, 61, 145);
  }
+
+  #leftTop{
+    position: relative;
+    height: min-content;
+  }
+
+  #leftBottom{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 95%;
+    scrollbar-width: thin;
+  }
+
+  body{
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-bg);
+  }

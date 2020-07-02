@@ -51,11 +51,10 @@ function callBackEndFlyBy(latlng){
     }}
     transform2(xmlDoc, 'xsl/pastpasses.xsl',"pastpasses"); // XSL transformation
     console.log("renderFlyBy");
-    var objDiv = document.getElementById("mySidebarLeft");
+    var objDiv = document.getElementById("leftBottom");
     objDiv.scrollTop = objDiv.scrollHeight;
     //waitForXSL();
 }
-  
 
   function callBackEndFutureFlyBy(latlng){  
     document.getElementById("flyby").innerHTML = "";
@@ -81,7 +80,7 @@ function callBackEndFlyBy(latlng){
    }
   
    function renderFutureFlyBy(oData){
-    var objDiv = document.getElementById("mySidebarLeft");
+    var objDiv = document.getElementById("leftBottom");
     objDiv.scrollTop = objDiv.scrollHeight;  
     if (oData.responseText)
     {
