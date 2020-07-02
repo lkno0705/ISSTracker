@@ -35,8 +35,7 @@
     <script type="text/javascript" src="javascript/createMap.js"></script>
     <script type="text/javascript" src="javascript/iss_call.js"></script>
     <script type="text/javascript" src="javascript/xslt.js"></script>
-    <script type="text/javascript" src="javascript/sidebar.js"></script>
-    <script type="text/javascript" src="javascript/xmlParser.js"></script>
+    <script type="text/javascript" src="javascript/sidebar.js"></script>    
     <script type="text/javascript" src="javascript/slider.js"></script>
     <script type="text/javascript" src="javascript/gpxRender.js"></script>
     <script type="text/javascript" src="javascript/positionMarker.js"></script>
@@ -106,16 +105,16 @@
         <div class="one">
             <div id="input" style="float:left;z-index:1; background-color :transparent">
                 <form>
-                    <input class="input" type="text" id="plz" name="plz" autofocus placeholder="Enter ZIP Code" style="height: 30px">
+                    <input class="input" type="text" id="plz" name="plz" autofocus placeholder="Enter ZIP Code" style="height: 30px" tabindex="1">
                 </form>
             </div>
         </div>
         <div class="two">
-            <button id="close-image" onclick="start()" class="issButton"><img
+            <button id="close-image" onclick="start()" class="issButton" tabindex="3"><img
                     src="images/iss_top.png"></button>
         </div>
 		<form>
-            <input class="input" list="countries" name="countries" placeholder="Enter country" style="height: 30px;">
+            <input class="input" list="countries"  id="country" name="countries" placeholder="Enter country" style="height: 30px;" tabindex="2">
             <datalist id="countries">                  
             </datalist>
             <input type="hidden">
@@ -124,7 +123,7 @@
     <div  id = "leftBottom" class="container">
         <div class="checkbox-hidden">
             <div class="checkbox1">
-                <input type="checkbox" id="followISS" name="followISS" onchange="followISS()" class="radioBtn">
+                <input type="checkbox" id="followISS" name="followISS" onchange="followISS()" class="radioBtn" >
                 <label for="followISS"></label>
             </div>
             <div class="checkbox2">

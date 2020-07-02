@@ -1,13 +1,13 @@
 var bStarted = false;
 
-function getFlyByInfo(latlng){
+function getFlyByInfo(latlng,bool){
     console.log("Now getting infos for: ");
     console.log(latlng);
     callBackEndFlyBy(latlng);
     callBackEndFutureFlyBy(latlng);   
     if (!bStarted) 
     {   
-      start();
+      start(bool);
       bStarted=true;
     }
       else

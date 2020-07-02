@@ -3,12 +3,12 @@ var radius;
 var circle;
 var posMarker;
 
-function addMarker(lat,lng){
+function addMarker(lat,lng,bool){
     if (posMarker)
     posMarker.removeFrom(mymap);
    var latlng = L.latLng(lat, lng);
    posMarker = L.marker(latlng,{draggable:true}).addTo(mymap);
-   getFlyByInfo(latlng);
+   getFlyByInfo(latlng,bool);
    addCircle(latlng,radius);
    posMarker.on('drag', function(e){
     bContextMenu = true;
