@@ -3,6 +3,7 @@ var clickedBoth = false;
 var clickedL = false;
 var clickedR = false;
 var bContextMenu = false;
+
 // left menu
 function toggleNavL(show) {
   var x = document.getElementById("mySidebarLeft").style.left;
@@ -109,7 +110,9 @@ function toggleNavL(show) {
   }
 
   // left menu after serch button pressed.
-  function start(){
+  function start(bool){
+    if (!bool)
+     callGeoCoding();
     document.body.setAttribute('data-theme', 'dark');
     document.getElementById("openbtnLeft").style.display = "";
     document.getElementById("sliderLeft").style.display = "";

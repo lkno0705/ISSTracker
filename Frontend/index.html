@@ -23,21 +23,19 @@
     <link rel="stylesheet" type="text/css" href="css/passesCountry.css"/>
     <link rel="stylesheet" type="text/css" href="css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="css/gpx.css"/>
-    <link rel="stylesheet" type="text/css" href="css/tablepassby.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="css/tablepassby.css"/>    
     <!------------------------------------------------------------------------------------------>
     <!----------------------------------- Javascripts ------------------------------------------>
     <!------------------------------------------------------------------------------------------>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascript/leaflet.js"></script>
-    <script type="text/javascript" src="javascript/L.KML.js"></script>
-    <script type="text/javascript" src="javascript/MovingMarker.js"></script>
-    <script type="text/javascript" src="javascript/gpx.js"></script>
+    <script type="text/javascript" src="javascript/libaries/leaflet.js"></script>
+    <script type="text/javascript" src="javascript/libaries/L.KML.js"></script>
+    <script type="text/javascript" src="javascript/libaries/MovingMarker.js"></script>
+    <script type="text/javascript" src="javascript/libaries/gpx.js"></script>
     <script type="text/javascript" src="javascript/createMap.js"></script>
     <script type="text/javascript" src="javascript/iss_call.js"></script>
     <script type="text/javascript" src="javascript/xslt.js"></script>
-    <script type="text/javascript" src="javascript/sidebar.js"></script>
-    <script type="text/javascript" src="javascript/xmlParser.js"></script>
+    <script type="text/javascript" src="javascript/sidebar.js"></script>    
     <script type="text/javascript" src="javascript/slider.js"></script>
     <script type="text/javascript" src="javascript/gpxRender.js"></script>
     <script type="text/javascript" src="javascript/positionMarker.js"></script>
@@ -102,28 +100,30 @@
 
 <!------------------------ Left sidebar --------------------------------------------------------------------->
 
-<div id="mySidebarLeft" class="sidebarLeft">
-    <div class="container" style="margin-top: 30px;">
+<div id = "mySidebarLeft" class="sidebarLeft">    
+    <div  id = "leftTop" class="container" style="margin-top: 30px; margin-bottom: 5px;">
         <div class="one">
             <div id="input" style="float:left;z-index:1; background-color :transparent">
                 <form>
-                    <input class="input" type="text" id="plz" name="plz" autofocus placeholder="Enter ZIP Code" style="height: 30px">
+                    <input class="input" type="text" id="plz" name="plz" autofocus placeholder="Enter ZIP Code" style="height: 30px" tabindex="1">
                 </form>
             </div>
         </div>
         <div class="two">
-            <button id="close-image" onclick="start()" class="issButton"><img
+            <button id="close-image" onclick="start()" class="issButton" tabindex="3"><img
                     src="images/iss_top.png"></button>
         </div>
 		<form>
-            <input class="input" list="countries" name="countries" placeholder="Enter country" style="height: 30px;">
+            <input class="input" list="countries"  id="country" name="countries" placeholder="Enter country" style="height: 30px;" tabindex="2">
             <datalist id="countries">                  
             </datalist>
             <input type="hidden">
         </form>
+    </div>
+    <div  id = "leftBottom" class="container">
         <div class="checkbox-hidden">
             <div class="checkbox1">
-                <input type="checkbox" id="followISS" name="followISS" onchange="followISS()" class="radioBtn">
+                <input type="checkbox" id="followISS" name="followISS" onchange="followISS()" class="radioBtn" >
                 <label for="followISS"></label>
             </div>
             <div class="checkbox2">
@@ -146,16 +146,14 @@
             <p class="slider-text">Radius around position: <span id="radius"> </span>&nbsp;km</p>
         </div>
 
-        <div class="checkbox-hidden">
-   
+        <div class="checkbox-hidden">   
         </div>
-    </div>
 
-    <div class="flyOver">
-        <div id="flyby" style="display:none"></div>
-        <div id="pastpasses" style="display:none"></div>
-    </div>
-    
+        <div class="flyOver">
+            <div id="flyby" style="display:none"></div>
+            <div id="pastpasses" style="display:none"></div>
+        </div>
+    </div>    
 </div>
 
 <div id="mainLeft" style="position: absolute; left: 0;">

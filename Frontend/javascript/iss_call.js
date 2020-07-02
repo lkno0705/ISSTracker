@@ -1,11 +1,11 @@
-// this function directly calls the ISS-Api, will be refactored to call our own BE
+
 var bFollowISS = false;
 var oldLng;
 var latlng;
 var issIcon;
 
 function createISS(bReFocus) {
-    console.log("createISS");
+    // console.log("createISS");
     $.ajax({
         url: 'http://127.0.0.1:8082/ISSpos',
         data:"",
@@ -23,16 +23,15 @@ function createISS(bReFocus) {
     
             latlng = L.latLng(lat, lon);
             mymap.flyTo(latlng, 6);
-            create([latlng, latlng]);
-            //marker.setLatLng([lat, lon]); 
+            create([latlng, latlng]);            
             if (!bReFocus) 
             {   
-            console.log("refocus");
+            // console.log("refocus");
             mymap.setView(latlng, 4);
             }
             oldLng = lon;
-            console.log("Lang: " + lat + " Long: " + lon);
-            console.log("moveISSbefore");
+            // console.log("Lang: " + lat + " Long: " + lon);
+            // console.log("moveISSbefore");
         }
       });
     moveISS();
@@ -59,16 +58,17 @@ function moveISS() {
                 "Latitide": lat,
                 "Longitude": lon
             };
+    if (issIcon){
         var x = parseFloat(oldLng);
         var y = parseFloat(lon);       
-        console.log("Possition difference: " + (x - y) );
+        // console.log("Possition difference: " + (x - y) );
         if (Math.abs(parseFloat(oldLng) - parseFloat(lon))>1)
         {
          issIcon.removeFrom(mymap);
          createISS(true);
         }
         oldLng = lon;
-        console.log("moveISS");
+        // console.log("moveISS");
         latlng = L.latLng(lat, lon);
         issIcon.moveTo(latlng, 5000)
         if (bFollowISS)
@@ -81,24 +81,21 @@ function moveISS() {
         }
 
         issIcon.start();
-        console.log("Lang: " + lat + " Long: " + lon);
+        // console.log("Lang: " + lat + " Long: " + lon);
         $(".overlay").hide();
         $(".loadwrapper").hide();
         changeCursor('default');
+    }
     }
     }); 
      setTimeout(moveISS, 5000);
 }
 
-function drawISS(){
-    console.log("drawRoute");
-}
-
 function followISS(){
-    console.log("followISS");
+    // console.log("followISS");
     if (document.getElementById("followISS").checked)
         {
-            console.log(issIcon);
+            // console.log(issIcon);
             mymap.setView(latlng,6);  
             // mymap.setZoom(6);
             mymap.setMinZoom(6);
@@ -130,6 +127,7 @@ function create(strecke) {
         icon: issPNG,
         className: "ISS_icon"
      }).addTo(mymap);
+     
     issIcon.on("click", onBoard);
     // issIcon.on("mouseover", addBorder);
 }
