@@ -146,6 +146,7 @@ function loadingText() {
 
 function changeCursor(cursor){
     document.body.style.cursor = cursor;  
+    // document.getElementById("mapid").style.cursor = "none";
 }
 
 

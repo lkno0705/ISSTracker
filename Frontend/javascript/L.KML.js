@@ -266,6 +266,7 @@ L.Util.extend(L.KML, {
 		onCountry(name);
 		return "<div id='infoOnCountry'>"+
 				"<h2>Flyby over "+ name+"</h2>"+
+				"<div id='countryPasses'></div>"+
 				"</div>";
 	  });
     }

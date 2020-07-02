@@ -2,9 +2,9 @@
 .leaflet-popup-content-wrapper{
     min-width: 380px;
     width: fit-content;
-    min-height: 125px;
+    min-height: 70px;
     height: fit-content;
-    background: var(--color-bg);
+    background: none;
     opacity: .9;
 }
 
@@ -32,13 +32,14 @@
 /* content-PupUp */
 #infoOnCountry{
     pointer-events: none;
-    background:none;
+    background: var(--color-bg);
     color: var(--color-color);
     min-width: 380px;
     width: fit-content;
-    min-height: 110px;
+    min-height: 70px;
     height: fit-content;
     position: absolute;
+    border-radius: 10px;
 }
 
 #issOnCountryWrapper{
@@ -64,6 +65,7 @@
     padding: 10px;
     padding-top: 0px;
     border-radius: 12px;
+    min-height: 15px;
     height: fit-content;
 }
 
@@ -83,7 +85,7 @@
 
 /* table-content */
 .myPopUp{
-    background: var(--color-color);
+    background: var(--color-border);
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 5px;
@@ -93,13 +95,13 @@
     text-align: center;
     border: none;
     border-radius: 5px;
-    background-color: var(--color-bg);
+    background-color: var(--color-td);
 }
 
 #countryPasses td{
     text-align: center;
     border: none;
-    background-color: var(--color-bg);
+    background-color: var(--color-td);
     border-radius: 5px;
     padding-block-start: 0px;
     padding-block-end: 0px;
