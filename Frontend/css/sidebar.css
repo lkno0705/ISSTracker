@@ -117,7 +117,7 @@
  .sidebarLeft {
   pointer-events: none;
   overflow: hidden;
-  height: 100%; /* 100% Full-height */
+  height: inherit;
   width: 250px; /* 0 width - change this with JavaScript */
   background-color: var(--color-left);
   position: fixed; /* Stay in place */
@@ -353,7 +353,7 @@ float: left;
 
   #leftTop{
     position: relative;
-    height: min-content;
+   
   }
 
   #leftBottom{
