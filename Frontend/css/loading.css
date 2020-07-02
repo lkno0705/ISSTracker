@@ -109,3 +109,31 @@
     text-indent: -99999px;
   }
 
+  .logo3 {
+    display: inline;
+    cursor: pointer;   
+    left: -6px;
+    top: -26px;
+  }
+  .logo3::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .logo3 .logo-iss {
+    -webkit-animation: draw 10s linear forwards;
+    -moz-animation: draw 10s linear forwards;
+    animation: draw 10s linear forwards;
+    -webkit-animation-delay: -6s;
+    -moz-animation-delay: -6s;
+    animation-delay: -6s;
+    animation-iteration-count: 10;
+    stroke-dasharray: 1800;
+    stroke-dashoffset: -1800;
+  }
+  .logo3 svg {
+    display: block;
+    margin: 40px auto 0;
+    text-indent: -99999px;
+  }
+

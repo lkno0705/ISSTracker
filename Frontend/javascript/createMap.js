@@ -21,7 +21,7 @@ function createMap() {
             text: 'set marker',
             callback: setMarker
         }]
-    }).setView([51.5, -0.09], 5);
+    });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 7,
@@ -176,6 +176,24 @@ function pad(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+function parse2localTime(s){
+    s = s.split(" ")
+    date = s[0];
+    time = s[1];
+    date = date.split("-");
+    time = time.split("-");
+  
+    var oDate = new Date();
+    oDate.setUTCDate(parseInt(date[2]));
+    oDate.setUTCMonth(parseInt(date[1]-1));
+    oDate.setUTCFullYear(parseInt(date[0]));
+    oDate.setUTCHours(parseInt(time[0]));
+    oDate.setUTCMinutes(parseInt(time[1]));
+    oDate.setUTCSeconds(parseInt(time[2]));
+    test =  oDate.toLocaleString();
+    return oDate.toLocaleString();
   }
 
 

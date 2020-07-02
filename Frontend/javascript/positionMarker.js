@@ -1,6 +1,8 @@
+
 var radius;
 var circle;
 var posMarker;
+
 function addMarker(lat,lng){
     if (posMarker)
     posMarker.removeFrom(mymap);
@@ -41,15 +43,18 @@ function mousewheelHandler(e) {
     {
     var slider = document.getElementById("position_radius");
     var output = document.getElementById("radius");
+
     if (output.innerHTML >= 0 && output.innerHTML <= 500)
         output.innerHTML = parseInt(output.innerHTML) + parseInt((-e.deltaY/3)*10);
+
     if (output.innerHTML <= 0)
         output.innerHTML = 10;
+        
     if (output.innerHTML >= 500)
         output.innerHTML = 500;
+
     circle.setRadius( parseInt(output.innerHTML) * 1000);
-    slider.value = output.innerHTML
-    // circle.setRadius(slider.value*1000)
+    slider.value = output.innerHTML;    
     console.log(e.deltaY);
     }
 }

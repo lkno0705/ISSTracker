@@ -3,6 +3,7 @@ var clickedBoth = false;
 var clickedL = false;
 var clickedR = false;
 var bContextMenu = false;
+
 // left menu
 function toggleNavL(show) {
   var x = document.getElementById("mySidebarLeft").style.left;

@@ -47,8 +47,7 @@ function RSSCallback(oData){
     if (xmlDoc.childNodes[0].childNodes[1].childNodes.length > 0)
     {
         transform2(xmlDoc, 'xsl/rssfeednasa.xsl',"mySidebar"); // XSL transformation
-        console.log("RSS-Feed");
-        //waitForXSL();
+        console.log("RSS-Feed");       
     }
     else
      rssClick(-1);
