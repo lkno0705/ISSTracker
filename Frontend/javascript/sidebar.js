@@ -58,6 +58,7 @@ function toggleNavL(show) {
   function toggleClose(event) {
     if (!bContextMenu)
     {
+    // removePopUps();
     var mouseClickWidth = event.clientX;
     var controls = document.getElementsByClassName("leaflet-control-zoom");
 

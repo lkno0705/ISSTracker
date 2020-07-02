@@ -11,7 +11,7 @@ function getFlyByInfo(latlng){
       bStarted=true;
     }
       else
-    toggleNavL(true)
+    toggleNavL(true);
   }
 
 function callBackEndFlyBy(latlng){
