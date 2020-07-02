@@ -2,9 +2,11 @@
 var clickedBoth = false;
 var clickedL = false;
 var clickedR = false;
+var bContextMenu = false;
 // left menu
-function toggleNavL() {
+function toggleNavL(show) {
   var x = document.getElementById("mySidebarLeft").style.left;
+  if (!show){
     if (document.getElementById("mySidebarLeft").style.left == "0px" || document.getElementById("mySidebarLeft").style.left == "")
     {
       document.getElementById("mySidebarLeft").style.left = "-250px";
@@ -17,8 +19,16 @@ function toggleNavL() {
       document.getElementById("mySidebarLeft").style.left = "0px";
       document.getElementById("mainLeft").style.marginLeft = "0px";
       document.getElementById("arrowleft").style.transform = "rotate(0deg)";
-      clickedL = true;
+      clickedL = true; 
     }
+  }
+  else
+  {
+    document.getElementById("mySidebarLeft").style.left = "0px";
+    document.getElementById("mainLeft").style.marginLeft = "0px";
+    document.getElementById("arrowleft").style.transform = "rotate(0deg)";
+    clickedL = true; 
+  }
 }  
 
 //  right menu
@@ -46,6 +56,9 @@ function toggleNavL() {
   }     
 
   function toggleClose(event) {
+    if (!bContextMenu)
+    {
+    // removePopUps();
     var mouseClickWidth = event.clientX;
     var controls = document.getElementsByClassName("leaflet-control-zoom");
 
@@ -82,6 +95,9 @@ function toggleNavL() {
       clickedL = false;
     }
   }
+  else
+   bContextMenu=false;
+  }
 
   function switchToLightmode() {
     //document.body.setAttribute('data-theme', 'light');
@@ -98,6 +114,8 @@ function toggleNavL() {
     document.getElementById("openbtnLeft").style.display = "";
     document.getElementById("sliderLeft").style.display = "";
     document.getElementById("sliderRadius").style.display = "";
+    document.getElementById("flyby").style.display = "";
+    document.getElementById("pastpasses").style.display = "";
     document.getElementById("mySidebarLeft").style.pointerEvents = "auto";
 
     var checkboxes = document.getElementsByClassName("checkbox-hidden");
@@ -108,4 +126,4 @@ function toggleNavL() {
     }
     clickedL = true;
   }
-  document.addEventListener("click", toggleClose)
+   document.addEventListener("click", toggleClose)

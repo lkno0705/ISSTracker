@@ -23,7 +23,8 @@
     <link rel="stylesheet" type="text/css" href="css/passesCountry.css"/>
     <link rel="stylesheet" type="text/css" href="css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="css/gpx.css"/>
-
+    <link rel="stylesheet" type="text/css" href="css/tablepassby.css"/>
+    
     <!------------------------------------------------------------------------------------------>
     <!----------------------------------- Javascripts ------------------------------------------>
     <!------------------------------------------------------------------------------------------>
@@ -47,11 +48,14 @@
     <script type="text/javascript" src="javascript/passesCountry.js"></script>
     <script type="text/javascript" src="javascript/geoCoding.js"></script>
     <script type="text/javascript" src="javascript/gpxRender.js"></script>
+    <script type="text/javascript" src="javascript/flyByPosition.js"></script>
+    <script type="text/javascript" src="javascript/loadingAnimation.js"></script>
 </head>
 
 <body style="height:100%;margin:0" data-theme="opacity">
 
-<!------------------------ Class for loading animation, can be dismissed when loading times improve ----------------------------------------->
+<!------------------------ Class for loading animation ------------------------------------------------------>
+
 <div class="loadwrapper outer" style="pointer-events: auto;">    
     <div class="middle">
         <div class="loader inner" style="position: absolute;"></div>
@@ -97,9 +101,8 @@
 </div>
 
 <!------------------------ Left sidebar --------------------------------------------------------------------->
+
 <div id="mySidebarLeft" class="sidebarLeft">
-
-
     <div class="container" style="margin-top: 30px;">
         <div class="one">
             <div id="input" style="float:left;z-index:1; background-color :transparent">
@@ -133,39 +136,48 @@
             </div>
         </div>
 
-
         <div class="three" id="sliderLeft" style="display:none">
-            <input type="range" min="1" max="72" value="36" class="slider" id="iss_range">
+            <input type="range" min="1" max="72" value="36" class="slider" id="iss_range" onchange="sliderTimeMoved()">
             <p class="slider-text">Last positions in minutes: <span id="last_pos"></span>&nbsp;min</p>
         </div>
 
         <div class="four" id="sliderRadius" style="display:none">
-            <input type="range" min="20" max="500" value="100" class="slider" id="position_radius">
+            <input type="range" min="20" max="500" value="100" class="slider" id="position_radius"  onchange="sliderRadiusMoved()">
             <p class="slider-text">Radius around position: <span id="radius"> </span>&nbsp;km</p>
         </div>
 
         <div class="checkbox-hidden">
    
-          </div>
-
+        </div>
     </div>
+
+    <div class="flyOver">
+        <div id="flyby" style="display:none"></div>
+        <div id="pastpasses" style="display:none"></div>
+    </div>
+    
 </div>
+
 <div id="mainLeft" style="position: absolute; left: 0;">
     <button id="openbtnLeft" class="openbtnLeft" onclick="toggleNavL()">
         <div id="arrowleft" class="triangle-left"></div>
     </button>
 </div>
 
-<!------------------------ Map body -------------------------------------------------------------------->
+<!------------------------ Map body -------------------------------------------------------------------------->
+
 <div id="mapid" style="width: 100%;height:100%; position:fixed;left:0;right:0; z-index:-10"></div>
 
 <!------------------------ Right sidebar  -------------------------------------------------------------------->
+
 <div id="mySidebar" class="sidebar"></div>
 <div id="main" style="position: absolute; right: 0;">
     <button class="openbtn" onclick="toggleNav()">
         <div id="arrowright" class="triangle-right"></div>
     </button>
 </div>
+
+<!---------------------------- Context menu --------------------------------------------------->
 
 <nav class="context-menu">
     <ul class="context-menu__items">
@@ -177,6 +189,10 @@
         </li>
     </ul>
 </nav>
+
+<!------------------------------ ISS crew menu ------------------------------------------------->
+
 <div id="issOnBoard"></div>
+
 </body>
 </html>

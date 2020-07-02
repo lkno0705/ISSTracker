@@ -22,6 +22,8 @@ issRoute.removeFrom(mymap);
     }
   }).on('loaded', function(e) {
   mymap.fitBounds(e.target.getBounds());
+  $(".overlay").hide();
+  $(".loadwrapper").hide();
 }).addTo(mymap);
 })
 };
@@ -32,6 +34,8 @@ function callBackEndISSDB(){
     if (issRoute)
     issRoute.removeFrom(mymap);
   } else {
+    $(".overlay").show();
+    $(".loadwrapper").show();
   var x =  getCurrentTime();
   var y = getSliderTime();
   $.ajax({

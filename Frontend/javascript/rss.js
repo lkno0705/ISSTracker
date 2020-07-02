@@ -40,11 +40,16 @@ function rssCallBackEnd(start, end){
     });
 }
 
-function RSSCallback(oData){
+function RSSCallback(oData){ 
     var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
-    transform2(xmlDoc, 'xsl/rssfeednasa.xsl',"mySidebar"); // XSL transformation
-    console.log("RSS-Feed");
-    //waitForXSL();
+    if (xmlDoc.childNodes[0].childNodes[1].childNodes.length > 0)
+    {
+        transform2(xmlDoc, 'xsl/rssfeednasa.xsl',"mySidebar"); // XSL transformation
+        console.log("RSS-Feed");
+        //waitForXSL();
+    }
+    else
+     rssClick(-1);
 }

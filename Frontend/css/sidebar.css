@@ -121,6 +121,7 @@
  /* The sidebar menu */
  .sidebarLeft {
   pointer-events: none;
+  overflow: hidden;
   height: 100%; /* 100% Full-height */
   width: 250px; /* 0 width - change this with JavaScript */
   background-color: var(--color-left);
@@ -137,6 +138,7 @@
 
 .sidebarLeft:hover {
   opacity: 1.0;
+  overflow: auto;
 }
 
 /* The sidebar links */
