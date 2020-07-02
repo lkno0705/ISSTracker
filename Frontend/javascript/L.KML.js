@@ -261,7 +261,14 @@ L.Util.extend(L.KML, {
     }
 
     if (name) {
-      layer.bindPopup('<h2>' + name + '</h2>' + descr, { className: 'kml-popup'});
+ 		layer.bindPopup(function(layer){
+		console.log("test!");
+		onCountry(name);
+		return "<div id='infoOnCountry'>"+
+				"<h2>Flyby over "+ name+"</h2>"+
+				"<div id='countryPasses'></div>"+
+				"</div>";
+	  });
     }
   },
 

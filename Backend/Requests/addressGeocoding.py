@@ -3,8 +3,8 @@ import requests
 # Nominatum API
 API_URL = 'https://nominatim.openstreetmap.org/search?'
 
-def geocoder(address):
-    params = {"q": address,
+def geocoder(params):
+    params = {"q": params['q'],
             "format": 'json',
             "limit": 1}
 
