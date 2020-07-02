@@ -6,11 +6,17 @@ function addMarker(lat,lng){
     posMarker.removeFrom(mymap);
    var latlng = L.latLng(lat, lng);
    posMarker = L.marker(latlng,{draggable:true}).addTo(mymap);
+   getFlyByInfo(latlng);
    addCircle(latlng,radius);
    posMarker.on('drag', function(e){
+    bContextMenu = true;
     var chagedPos = e.target.getLatLng();
     addCircle(chagedPos);
    });
+   posMarker.on('moveend', function(e){
+    bContextMenu = true;   
+    getFlyByInfo(e.target._latlng);
+   })
 }
 
 function addCircle(latlng){
@@ -20,5 +26,30 @@ function addCircle(latlng){
     circle = L.circle(latlng, slider.value*1000,{
         className: "circle"
     }).addTo(mymap);
+    circle.on('mouseover', function(e){
+        mymap.scrollWheelZoom.disable();
+        window.addEventListener("wheel", mousewheelHandler, true);
+    });
+    circle.on('mouseout', function(e){
+        mymap.scrollWheelZoom.enable();
+        window.removeEventListener("wheel", mousewheelHandler, true);    
+    });
 }
 
+function mousewheelHandler(e) {
+    if (e.deltaY)
+    {
+    var slider = document.getElementById("position_radius");
+    var output = document.getElementById("radius");
+    if (output.innerHTML >= 0 && output.innerHTML <= 500)
+        output.innerHTML = parseInt(output.innerHTML) + parseInt((-e.deltaY/3)*10);
+    if (output.innerHTML <= 0)
+        output.innerHTML = 10;
+    if (output.innerHTML >= 500)
+        output.innerHTML = 500;
+    circle.setRadius( parseInt(output.innerHTML) * 1000);
+    slider.value = output.innerHTML
+    // circle.setRadius(slider.value*1000)
+    console.log(e.deltaY);
+    }
+}

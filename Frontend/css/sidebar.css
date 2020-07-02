@@ -2,8 +2,10 @@
 
 [data-theme="dark"] {
   --color-bg: #000000;
+  --color-border: #FFFFFF;
   --color-left:#000000;
   --color-color: #FFFFFF;
+  --color-td: #000000;
   --color-color-left: #FFFFFF;
   --color-rss: #f2f2f2;
   --color-slider: #EEE;
@@ -13,8 +15,10 @@
 
 [data-theme="light"] {
   --color-bg: #FFFFFF;
+  --color-border: #000000;
   --color-left:#FFFFFF;
   --color-color: #000000;
+  --color-td: #FFFFFF;
   --color-color-left: #000000;
   --color-rss: #000000;
   --color-slider: #EEE;
@@ -24,8 +28,10 @@
 
 [data-theme="opacity"] {
   --color-bg: #000000;
+  --color-border: #FFFFFF;
   --color-left:#00000000;
   --color-color: #FFFFFF;
+  --color-td: #000000;
   --color-color-left: #FFFFFF00;
   --color-rss: #f2f2f2;
   --color-slider: #EEE;
@@ -41,6 +47,7 @@
     z-index: 1; /* Stay on top */
     top: 0;
     right: -800px;
+    opacity: .9;
     background-color: var(--color-bg);
     overflow-x: hidden; /* Disable horizontal scroll */
     padding: 5px;
@@ -48,6 +55,10 @@
     color: #FFFFFF;
     display: flex;
     align-items: center;
+  }
+
+  .sidebar:hover {
+    opacity: 1.0;
   }
 
   /* The sidebar links */
@@ -110,19 +121,25 @@
  /* The sidebar menu */
  .sidebarLeft {
   pointer-events: none;
+  overflow: hidden;
   height: 100%; /* 100% Full-height */
   width: 250px; /* 0 width - change this with JavaScript */
   background-color: var(--color-left);
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0;
-  left: 0px;
+  left: 0px; 
+  opacity: 0.9; 
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  padding-top: 10px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
   color: var(--color-color);
 }
 
+.sidebarLeft:hover {
+  opacity: 1.0;
+  overflow: auto;
+}
 
 /* The sidebar links */
 .sidebarLeft a {

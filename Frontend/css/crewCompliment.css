@@ -6,6 +6,7 @@
     height: fit-content;
     overflow-y: hidden;  
     position: absolute;
+
 }
 
 #issOnBoardWrapper{
@@ -23,6 +24,11 @@
     pointer-events: auto;
     padding: 10px;
     border-radius: 5px;
+    opacity: 0.9;
+}
+
+#astrosOnIss:hover {
+    opacity: 1.0;
 }
 
 .portrait{

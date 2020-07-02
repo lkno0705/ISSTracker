@@ -19,6 +19,25 @@ output.innerHTML = slider.value;
 
 slider.oninput = function() {
   output.innerHTML = this.value;
-  circle.setRadius(this.value*1000)
+  if (circle)
+    circle.setRadius(this.value*1000)
 }
+return parseInt(output.innerHTML);
 }
+
+function sliderRadiusMoved(){
+ if(posMarker)
+ {
+   console.log("radius slider moved");
+  console.log(posMarker._latlng);
+  callBackEndFlyBy(posMarker._latlng);
+ }
+}
+
+function sliderTimeMoved(){
+  if(posMarker)
+  {
+    console.log("time slider moved");
+    console.log(posMarker._latlng);
+  }
+ }
