@@ -102,14 +102,22 @@ class requestHandler(BaseHTTPRequestHandler):
         try:
             content_len = int(self.headers.get('Content-Length'))
             body = self.rfile.read(content_len)
-            body = parseRequestParamsXMLToDic(body.decode("utf-8"))
+            body = parseRequestParamsXMLToDic(body)
         except TypeError:
             body = None
         # print(self.path.split("/"))
         requestName = self.path.split("/")[1]
 
         code = 1
-        if self._checkData(requestName.strip("?"), body):
+        if body == "INVALID XML" or not self._checkData(requestName.strip("?"), body):
+            data = '<?xml version="1.0" encoding="UTF-8"?>' \
+                   '<message>' \
+                   '<error>Error 400: Bad Request</error>' \
+                   '<description>Incorrect parameters!</description>' \
+                   '</message>'
+            code = 400
+
+        else:
             code = 200
             if self.path == "/ISSDB":
                 data = redisDB().getData(body, self.path.strip("/?"))
@@ -128,14 +136,6 @@ class requestHandler(BaseHTTPRequestHandler):
 
             data = reformatData(requestData=data, requestName=self.path.strip("/?"))
 
-        else:
-            # Setting Error Message if Body data is incorrect
-            data = '<?xml version="1.0" encoding="UTF-8"?>' \
-                   '<message>' \
-                   '<error>Error 400: Bad Request</error>' \
-                   '<description>Incorrect parameters!</description>' \
-                   '</message>'
-            code = 400
         if code == 1:
             # Setting Error Message
             data = '<?xml version="1.0" encoding="UTF-8"?>' \
