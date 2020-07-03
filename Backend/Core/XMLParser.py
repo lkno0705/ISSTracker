@@ -35,6 +35,14 @@ def _genericDictToXML(d):
 #	</data>
 # </Request>
 def _convertISSDBKeyToXML(requestData):
+    data = []
+    # take only 10% of the positions. Goal: less XMLData to send to Frontend, faster drawing of ISS route.
+    # lower resolution of ISS route is no problem.
+    # take 2 ISSDBKeys (pair of longitude and latitude) and leave 18
+    for x in range(0, len(requestData), 20):
+        data.append(requestData[x])
+        data.append(requestData[x + 1])
+    requestData = data
     elem = Element("Request")
     requestChild = Element("requestName")
     requestChild.text = "ISSDB"
@@ -135,7 +143,6 @@ def _convertGeoJSONToXML(requestData):
     # for requests for a single country only a single object is returned
     if not isinstance(requestData, list):
         requestData = [requestData]
-
     elem = Element('Request')
     requestChild = Element('requestName')
     requestChild.text = 'GeoJson'
@@ -295,6 +302,7 @@ XML-Structure for RSS-Feed
 </Request>
 '''
 
+
 def _convertRSSFeedToXML(requestData):
     elem = Element('Request')
     requestChild = Element("requestName")
@@ -349,14 +357,14 @@ def _convertISSPosToXML(requestData):
     elem.append(dataChild)
     return tostring(elem)
 
-#<Request>
+
+# <Request>
 #    <requestName> Geocoding </requestName>
 #    <data>
 #       <latitude>-57.62513342958296</latitude>
 #       <longitude>-30.216294854454258</longitude>
 #    </data>
-#</Request>
-
+# </Request>
 
 
 def _convertGeocodingToXML(requestData):
@@ -374,7 +382,6 @@ def _convertGeocodingToXML(requestData):
 
     elem.append(dataChild)
     return tostring(elem)
-
 
 
 def reformatData(requestData, requestName):
@@ -449,6 +456,7 @@ def parseRequestParamsXMLToDic(xml):
     else:
         raise Exception("no tag 'params' found ")
 
+
 # # for debugging purposes
 # ISSPOS = {"requestname": "ISSpos",
 #         "data": {"timestamp": "2012-12-15 01-21-05", "latitude": "-17.9617", "longitude": "162.6117"}}
@@ -463,12 +471,12 @@ def parseRequestParamsXMLToDic(xml):
 # ]
 # }
 # astros=database.redisDB._getAstros(database.redisDB,None)
-# issdbkey=database.redisDB._getISS(database.redisDB,{
+# issdbkey = database.redisDB._getISS(database.redisDB, {
 #     "requestname": "ISSDB",
 #     "params": {
-#              "startTime": "2020-06-15 16-16-32",
-#              "endTime": "2020-06-15 16-16-33"
-#          }
+#         "startTime": "2020-06-15 16-16-32",
+#         "endTime": "2020-06-29 16-16-33"
+#     }
 # })
 #
 # print(reformatData(ISSPOS['data'], 'ISSpos'))
@@ -483,5 +491,5 @@ def parseRequestParamsXMLToDic(xml):
 # print("\n")
 # print(reformatData(astros, 'AstrosOnISS'))
 # print("\n")
-# print(reformatData(issdbkey, 'ISSDB'))
+# reformatData(issdbkey, 'ISSDB')
 # print("\n")
