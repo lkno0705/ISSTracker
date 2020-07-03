@@ -90,29 +90,6 @@ function toggleMenuOn(e) {
     }
 }
 
-// trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
-
-
-// // funtion to draw geoJson to map, just for test purposes
-// function drawGeoJSON(){
-//     $.getJSON("json/world_med_res.json", function(json) {
-//         data = json;
-//         console.log(json); // this will show the info it in firebug console
-//         mainLayer=L.geoJSON(json, {
-//                 style: function (feature) {
-//                     return {color: '#FFFFFF',
-//                             opacity: .2,
-//                             fillOpacity: 0};
-//                 }
-//             }).bindPopup(function (layer) {
-//                 removePopUps();
-//                 //functins
-//             return layer.feature.properties.name_sort;
-//         })//**.bindTooltip('click for more information')
-//         .addTo(mymap);
-//     });
-// }
-
 function showCoordinate(){
 
 }
@@ -201,7 +178,7 @@ $(document).ready(function () {
     console.log("create map call");   
     var mymap;  
     createMap();
-    createISS();  
+    ISSCall(createISS);  
     loadingText(1);
     // drawSVG();
     // coordinate2pixel('xml/germany.xml');
