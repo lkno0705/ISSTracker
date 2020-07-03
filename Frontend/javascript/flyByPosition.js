@@ -1,13 +1,13 @@
 var bStarted = false;
 
-function getFlyByInfo(latlng){
+function getFlyByInfo(latlng,bool){
     console.log("Now getting infos for: ");
     console.log(latlng);
     callBackEndFlyBy(latlng);
     callBackEndFutureFlyBy(latlng);   
     if (!bStarted) 
     {   
-      start();
+      start(bool);
       bStarted=true;
     }
       else
@@ -37,19 +37,22 @@ function callBackEndFlyBy(latlng){
     });
    }
 
-   function renderFlyBy(oData){
-    // objDiv.scrollTop = objDiv.scrollHeight;  
+   function renderFlyBy(oData){    
     var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     document.getElementById("pastpasses").innerHTML = "";
+    if(xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes.length){
+    for (var i = 0; i < xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes.length; i++)
+    {
+      xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[0].innerHTML = parse2localTime(xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[0].innerHTML);
+      xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[1].innerHTML = parse2localTime(xmlDoc.childNodes[0].childNodes[1].childNodes[1].childNodes[i].childNodes[1].innerHTML);
+    }}
     transform2(xmlDoc, 'xsl/pastpasses.xsl',"pastpasses"); // XSL transformation
     console.log("renderFlyBy");
-    var objDiv = document.getElementById("mySidebarLeft");
-    objDiv.scrollTop = objDiv.scrollHeight;
-    //waitForXSL();
+    var objDiv = document.getElementById("leftBottom");
+    objDiv.scrollTop = objDiv.scrollHeight;    
 }
-  
 
   function callBackEndFutureFlyBy(latlng){  
     document.getElementById("flyby").innerHTML = "";
@@ -75,7 +78,7 @@ function callBackEndFlyBy(latlng){
    }
   
    function renderFutureFlyBy(oData){
-    var objDiv = document.getElementById("mySidebarLeft");
+    var objDiv = document.getElementById("leftBottom");
     objDiv.scrollTop = objDiv.scrollHeight;  
     if (oData.responseText)
     {
@@ -83,12 +86,14 @@ function callBackEndFlyBy(latlng){
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
     document.getElementById("flyby").innerHTML = "";
+    for (var i = 0; i < xmlDoc.childNodes[0].childNodes[1].childNodes[0].childNodes.length; i++)
+    {
+      xmlDoc.childNodes[0].childNodes[1].childNodes[0].childNodes[i].firstChild.innerHTML = parse2localTime(xmlDoc.childNodes[0].childNodes[1].childNodes[0].childNodes[i].firstChild.innerHTML);
+    }
     transform2(xmlDoc, 'xsl/flyby.xsl',"flyby"); // XSL transformation
-    console.log("renderFutureFlyBy");   
-    // var objDiv = document.getElementById("mySidebarLeft");
+    console.log("renderFutureFlyBy");     
     }
     else
     document.getElementById("flyby").innerHTML = "<h2>No passes in the near future</h2>";
     objDiv.scrollTop = objDiv.scrollHeight;    
-    //waitForXSL();
-}
+  }

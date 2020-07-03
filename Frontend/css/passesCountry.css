@@ -107,6 +107,11 @@
     padding-block-end: 0px;
 }
 
+#countryPasses table{
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
 .text.startTime{
     font-size: 1em;
     min-height: 15px;

@@ -21,7 +21,7 @@ function createMap() {
             text: 'set marker',
             callback: setMarker
         }]
-    }).setView([51.5, -0.09], 5);
+    });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 7,
@@ -178,6 +178,24 @@ function pad(n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
+function parse2localTime(s){
+    s = s.split(" ")
+    date = s[0];
+    time = s[1];
+    date = date.split("-");
+    time = time.split("-");
+  
+    var oDate = new Date();
+    oDate.setUTCDate(parseInt(date[2]));
+    oDate.setUTCMonth(parseInt(date[1]-1));
+    oDate.setUTCFullYear(parseInt(date[0]));
+    oDate.setUTCHours(parseInt(time[0]));
+    oDate.setUTCMinutes(parseInt(time[1]));
+    oDate.setUTCSeconds(parseInt(time[2]));
+    test =  oDate.toLocaleString();
+    return oDate.toLocaleString();
+  }
+
 
 $(document).ready(function () {
     console.log("create map call");   
@@ -196,4 +214,20 @@ $(document).ready(function () {
     // callBackEnd();
     countriesCallBackEnd();
     changeCursor('wait');
+
+    $('form input').keydown(function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            callGeoCoding()
+            return false;
+        }
+    });
+    $(function () {
+        var focusedElement;
+        $(document).on('focus', 'input', function () {
+            if (focusedElement == this) return; //already focused, return so user can now place cursor at specific point in input.
+            focusedElement = this;
+            setTimeout(function () { focusedElement.select(); }, 100); //select all text in any field on focus for easy re-entry. Delay sightly to allow focus to "stick" before selecting.
+        });
+    });
 });
