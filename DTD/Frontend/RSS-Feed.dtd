@@ -1,0 +1,8 @@
+<!ELEMENT Request (requestName, data)>
+<!ELEMENT requestName (#CDATA)>
+<!ELEMENT data (RSS-Feed)>
+<!ELEMENT RSS-Feed (title, summary, published, link)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT summary (#PCDATA)>
+<!ELEMENT published (#PCDATA)>
+<!ELEMENT link (#PCDATA)>
