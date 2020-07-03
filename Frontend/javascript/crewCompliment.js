@@ -12,20 +12,17 @@ function onBoard(e){
 
 // Call to back end
 function callBackEnd(e){
-  $.ajax({
-    url: 'http://127.0.0.1:8082/AstrosOnISS',
-    data:"",
-    type: 'GET',
-    crossDomain: true,
-    dataType: 'xml',
-    success: function() { console.log("Success!")},
-    error: function() { console.log('Failed!')},
-    complete: function(oData){ onBoardCallback(e,oData);}
-  });
+  var oData = {};
+  oData.call = "AstrosOnISS";
+  oData.data =  ""
+  oData.callback = onBoardCallback;
+  oData.type = "GET";
+  oData.e = e;
+  ajaxCall(oData);
 }
 
 // creation of html DOM
-function onBoardCallback(e,oData){
+function onBoardCallback(oData, e){
   var xmlString = oData.responseText;
   var parser = new DOMParser; 
   var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
