@@ -13,24 +13,20 @@ function onCountry(countryName){
 
 // call to Backend for info
 function callCountryBackEnd(countryName){    
-    $.ajax({
-        url: 'http://127.0.0.1:8082/ISSCountryPasses',
-        data:"<?xml version='1.0' encoding='UTF-8'?>" +
-       "<Request>" +
-            "<requestName>ISSDB<requestName>" +
-            "<params>" + 
-                    "<startTime>" + getCurrentTime(720) +"</startTime>" +
-                    "<endTime>" + getCurrentTime() +"</endTime>" +
-                    "<country>" + countryName + "</country>" +
-            "</params>" +
-        "</Request>",
-        type: 'POST',
-        crossDomain: true,
-        dataType: 'xml',
-        success: function() { console.log("Success!")},
-        error: function() { console.log('Failed!')},
-        complete: function(oData){countryCallBack(oData, countryName);}
-    });
+    var oData = {};
+    
+    oData.call = "ISSCountryPasses";
+    oData.data =        "<Request>" +
+                          "<requestName>ISSCountryPasses<requestName>" + 
+                            "<params>" +
+                            "<startTime>" + getCurrentTime(720) +"</startTime>" +
+                            "<endTime>" + getCurrentTime() +"</endTime>" +
+                            "<country>" + countryName + "</country>" +
+                            "</params>" +
+                          "</Request>",
+    oData.callback = countryCallBack;
+    oData.type = "POST";
+    ajaxCall(oData);
 }
 
 // creation of html DOM
