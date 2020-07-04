@@ -40,22 +40,19 @@ function callBackEndISSDB(){
     $(".loadwrapper").show();
     var x =  getCurrentTime();
     var y = getSliderTime();
-    $.ajax({
-      url: 'http://127.0.0.1:8082/ISSDB',
-      data: "<?xml version='1.0' encoding='UTF-8'?>" +
-      "<Request>" +
-      "<requestName>ISSDB<requestName>" + 
-      "<params>" +
-      "<startTime>" + getSliderTime() + "</startTime>"+
-      "<endTime>" + getCurrentTime() + "</endTime>"+
-      "</params>" +
-      "</Request>",
-      type: 'POST',
-      crossDomain: true,
-      dataType: 'xml',
-      success: function() { console.log("Success!")},
-      error: function() { console.log('Failed!')},
-      complete: function(oData){ renderGPX(oData);}
-    });
+
+    var oData = {};
+    
+    oData.call = "ISSDB";
+    oData.data =        "<Request>" +
+                          "<requestName>ISSDB<requestName>" + 
+                            "<params>" +
+                              "<startTime>" + getSliderTime() + "</startTime>"+
+                              "<endTime>" + getCurrentTime() + "</endTime>"+
+                            "</params>" +
+                          "</Request>",
+    oData.callback = renderGPX;
+    oData.type = "POST";
+    ajaxCall(oData);
   }
 };

@@ -1,0 +1,8 @@
+<!ELEMENT Request (requestName, data)>
+<!ELEMENT requestName (#CDATA)>
+<!ELEMENT data (Astro)>
+<!ATTLIST Astro name CDATA #REQUIRED>
+<!ELEMENT Astro (picture, flag, nation)>
+<!ELEMENT picture (#PCDATA)>
+<!ELEMENT flag (#PCDATA)>
+<!ELEMENT nation (#PCDATA)>

@@ -28,7 +28,8 @@ function createMap() {
         minZoom: 3,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
             '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery <a href="https://www.mapbox.com/">Mapbox</a>',
+            'Imagery <a href="https://www.mapbox.com/">Mapbox</a>, ' +
+            '<a href="impressum.html">Impressum<a> ',
         id: 'mapbox/satellite-streets-v11',
         tileSize: 512,
         zoomOffset: -1
@@ -89,29 +90,6 @@ function toggleMenuOn(e) {
         menu.classList.remove(active);
     }
 }
-
-// trying to clone the geoJSON layers to add the copies to the neighboring maps; result: the user should be able to click on neighbouring maps
-
-
-// // funtion to draw geoJson to map, just for test purposes
-// function drawGeoJSON(){
-//     $.getJSON("json/world_med_res.json", function(json) {
-//         data = json;
-//         console.log(json); // this will show the info it in firebug console
-//         mainLayer=L.geoJSON(json, {
-//                 style: function (feature) {
-//                     return {color: '#FFFFFF',
-//                             opacity: .2,
-//                             fillOpacity: 0};
-//                 }
-//             }).bindPopup(function (layer) {
-//                 removePopUps();
-//                 //functins
-//             return layer.feature.properties.name_sort;
-//         })//**.bindTooltip('click for more information')
-//         .addTo(mymap);
-//     });
-// }
 
 function showCoordinate(){
 
@@ -201,7 +179,7 @@ $(document).ready(function () {
     console.log("create map call");   
     var mymap;  
     createMap();
-    createISS();  
+    ISSCall(createISS);  
     loadingText(1);
     // drawSVG();
     // coordinate2pixel('xml/germany.xml');

@@ -52,22 +52,18 @@ function addressParser(){
 }
 
 function geoCodingCallBackEnd(q){
-    $.ajax({
-        url: 'http://127.0.0.1:8082/GeocodingAddress',
-        data: "<?xml version='1.0' encoding='UTF-8'?>"+
-        "<Request>"+
-        "<requestName>Geocoding<requestName>"+
-        "<params>"+
-        "<q>" + q +"</q>"+
-        "</params>"+
-        "</Request>",
-        type: 'POST',
-        crossDomain: true,
-        dataType: 'xml',
-        success: function() { console.log("GeocodingAddress Success!")},
-        error: function() { console.log('GeocodingAddress Failed!')},
-        complete: function(oData){ geoCodingCallBack(oData);}
-    });
+    var oData = {};
+    
+    oData.call = "GeocodingAddress";
+    oData.data =        "<Request>" +
+                            "<requestName>Geocoding<requestName>" +
+                            "<params>" +
+                            "<q>" + q +"</q>"+
+                            "</params>" +
+                        "</Request>";
+    oData.callback = geoCodingCallBack;
+    oData.type = "POST";
+    ajaxCall(oData);
 }
 
 function geoCodingCallBack(oData){

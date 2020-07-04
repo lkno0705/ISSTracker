@@ -21,23 +21,18 @@ function rssCall(){
 }
 
 function rssCallBackEnd(start, end){
-    $.ajax({
-        url: 'http://127.0.0.1:8082/RSS-Feed',
-        data:"<?xml version='1.0' encoding='UTF-8'?>" +
-                "<Request>" +
-                    "<requestName>RSS-Feed<requestName>" +
-                    "<params>" +
-                        "<startID>" + start + "</startID>" +
-                        "<endID>" + end + "</endID>" +
-                    "</params>" +
-                "</Request>",
-        type: 'POST',
-        crossDomain: true,
-        dataType: 'xml',
-        success: function() { console.log("Success!")},
-        error: function() { console.log('Failed!')},
-        complete: function(oData){ RSSCallback(oData);}
-    });
+    var oData = {};
+    oData.call = "RSS-Feed";
+    oData.data =        "<Request>" +
+                            "<requestName>RSS-Feed<requestName>" +
+                            "<params>" +
+                                "<startID>" + start + "</startID>" +
+                                "<endID>" + end + "</endID>" +
+                            "</params>" +
+                        "</Request>";
+    oData.callback = RSSCallback;
+    oData.type = "POST";
+    ajaxCall(oData);
 }
 
 function RSSCallback(oData){ 
