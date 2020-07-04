@@ -30,7 +30,7 @@ function callCountryBackEnd(countryName){
 }
 
 // creation of html DOM
-function countryCallBack(oData, countryName){
+function countryCallBack(oData){
     var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
