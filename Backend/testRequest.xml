@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE Request SYSTEM "./DTD/params.dtd">
+<Request>
+    <requestName>ISSpastPasses</requestName>
+    <params>
+        <latitude>32.4143</latitude>
+        <longitude>-49.2637</longitude>
+        <number>5</number>
+    </params>
+</Request>
