@@ -20,6 +20,7 @@ function callBackEndFlyBy(latlng){
     $.ajax({
       url: 'http://127.0.0.1:8082/ISSpastPasses',
       data: "<?xml version='1.0' encoding='UTF-8'?>" +
+      // "<!DOCTYPE Request SYSTEM './DTD/ISSpastPasses.dtd'>"+
       "<Request>" +
       "<requestName>ISSpastPasses<requestName>" + 
       "<params>" +

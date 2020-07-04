@@ -29,12 +29,12 @@ function callCountryBackEnd(countryName){
         dataType: 'xml',
         success: function() { console.log("Success!")},
         error: function() { console.log('Failed!')},
-        complete: function(oData){countryCallBack(oData, countryName);}
+        complete: function(oData){countryCallBack(oData);}
     });
 }
 
 // creation of html DOM
-function countryCallBack(oData, countryName){
+function countryCallBack(oData){
     var xmlString = oData.responseText;
     var parser = new DOMParser;
     var xmlDoc = parser.parseFromString(xmlString, "text/xml"); // XML creation
