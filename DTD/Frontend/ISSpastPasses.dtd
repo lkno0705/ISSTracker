@@ -1,7 +1,0 @@
-<!ELEMENT Request (requestName, data)>
-<!ELEMENT requestName (#CDATA)>
-<!ELEMENT data (numberOfPasses, passes)>
-<!ELEMENT numberOfPasses (#PCDATA)>
-<!ELEMENT passes (startTime, endTime)>
-<!ELEMENT passes (#PCDATA)>
-<!ELEMENT endTime (#PCDATA)>

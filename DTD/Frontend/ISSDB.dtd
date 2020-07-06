@@ -1,7 +1,0 @@
-<!ELEMENT Request (requestName, data)>
-<!ELEMENT requestName (#CDATA)>
-<!ELEMENT data (timeValue )>
-<!ATTLIST timeValue time CDATA #REQUIRED>
-<!ELEMENT timeValue (longitude, latitude)>
-<!ELEMENT longitude (#PCDATA)>
-<!ELEMENT latitude (#PCDATA)>

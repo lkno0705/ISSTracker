@@ -1,0 +1,5 @@
+<!ELEMENT Request (requestName, params)>
+<!ELEMENT requestName (#PCDATA)>
+<!ELEMENT params (startTime, endTime)>
+<!ELEMENT startTime (#PCDATA)>
+<!ELEMENT endTime (#PCDATA)>

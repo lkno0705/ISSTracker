@@ -1,0 +1,6 @@
+<!ELEMENT Request (requestName, params)>
+<!ELEMENT requestName (#PCDATA)>
+<!ELEMENT params (latitude, longitude, number)>
+<!ELEMENT latitude (#PCDATA)>
+<!ELEMENT longitude (#PCDATA)>
+<!ELEMENT number (#PCDATA)>

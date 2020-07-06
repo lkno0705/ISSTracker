@@ -1,5 +1,0 @@
-<!ELEMENT Request (requestName, data)>
-<!ELEMENT requestName (#CDATA)>
-<!ELEMENT data (latitude, longitude)>
-<!ELEMENT latitude (#PCDATA)>
-<!ELEMENT longitude (#PCDATA)>

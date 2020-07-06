@@ -1,0 +1,4 @@
+.idea
+**/__pycache__/
+./Backend/Core/__pycache__
+./Backend/Requests/__pycache__

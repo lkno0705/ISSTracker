@@ -1,9 +1,0 @@
-<!ELEMENT Request (requestName, data)>
-<!ELEMENT requestName (#CDATA)>
-<!ELEMENT data (countries)>
-<!ELEMENT countries (country)>
-<!ATTLIST country  name CDATA #REQUIRED>
-<!ELEMENT country (point)>
-<!ELEMENT point (latitute, longitude)>
-<!ELEMENT latitute (#PCDATA)>
-<!ELEMENT longitude (#PCDATA)>

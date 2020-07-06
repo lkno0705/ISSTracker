@@ -1,0 +1,4 @@
+<!ELEMENT Request (requestName, params)>
+<!ELEMENT requestName (#PCDATA)>
+<!ELEMENT params (country)>
+<!ELEMENT country (#PCDATA)>

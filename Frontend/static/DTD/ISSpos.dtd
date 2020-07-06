@@ -1,0 +1,6 @@
+<!ELEMENT Request (requestName, data)>
+<!ELEMENT requestName (#PCDATA)>
+<!ELEMENT data (latitude, longitude, timestamp)>
+<!ELEMENT latitude (#PCDATA)>
+<!ELEMENT longitude (#PCDATA)>
+<!ELEMENT timestamp (#PCDATA)>

@@ -1,0 +1,6 @@
+redis
+feedparser
+lxml
+requests
+pytz
+flask-cors

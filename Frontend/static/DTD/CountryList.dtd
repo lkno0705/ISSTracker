@@ -1,0 +1,5 @@
+<!ELEMENT Request (requestName, data)>
+<!ELEMENT requestName (#PCDATA)>
+<!ELEMENT data (CountryList)>
+<!ELEMENT CountryList (country+)>
+<!ELEMENT country (#PCDATA)>
