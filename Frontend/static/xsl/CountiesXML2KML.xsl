@@ -6,9 +6,7 @@
                     <name>mapschema_92_16.layertable_258_16</name>
                     <xsl:for-each select="Request/data/countries/country">
                         <Placemark>
-                            <name>
-                                <xsl:value-of select="./@countryname"/>
-                            </name>
+                            <name><xsl:value-of select="./@countryname"/></name>
                             <Style>
                                 <LineStyle>
                                     <color>ffffff</color>
@@ -18,24 +16,28 @@
                                     <fill>0</fill>
                                 </PolyStyle>
                             </Style>
-                            <MultiGeometry>
-                                <Polygon>
-                                    <outerBoundaryIs>
-                                        <LinearRing>
-                                            <coordinates>
-                                                <xsl:for-each select="./point">
-                                                    <xsl:value-of select="latitude"/>,<xsl:value-of select="longitude"/>
-                                                    &#160;
-                                                </xsl:for-each>
-                                            </coordinates>
-                                        </LinearRing>
-                                    </outerBoundaryIs>
-                                </Polygon>
-                            </MultiGeometry>
+                            <xsl:if test="count(./region)>1">
+                                <MultiGeometry>
+                                    <xsl:for-each select="./region">
+                                        <Polygon>
+                                            <outerBoundaryIs>
+                                                <LinearRing>
+                                                    <coordinates>
+                                                        <xsl:for-each select="./point">
+                                                            <xsl:value-of select="longitude"/>,<xsl:value-of select="latitude"/>&#160;
+                                                        </xsl:for-each>
+                                                    </coordinates>
+                                                </LinearRing>
+                                            </outerBoundaryIs>
+                                        </Polygon>
+                                    </xsl:for-each>
+                                </MultiGeometry>
+                            </xsl:if>
+                            <xsl:if test="count(./region)=1">
+                                <Polygon><outerBoundaryIs><LinearRing><coordinates><xsl:for-each select="./region/point"><xsl:value-of select="longitude"/>,<xsl:value-of select="latitude"/>&#160;</xsl:for-each></coordinates></LinearRing></outerBoundaryIs></Polygon>
+                            </xsl:if>
                         </Placemark>
                     </xsl:for-each>
-
-
                 </Folder>
             </Document>
         </kml>

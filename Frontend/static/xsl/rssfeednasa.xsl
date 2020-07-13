@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:output method="html"/>
+<xsl:output method="html" version="1.0" encoding="iso-8859-1" indent="yes"/>
 <xsl:template match="/">
   <div class="rss">
   <h2>RSS Feeds</h2>
@@ -17,7 +17,7 @@
       </div>
       <div class="rss-text text">
           <h4><xsl:value-of select="title"/></h4>
-          <p><xsl:value-of select="summary"/></p>
+          <p><xsl:value-of select="summary/node()" disable-output-escaping="yes"/></p>
       </div>
   </div>
   </xsl:for-each>

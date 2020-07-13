@@ -120,12 +120,12 @@ function toggleNavL(show) {
     document.getElementById("flyby").style.display = "";
     document.getElementById("pastpasses").style.display = "";
     document.getElementById("mySidebarLeft").style.pointerEvents = "auto";
+    document.getElementById("mainLeft").style.pointerEvents = "auto";
     bStart = true;
-    var checkboxes = document.getElementsByClassName("checkbox-hidden");
-
-    for (var i =0; i < checkboxes.length;i++)
+    var checkboxes = document.getElementsByClassName("checkbox-hidden");   
+    for (var i = 0; i < checkboxes.length; i++)
     {
-      checkboxes[i].className = "checkbox-show";
+      checkboxes[i].style.display = "block";
     }
     clickedL = true;
   }

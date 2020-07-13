@@ -1,8 +1,9 @@
 import redis
 from os import getenv
-from datetime import datetime
+import time
 from Backend.Core.dataStructs import parseTimeToTimestamp, ISSDBKey, Astronaut
 from Backend.Requests import astrosOnISS
+from Backend.Tools.XMLToDic import parseXMLTODic
 from Backend.Tools import rssFeedTimeConverter as dateConverter
 
 
@@ -18,11 +19,8 @@ class redisDB:
         # {'latitude': -45.4742, 'longitude': 150.3883, 'timestamp': '2020-06-09 20-50-01'}
         with self.__redisDB__ as DB:
             # set Key and Value
-            DB.set(name="ISSpos:" + data["timestamp"] + ":latitude", value=data["latitude"])
-            DB.set(name="ISSpos:" + data["timestamp"] + ":longitude", value=data["longitude"])
-
-            # key expires after 24h
-            DB.expire(name="ISSpos:" + data["timestamp"], time=86400)
+            DB.set(name="ISSpos:" + data["timestamp"] + ":latitude", value=data["latitude"], ex=86400)
+            DB.set(name="ISSpos:" + data["timestamp"] + ":longitude", value=data["longitude"], ex=86400)
 
 
     def _getISS(self, requestData):
@@ -73,21 +71,10 @@ class redisDB:
 
     def _getGeoJsonSingel(self, countryname):
         with self.__redisDB__ as DB:
-            # initialize return dict
-            returnValue = {"countryname": countryname}
-
-            # generate search pattern
-            searchPattern = "GeoJson:" + countryname + ":*"
-
             # get keys
-            keys = DB.keys(searchPattern)
+            xml = DB.get("GeoJson:" + countryname)
 
-            # build return dict from DB
-            for i in range(len(keys) // 2):
-                returnValue[str(i)] = {
-                    "latitude": DB.get(name="GeoJson:" + countryname + ":" + str(i) + ":latitude"),
-                    "longitude": DB.get(name="GeoJson:" + countryname + ":" + str(i) + ":longitude")
-                }
+            returnValue = parseXMLTODic(xml)
             return returnValue
 
     def _getGeoJson(self, requestdata):
@@ -100,14 +87,21 @@ class redisDB:
                 returnValue = []
 
                 # get all countrys from DB
+                startTime = time.time()
+                print("Getting Data from DB")
                 keys = DB.keys("GeoJson:*")
                 countryset = set()
                 for i in range(len(keys)):
                     countryset.add(str(keys[i]).split(":")[1])
 
                 # get GeoJson for every country
+                lastTime = startTime
                 for country in countryset:
                     returnValue.append(self._getGeoJsonSingel(countryname=country))
+                    print("Got Value in: ", time.time()-lastTime, " seconds")
+                    lastTime = time.time()
+
+                print("Done in: ", time.time()-startTime, " seconds")
                 return returnValue
 
     def _getAstros(self, requestData):

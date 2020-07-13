@@ -54,7 +54,7 @@
 
 <!------------------------ Class for loading animation ------------------------------------------------------>
 
-<div class="loadwrapper outer" style="pointer-events: auto;">    
+<div class="loadwrapper outer" id="loadwrapper" style="pointer-events: auto;">    
     <div class="middle">
         <div class="loader inner" style="position: absolute;"></div>
         <div class="logo inner" style="position: absolute;">
@@ -119,6 +119,10 @@
             </datalist>
             <input type="hidden">
         </form>
+        <div class="four" id="sliderRadius" style="display:none">
+            <input type="range" min="20" max="500" value="100" class="slider" id="position_radius"  onchange="sliderRadiusMoved()">
+            <p class="slider-text">Radius around position: <span id="radius"> </span>&nbsp;km</p>
+        </div>
     </div>
     <div  id = "leftBottom" class="container">
         <div class="checkbox-hidden">
@@ -130,29 +134,25 @@
                 <input type="checkbox" id="drawISSroute" name="drawISSroute" onchange="callBackEndISSDB()" class="radioBtn">
                 <label for="drawISSroute"></label>
             </div>
-            <div class="checkboxdarklightmode">
-                <input type="checkbox" id="switchToLightmode" name="switchToLightmode" onchange="switchToLightmode()" class="radioBtn"></input>
-                <label for="switchToLightmode"></label>
+        </div>
+            <div class="three" id="sliderLeft" style="display:none">
+                <input type="range" min="1" max="72" value="36" class="slider" id="iss_range" onchange="sliderTimeMoved()">
+                <p class="slider-text">Last positions in minutes: <span id="last_pos"></span>&nbsp;min</p>
             </div>
-        </div>
-
-        <div class="three" id="sliderLeft" style="display:none">
-            <input type="range" min="1" max="72" value="36" class="slider" id="iss_range" onchange="sliderTimeMoved()">
-            <p class="slider-text">Last positions in minutes: <span id="last_pos"></span>&nbsp;min</p>
-        </div>
-
-        <div class="four" id="sliderRadius" style="display:none">
-            <input type="range" min="20" max="500" value="100" class="slider" id="position_radius"  onchange="sliderRadiusMoved()">
-            <p class="slider-text">Radius around position: <span id="radius"> </span>&nbsp;km</p>
-        </div>
-
-        <div class="checkbox-hidden">   
-        </div>
-
+        
+            <div class="checkbox-hidden">
+                <div class="checkboxdarklightmode">
+                    <input type="checkbox" id="switchToLightmode" name="switchToLightmode" onchange="switchToLightmode()" class="radioBtn"></input>
+                    <label for="switchToLightmode"></label>
+                </div>
+            </div>    
+            
         <div class="flyOver">
             <div id="flyby" style="display:none"></div>
             <div id="pastpasses" style="display:none"></div>
         </div>
+
+    </div>
     </div>    
 </div>
 

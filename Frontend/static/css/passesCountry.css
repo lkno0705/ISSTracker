@@ -84,6 +84,11 @@
 }
 
 /* table-content */
+#countryPasses{
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
 .myPopUp{
     background: var(--color-border);
     margin-left: 20px;

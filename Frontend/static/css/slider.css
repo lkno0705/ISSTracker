@@ -35,6 +35,10 @@
 
 .slider-text{
     margin-top: 5px;
+    border-bottom: solid;
+    border-bottom-color: currentcolor;
+    border-color: var(--color-color);
+    padding-bottom: 20px;
 }
 
 .three {

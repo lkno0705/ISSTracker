@@ -2,6 +2,7 @@
 
 var startRss = 0;
 var endRss = 5;
+var bRSSStart = false;
 
 function rssClick(e){
     if (e === -1 && startRss !== 0){
@@ -34,11 +35,17 @@ function rssCallBackEnd(start, end){
 }
 
 function RSSCallback(oData){    
-    if (oData.childNodes[1].childNodes[1].childNodes.length > 0)
+    if (oData.childNodes[1].childNodes[1].childNodes.length > 0) 
     {
         transform2(oData, 'xsl/rssfeednasa.xsl',"mySidebar"); // XSL transformation
+        bRSSStart = true;
         // console.log("RSS-Feed");       
     }
     else
-     rssClick(-1);
+    {        
+        if (bRSSStart)
+            rssClick(-1);
+        else
+            setTimeout(rssCall, 5000);
+    }
 }

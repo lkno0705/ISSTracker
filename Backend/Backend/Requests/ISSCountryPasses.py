@@ -6,9 +6,9 @@ def _pointOnPolygon(latitude, longitude, polygon):
     for i in range(len(polygon)):  # corresponds to for every corner do
         # generate point pairs
         if i+1 == len(polygon):  # checks if we reached the last corner of the polygon
-            pointA, pointB = polygon[str(i)], polygon[str(0)]
+            pointA, pointB = polygon[i], polygon[0]
         else:
-            pointA, pointB = polygon[str(i)], polygon[str(i + 1)]
+            pointA, pointB = polygon[i], polygon[i + 1]
 
         # Assigning point attributes latitude and longitude
         pointA["longitude"], pointA["latitude"] = float(pointA["longitude"]), float(pointA["latitude"])

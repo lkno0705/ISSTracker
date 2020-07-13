@@ -165,15 +165,15 @@ def _convertGeoJSONToXML(requestData):
         countriesElem.append(countryChild)
 
         count = 0
-        while str(count) in country:
+        while count in country:
             pointElem = Element("point")
 
             latElem = Element('latitude')
-            latElem.text = country[str(count)]['latitude']
+            latElem.text = country[count]['latitude']
             pointElem.append(latElem)
 
             lonElem = Element('longitude')
-            lonElem.text = country[str(count)]['longitude']
+            lonElem.text = country[count]['longitude']
             pointElem.append(lonElem)
 
             countryChild.append(pointElem)

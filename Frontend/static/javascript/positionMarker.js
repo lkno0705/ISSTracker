@@ -39,13 +39,19 @@ function addCircle(latlng){
 }
 
 function mousewheelHandler(e) {
+    var wheelMultiplier
+    if (e.deltaMode == 0)
+            wheelMultiplier = 120;
+        else
+            wheelMultiplier = 2;
+        
     if (e.deltaY)
     {
     var slider = document.getElementById("position_radius");
     var output = document.getElementById("radius");
 
     if (output.innerHTML >= 0 && output.innerHTML <= 500)
-        output.innerHTML = parseInt(output.innerHTML) + parseInt((-e.deltaY/3)*10);
+        output.innerHTML = parseInt(output.innerHTML) + parseInt((-e.deltaY/wheelMultiplier)*10);
 
     if (output.innerHTML <= 0)
         output.innerHTML = 10;

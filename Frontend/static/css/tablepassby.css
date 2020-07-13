@@ -1,20 +1,75 @@
-.table-left-sidebar{
-    border: solid white 1px;
-    padding: 5px;
-    border-collapse: collapse;
-}
-
-#flyby, #pastpasses{
+/* #flyby, #pastpasses{
     padding: 5px;   
     position: relative;
     min-height: 200px;
     font-size: small;
-}
+} */
 
 .flyOver h2{
     text-align: center;
 }
 
+.flyOver{
+    margin-bottom: 100px;
+}
+
+.tableLeftSideBar{
+    background: var(--color-border);
+    border-radius: 5px;
+} 
+
+#flyby table{
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#flyby th{
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-td);
+}
+
+#flyby td{
+   width: 50%;
+   text-align: center;
+   border: none;
+   background-color: var(--color-td);
+   border-radius: 5px;
+   padding-block-start: 0px;
+   padding-block-end: 0px;
+}
+
+/* bottom table */
+
+.leftBottomTable{
+    background: var(--color-border);
+     border-radius: 5px;
+}
+
+#pastpasses table{
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#pastpasses th{
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-td);
+}
+
 #pastpasses td{
    width: 50%;
+   text-align: center;
+   border: none;
+   background-color: var(--color-td);
+   border-radius: 5px;
+   padding-block-start: 0px;
+   padding-block-end: 0px;
+}
+
+#flyby, #pastpasses{
+    padding: 5px;
+    position: relative;    
 }

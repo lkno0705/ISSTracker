@@ -1,9 +1,14 @@
 
 var bFollowISS = false;
 var bFirstLoad = false;
+var bDrawISSRoute = false;
+var bFirstDraw = false;
 var oldLng;
+var aIssRouteFirstDraw;
+var oldLatLng;
 var latlng;
 var issIcon;
+var issRouteLive;
 
 function ISSCall(){
     var oData = {};
@@ -24,7 +29,7 @@ function moveISSCall(){
 }
 
 function createISS(oData) {
-    // console.log("createISS");   
+    // console.log("createISS");     
     var lat = oData.getElementsByTagName("latitude")[0].innerHTML;
     var lon = oData.getElementsByTagName("longitude")[0].innerHTML;
 
@@ -38,7 +43,8 @@ function createISS(oData) {
 }
 
 // function to move the ISS along the Map
-function moveISS(oData) {   
+function moveISS(oData) {    
+    oldLatLng = latlng;    
     var lat = oData.getElementsByTagName("latitude")[0].innerHTML;
     var lon = oData.getElementsByTagName("longitude")[0].innerHTML;
     iss =  {
@@ -52,27 +58,57 @@ function moveISS(oData) {
         if (parseFloat(oldLng) > parseFloat(lon)) {
             issIcon.removeFrom(mymap);            
             ISSCall();
+            if (issRoute)
+            {
+                issRoute.removeFrom(mymap);
+                if (issRouteLive)
+                    issRouteLive.removeFrom(mymap);
+                callBackEndISSDB();
+            }
             return;
         }
         oldLng = lon;
         // console.log("moveISS");
         latlng = L.latLng(lat, lon);
         issIcon.moveTo(latlng, 5000)
+
+        if (bDrawISSRoute && aIssRouteFirstDraw) {
+            var aDraw = [];
+            if (issRouteLive){
+                issRouteLive.remove();
+                aDraw = issRouteLive.getLatLngs();
+                aDraw.push(latlng);
+            }
+            if (!bFirstDraw) {
+                aDraw.push(aIssRouteFirstDraw);
+                aDraw.push(oldLatLng);
+                aDraw.push(latlng);
+                issRouteLive = L.polyline(aDraw,{
+                    className: "gpx",
+                }).addTo(mymap);    
+                bFirstDraw = true;
+            } else {
+                issRouteLive = L.polyline(aDraw,{
+                    className: "gpx",
+                }).addTo(mymap);
+            }        
+        }
+
         if (bFollowISS) {
         mymap.panTo(issIcon._latlng,{
             animate: true,
             duration: 5.0,
             easeLinearity: 1
-        });             
+        });   
+        mymap.setZoom = 6;          
         }
         issIcon.start();
         // console.log("Lang: " + lat + " Long: " + lon);
         if (!bFirstLoad)
         {
-            $(".overlay").hide();
-            $(".loadwrapper").hide();
+            document.getElementById("loadwrapper").style.display="none";
             changeCursor('default');  
-            bFirstLoad= false;
+            bFirstLoad= true;
         }
         setTimeout(moveISSCall, 5000);
     }    
@@ -83,12 +119,15 @@ function followISS(){
     if (document.getElementById("followISS").checked)
         {
             // console.log(issIcon);
-            mymap.setView(latlng,6);  
-            // mymap.setZoom(6);
-            mymap.setMinZoom(6);
-            mymap.setMaxZoom(6);
+            mymap.flyTo(latlng,6,{
+                duration: 1
+            });      
             bFollowISS=true;
             document.getElementById("mapid").style.pointerEvents ="none";
+            var kmlLayer = document.getElementsByClassName("leaflet-interactive")
+            for (var i = 0; i < kmlLayer.length;i++){
+                kmlLayer[i].style.pointerEvents="none";
+            }
         }
     else
         {
@@ -96,6 +135,10 @@ function followISS(){
             mymap.setMinZoom(3);
             mymap.setMaxZoom(7);
             document.getElementById("mapid").style['pointer-events'] = "auto";
+            var kmlLayer = document.getElementsByClassName("leaflet-interactive")
+            for (var i = 0; i < kmlLayer.length;i++){
+                kmlLayer[i].style.pointerEvents="";
+            }
         }
 };
 
