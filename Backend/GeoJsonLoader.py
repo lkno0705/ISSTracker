@@ -2,7 +2,7 @@ import json
 from time import sleep
 from os import getenv
 import redis
-from Backend.Tools.GeoJsonToXML import JsonToXML
+from Backend.Tools.DicToXML4DB import GeoJsonToXML
 
 __redisHost__ = getenv('REDISHOST')  # "ISS-Trackr-API.redis.cache.windows.net"
 __redisPW__ = getenv('REDISPW')
@@ -61,7 +61,7 @@ def process():
 #
 
 def loadGeoJsonsToDB(geoJson):
-    countryList = JsonToXML(geoJson)
+    countryList = GeoJsonToXML(geoJson)
     for country in countryList:
         # loads every xml string of countries coordinates into DB
         __redisDB__.set(name="GeoJson:" + country['countryname'], value=country['xml'])

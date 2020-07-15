@@ -20,7 +20,7 @@ def _pointOnPolygon(latitude, longitude, polygon):
                     pointB["latitude"] >= latitude and pointA["latitude"] <= latitude):
                 counter += 1
     # If the counter is even or if no point of intersection is found then the coordinate is not inside of the polygon
-    return False if counter == 0 else counter % 2 == 0
+    return False if counter == 0 else counter % 2 != 0
 
 
 def ISScountryPasses(requestData):
@@ -47,7 +47,7 @@ def ISScountryPasses(requestData):
         "numberOfPasses": 0,
         "passes": []
     }
-    returnIndex = 0
+    returnIndex = -1
 
     # for every isscoordinate check if its inside the country borders and calculate ISSpasses based upon that information
     for x in range(0, len(issCoordinates), 2):
@@ -61,10 +61,11 @@ def ISScountryPasses(requestData):
 
         # Count passes and save start- and endTime of every pass
         if not lastPointOnPolygon:
-            thisPointOnPolygon = _pointOnPolygon(latitude, longitude, geoJson) # check if point is on polygon
+            thisPointOnPolygon = _pointOnPolygon(latitude, longitude, geoJson)  # check if point is on polygon
             if thisPointOnPolygon:
                 returnValue["passes"].append({"startTime": issCoordinates[x].timeValue, "endTime": ""})
                 returnValue["numberOfPasses"] += 1
+                returnIndex += 1
                 lastTimeValue = issCoordinates[x].timeValue
         else:
             thisPointOnPolygon = _pointOnPolygon(latitude, longitude, geoJson)

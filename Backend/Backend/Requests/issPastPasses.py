@@ -46,7 +46,7 @@ class pastPasses():
             "numberOfPasses": 0,
             "passes": []
         }
-        returnIndex = 0
+        returnIndex = -1
 
         for x in range(0, len(issCoordinates), 2):
             # reformat isscoordinates
@@ -55,10 +55,11 @@ class pastPasses():
             else:
                 coord1 = (float(issCoordinates[x].value), float(issCoordinates[x + 1].value))
 
-            thisPointInCircle = 0 <= self._distanceInKmBetweenEarthCoordinates(coord1=coord1, coord2=location) <= int(requestData["params"]["radius"])
+            thisPointInCircle = self._distanceInKmBetweenEarthCoordinates(coord1=coord1, coord2=location) <= int(requestData["params"]["radius"])
             if not lastPointInCircle and thisPointInCircle:
                 returnValue["passes"].append({"startTime": issCoordinates[x].timeValue, "endTime": ""})
                 returnValue["numberOfPasses"] += 1
+                returnIndex += 1
                 lastTimeValue = issCoordinates[x].timeValue
                 if len(issCoordinates) - 1 == x or len(issCoordinates) - 2 == x:
                     returnValue["passes"][returnIndex]["endTime"] = issCoordinates[x].timeValue
