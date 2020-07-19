@@ -425,7 +425,7 @@ def reformatData(requestData, requestName):
     # get xml
     xmlData = functions.get(requestName)(requestData)
     # add header and convert from bytestring to normal string
-    xmlData = "<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE Request SYSTEM \'./DTD/" + requestName + ".dtd\'>" + str(xmlData, 'utf-8')
+    xmlData = "<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE Request SYSTEM \'./DTD/" + requestName + "FE.dtd\'>" + str(xmlData, 'utf-8')
     return xmlData
 
 '''
@@ -486,6 +486,16 @@ def parseRequestParamsXMLToDic(xml):
             paramsDic[xparam] = yparamValue
         requestDic['params'] = paramsDic
         return requestDic
+
+
+def XMLvalidate(xml):
+    try:
+        xml = str.encode(xml, "utf-8")
+        parser = etree.XMLParser(dtd_validation=True, encoding="utf-8")
+        etree.fromstring(xml, parser)
+        return True
+    except etree.XMLSyntaxError:
+        return False
 
 
 # # for debugging purposes

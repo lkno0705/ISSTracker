@@ -1,0 +1,8 @@
+<!ELEMENT Request (requestName, data)>
+<!ELEMENT requestName (#PCDATA)>
+<!ELEMENT data (numberOfPasses, passes)>
+<!ELEMENT numberOfPasses (#PCDATA)>
+<!ELEMENT passes (pass*)>
+<!ELEMENT pass (startTime,endTime)>
+<!ELEMENT startTime (#PCDATA)>
+<!ELEMENT endTime (#PCDATA)>

@@ -7,7 +7,7 @@ from Backend.Requests.userPosition import getUserPosition as userPosition
 from Backend.Core.database import redisDB
 from Backend.Requests.issPastPasses import pastPasses
 from Backend.Requests.issFuturePasses import getFuturePass
-from Backend.Core.XMLParser import reformatData, parseRequestParamsXMLToDic
+from Backend.Core.XMLParser import reformatData, parseRequestParamsXMLToDic, XMLvalidate
 from Backend.Requests.addressGeocoding import geocoder
 import multiprocessing
 from Backend.Core.polling import polling
@@ -101,6 +101,7 @@ def request(requestName):
             return makeResponse(BadRequest, 400)
 
     elif frequest.method == 'POST':
+        resp = ""
         try:
             body = parseRequestParamsXMLToDic(frequest.data)
         except TypeError:
@@ -110,31 +111,27 @@ def request(requestName):
             return makeResponse(BadRequest, 400)
         else:
             if requestName == "ISSCountryPasses":
-                return makeResponse(
-                    data=reformatData(requestData=ISScountryPasses(requestData=body), requestName=requestName),
-                    status=200)
+                resp = reformatData(requestData=ISScountryPasses(requestData=body), requestName=requestName)
             elif requestName == "ISSDB":
-                return makeResponse(
-                    data=reformatData(requestData=redisDB().getData(body, requestName), requestName=requestName),
-                    status=200)
+                resp = reformatData(requestData=redisDB().getData(body, requestName), requestName=requestName)
             elif requestName == "GeoJson":
-                return makeResponse(
-                    data=reformatData(requestData=redisDB().getData(body, requestName), requestName=requestName),
-                    status=200)
+                resp = reformatData(requestData=redisDB().getData(body, requestName), requestName=requestName)
             elif requestName == "RSS-Feed":
-                return makeResponse(
-                    data=reformatData(requestData=redisDB().getData(requestData=body, requestName=requestName),
-                                      requestName=requestName), status=200)
+                resp = reformatData(requestData=redisDB().getData(requestData=body, requestName=requestName),
+                                    requestName=requestName)
             elif requestName == "ISSpastPasses":
-                return makeResponse(
-                    data=reformatData(requestData=pastPasses().pastPasses(requestData=body), requestName=requestName),
-                    status=200)
+                resp = reformatData(requestData=pastPasses().pastPasses(requestData=body), requestName=requestName)
             elif requestName == "ISSfuturePasses":
-                return makeResponse(
-                    data=reformatData(requestData=getFuturePass(params=body["params"]), requestName=requestName),
-                    status=200)
+                resp = reformatData(requestData=getFuturePass(params=body["params"]), requestName=requestName)
             elif requestName == "GeocodingAddress":
-                return makeResponse(
-                    data=reformatData(requestData=geocoder(params=body["params"]), requestName=requestName), status=200)
+                resp = reformatData(requestData=geocoder(params=body["params"]), requestName=requestName)
             else:
                 return makeResponse(BadRequest, 400)
+            if XMLvalidate(resp) and not resp == "":
+                return makeResponse(data=resp, status=200)
+            else:
+                return makeResponse(data='<?xml version="1.0" encoding="UTF-8"?>' \
+                                  '<message>' \
+                                  '<error>Error 500: Bad XML Response</error>' \
+                                  '<description>An Error occured while validating the XML file</description>' \
+                                  '</message>', status=500)
