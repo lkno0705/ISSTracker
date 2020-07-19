@@ -38,7 +38,7 @@ class redisDB:
                 del issPositions[1]
 
             # push all ISSPositions including the new position into DB as XML
-            DB.set(name="ISSpos", value=ISSPosISSDBKeyToXML(oldISSPositions))
+            DB.set(name="ISSpos", value=ISSPosISSDBKeyToXML(issPositions))
 
     def _getISS(self, requestData):
 
@@ -134,10 +134,10 @@ class redisDB:
         for i in range(len(feedItems)):
             expireTime = 3600  # expiration time in seconds: 3600sec = 1H
             firstKeyPart = "RSS-Feed:" + str(id)
-            self.__redisDB__.set(name=firstKeyPart + ":title", value=feedItems[i]['title'], ex=expireTime)
-            self.__redisDB__.set(name=firstKeyPart + ":summary", value=feedItems[i]['summary'], ex=expireTime)
-            self.__redisDB__.set(name=firstKeyPart + ":published", value=feedItems[i]['published'], ex=expireTime)
-            self.__redisDB__.set(name=firstKeyPart + ":link", value=feedItems[i]['link'], ex=expireTime)
+            self.__redisDB__.set(name=firstKeyPart + ":title", value=feedItems[i]['title'])
+            self.__redisDB__.set(name=firstKeyPart + ":summary", value=feedItems[i]['summary'])
+            self.__redisDB__.set(name=firstKeyPart + ":published", value=feedItems[i]['published'])
+            self.__redisDB__.set(name=firstKeyPart + ":link", value=feedItems[i]['link'])
             id += 1
 
     def _getRssFeed(self, requestData):
