@@ -1,7 +1,10 @@
+"use strict";
+
+// HTML elements for loading animation in DIVs
 {
     var loadingAnimation= '<div class="middle">'+
     '<div class="loader2 inner" style="position: absolute;"></div>'+
-    '<div class="logo2 inner" style="position: relative;">'+
+    '<div class="logo2 inner" style="position: relative;cursor:wait">'+
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 500" height="150" width="150" class="logo-iss">'+
             '<defs id="defs6396">'+
                 '<clipPath id="clipPath1384" clipPathUnits="userSpaceOnUse">'+
@@ -44,7 +47,7 @@
 {
 var loadingAnimation2= '<div class="middle">'+
     '<div class="loader2 inner" style="position: absolute;"></div>'+
-    '<div class="logo3 inner" style="position: relative;">'+
+    '<div class="logo3 inner" style="position: relative;cursor:wait">'+
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 500" height="150" width="150" class="logo-iss">'+
             '<defs id="defs6396">'+
                 '<clipPath id="clipPath1384" clipPathUnits="userSpaceOnUse">'+
@@ -83,4 +86,55 @@ var loadingAnimation2= '<div class="middle">'+
     '<span id="loadingText3" style="position:relative; z-index:1"></span>'+
     '</div>'+
 '</div>'
+}
+
+// loading text animation
+var i_text = 1;
+var i_start = 5;
+    
+function loadingText() {
+    var s = "establishing satelite link...";
+
+    $("#loadingText").text(s.slice(0, i_start + i_text));
+    if (i_text == s.length) {
+        i_text = 1;
+        i_start = 5;
+    } else {
+        i_text++;
+        if (i_text % 2 == 0)
+            i_start++;
+    }
+    setTimeout(loadingText, 20);
+}
+
+// function to change cursor
+function changeCursor(cursor) {
+    document.body.style.cursor = cursor;   
+}
+function toggleLoading(bool,icon,inputs){
+    if(bool){
+        document.getElementById("loadwrapper").style.display="none";
+        document.getElementById("overlay").style.display="none";
+        changeCursor('default');  
+        document.getElementById("plz").disabled = false;
+        document.getElementById("country").disabled = false;
+        document.getElementById("close-image").disabled = false;
+        document.getElementById("position_radius").disabled = false;
+        document.getElementById("drawISSroute").disabled = false;
+    }
+    else
+    {
+        if(inputs){
+            document.getElementById("plz").disabled = true;
+            document.getElementById("country").disabled = true;
+            document.getElementById("close-image").disabled = true;
+            document.getElementById("position_radius").disabled = true;
+            document.getElementById("drawISSroute").disabled = true;
+        }
+        if (icon){
+            document.getElementById("loadwrapper").style.display="table";
+        }
+        document.getElementById("overlay").style.display="block";
+        changeCursor('wait');  
+    }
 }

@@ -11,6 +11,22 @@
   border-radius: 5px;
 }
 
+.slider:disabled{
+  background-color: gray;
+  color: gray;
+  cursor:not-allowed;
+}
+
+.slider:disabled::-webkit-slider-thumb{
+  background: darkgray;
+  cursor:not-allowed;
+}
+
+.slider:disabled::-moz-range-thumb{
+  background: darkgray;
+  cursor:not-allowed;
+}
+
 .slider:hover {
   opacity: 1;
 }
@@ -35,7 +51,7 @@
 
 .slider-text{
     margin-top: 5px;
-    border-bottom: solid;
+    border-bottom: 2px solid;
     border-bottom-color: currentcolor;
     border-color: var(--color-color);
     padding-bottom: 20px;

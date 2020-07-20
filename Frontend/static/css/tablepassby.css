@@ -1,9 +1,6 @@
-/* #flyby, #pastpasses{
+#pastpasses .text, #countrypassesSidebar .text{
     padding: 5px;   
-    position: relative;
-    min-height: 200px;
-    font-size: small;
-} */
+ } 
 
 .flyOver h2{
     text-align: center;
@@ -17,29 +14,6 @@
     background: var(--color-border);
     border-radius: 5px;
 } 
-
-#flyby table{
-    width: -moz-available;
-    width: -webkit-fill-available;
-}
-
-#flyby th{
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--color-td);
-}
-
-#flyby td{
-   width: 50%;
-   text-align: center;
-   border: none;
-   background-color: var(--color-td);
-   border-radius: 5px;
-   padding-block-start: 0px;
-   padding-block-end: 0px;
-}
-
 /* bottom table */
 
 .leftBottomTable{
@@ -47,19 +21,19 @@
      border-radius: 5px;
 }
 
-#pastpasses table{
+#flyby table, #pastpasses table, #countrypassesSidebar table{
     width: -moz-available;
     width: -webkit-fill-available;
 }
 
-#pastpasses th{
+#flyby th, #pastpasses th, #countrypassesSidebar th{
     text-align: center;
     border: none;
     border-radius: 5px;
     background-color: var(--color-td);
 }
 
-#pastpasses td{
+#flyby td, #pastpasses td, #countrypassesSidebar td{
    width: 50%;
    text-align: center;
    border: none;
@@ -69,7 +43,7 @@
    padding-block-end: 0px;
 }
 
-#flyby, #pastpasses{
+#flyby, #pastpasses, #countrypassesSidebar{
     padding: 5px;
     position: relative;    
 }
