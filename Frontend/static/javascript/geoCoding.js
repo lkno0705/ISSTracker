@@ -16,9 +16,19 @@ function countriesCallback(oData){
 
 function callGeoCoding(){ //parsing of input field
     if (!bGeoCodingInProgress) {
-        bGeoCodingInProgress= true;
+        bGeoCodingInProgress = true;
         var plz = document.getElementById('plz').value;
         var countryName = document.getElementById('country').value;
+        var countries = document.getElementsByTagName('option');
+        var aCountries =[];
+        for (var i = 0 ; i<countries.length;i++){
+           aCountries.push(countries[i].value);
+        }
+        if (aCountries.indexOf(countryName) == -1){
+            window.alert("Not a valid country name, please pick a country from the list")
+            bGeoCodingInProgress = false;
+            return;
+        }
         var sParse = addressParser();
         if (sParse)
         {
@@ -65,8 +75,7 @@ function geoCodingCallBackEnd(q, countryName){
     ajaxCall(oData);
 }
 
-function geoCodingCallBack(oData,countryName){    
-    var xmlDoc = oData;
+function geoCodingCallBack(oData,countryName){ 
     var lat = parseFloat(oData.getElementsByTagName("latitude")[0].innerHTML);
     var lon = parseFloat(oData.getElementsByTagName("longitude")[0].innerHTML);
     var latlng = L.latLng(lat, lon);
