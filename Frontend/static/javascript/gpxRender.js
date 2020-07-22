@@ -3,7 +3,7 @@
 var issRoute;
 
 function renderGPX(oData){
-  if (oData.getElementsByTagName("longitude").length == 0){
+  if ( oData == "error" || oData.getElementsByTagName("longitude").length == 0 ){
     document.getElementById("iss_range").disabled = false;
     window.alert("No data points for this time intervall");
     toggleLoading(true);
