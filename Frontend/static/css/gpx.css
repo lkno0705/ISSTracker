@@ -11,3 +11,11 @@
     stroke-width: 7;
     fill:none;
 }
+
+.waypoints{
+    opacity: 0;
+}
+.waypoints:hover{
+    opacity: 0.1;
+    cursor: help;
+}

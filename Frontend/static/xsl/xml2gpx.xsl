@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template match="/">
-		<gpx version="1.0">			
+		<gpx version="1.0">
+			<xsl:for-each select="Request/data/round">		
+				
+						<xsl:for-each select="timeValue">		
+										<wpt>	
+							<xsl:attribute name="lat">
+								<xsl:value-of select="latitude"/>
+							</xsl:attribute>
+							<xsl:attribute name="lon">
+								<xsl:value-of select="longitude"/>
+							</xsl:attribute>
+							<name><xsl:value-of select="./@time"/></name>
+						 </wpt>	
+						</xsl:for-each> 			
+				
+			</xsl:for-each> 			
 			<xsl:for-each select="Request/data/round">		
 					<trk>	
 						<xsl:for-each select="timeValue">		

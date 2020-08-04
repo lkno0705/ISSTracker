@@ -1,16 +1,17 @@
-// Mag gets created, for options check leaflet docu
+"use strict";
+
+// Map gets created, for options check leaflet docu
 
 var markerLatlng;
 var menu;
 var menuState;
 var active;
 var bStart = false;
+var mymap;
 
+// Leaflet map is created
 function createMap() {
-    // console.log("create map");
     mymap = L.map('mapid', {
-        // continuousWorld:false,
-        // worldCopyJump:true,
         maxBoundsViscosity: 1,
         zoomControl: false,
         contextmenu: true,
@@ -22,134 +23,73 @@ function createMap() {
             text: 'set marker',
             callback: setMarker
         }]
+    }).on("zoomend", function(){ // event for map zoom to set circle size on GPX route
+               var wpWidthHeight = (Math.sqrt((this.getZoom()/3))*(this.getZoom()/3)*(this.getZoom()/3)*30).toFixed(0);
+        var offset = (wpWidthHeight/2).toFixed(0);
+        var waypoints = document.getElementsByClassName("waypoints");
+        if (waypoints){
+            for (var i = 0; i < waypoints.length; i++){
+                waypoints[i].style.height = wpWidthHeight + "px";
+                waypoints[i].style.width = wpWidthHeight + "px";
+                waypoints[i].style["margin-top"]= -offset + "px";
+                waypoints[i].style["margin-left"]= -offset + "px";
+            }
+        }
     }).setView([0, 0], 7);
 
+    // get map tiles from 'mapbox'
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 7,
         minZoom: 3,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
             '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
             'Imagery <a href="https://www.mapbox.com/">Mapbox</a>, ' +
-            '<a href="impressum.html">Impressum<a> ',
+            '<a href="impressum.html">Impressum</a> | '+
+            '<a id="tutorial" onclick="openModal()" style="cursor:pointer">Help<i class="material-icons" id="helpIcon">help</i></a>',
         id: 'mapbox/satellite-streets-v11',
         tileSize: 512,
         zoomOffset: -1
     }).addTo(mymap);
 
+    // add control layer
     L.control.zoom({position: "bottomright"}).addTo(mymap);
 
-    var southWest = L.latLng(-90, -190), northEast = L.latLng(90, 190);
+    // set map bounds
+    var southWest = L.latLng(-75, -190), northEast = L.latLng(84, 190);
     var bounds = L.latLngBounds(southWest, northEast);
 
     mymap.setMaxBounds(bounds);
 
+    //set context menu
     menu = document.querySelector(".context-menu");
     menuState = 0;
     active = "context-menu--active";
 
     mymap.on('contextmenu', function (e) {
         removePopUps();
-        // console.log(e);    
         markerLatlng = e.latlng;
         toggleMenuOn(e.originalEvent);
     });
 
+    //click event handler to remove all popups
     mymap.on('click', function () {
         removePopUps();
     });
-
+    // after map is ready, KML is drawn
     callBackendDrawCounties(mymap);
-
 }
 
-function callBackendDrawCounties(map) {
-    var date = new Date();
-    $.ajax({
-        crossDomain: true,
-        type: 'GET',
-        url: 'xml/xmlForCounties.xml',
-        xml: "application/xml",
-        dataType: 'xml',
-        success: function (oReturnData) {
-            console.log(date.toLocaleTimeString() + " | " + "KML" + " Success!")
-            drawCounties(map, oReturnData)
-        },
-        error: function (oReturnData) {
-            console.log(oData.call + ' Failed!');
-            console.log(oReturnData)
-        }
-    });
-}
-
-function drawCounties(map, countiesXML) {
-    transform3(countiesXML, 'xsl/CountiesXML2KML.xsl', function (oData) {
-        // Create new kml overlay
-        const parser = new DOMParser();
-        const kml = parser.parseFromString(oData,'text/html')
-        const track = new L.KML(kml);
-        map.addLayer(track);
-
-        // Adjust map to show the kml
-        const bounds = track.getBounds();
-        map.fitBounds(bounds);
-    })
-
-
-}
-
-function toggleMenuOn(e) {
-    if (menuState !== 1) {
-        menuState = 1;
-        menu.classList.add(active);
-        menu.style.left = e.x + "px";
-        menu.style.top = e.y + "px";
-    } else {
-        menuState = 0;
-        menu.classList.remove(active);
-    }
-}
-
-function showCoordinate() {
-
-}
-
+// function to remove all popups on website
 function removePopUps() {
     if (menuState == 1)
         toggleMenuOn();
     document.getElementById("issOnBoard").innerHTML = "";
     bCrewPopUp = false;
+    routePopup[0].style.display = 'none';
 }
 
-var i_text = 1;
-var i_start = 5;
-
-// loading text animation, can be scapped, when loading times improve.
-function loadingText() {
-    var s = "establishing satelite link...";
-
-    $("#loadingText").text(s.slice(0, i_start + i_text));
-    if (i_text == s.length) {
-        i_text = 1;
-        i_start = 5;
-    } else {
-        i_text++;
-        if (i_text % 2 == 0)
-            i_start++;
-    }
-    setTimeout(loadingText, 20);
-}
-
-function changeCursor(cursor) {
-    document.body.style.cursor = cursor;
-    // document.getElementById("mapid").style.cursor = "none";
-}
-
-
-function getSliderTime() {
-    return getCurrentTime(getSliderValue());
-}
-
-function getCurrentTime(past) {
+// function to write date string for back end call
+function getCurrentTime(past) { // past is minutes back in time
     var date = new Date();
     if (past) {
         var time = date.setTime(date.getTime() - past * 60 * 1000);
@@ -165,16 +105,18 @@ function getCurrentTime(past) {
     return "" + year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + seconds;
 }
 
+// function to pad numbers, for date format
 function pad(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+// get back end time string and parse it to JS time object and return locale time string
 function parse2localTime(s) {
     s = s.split(" ")
-    date = s[0];
-    time = s[1];
+    var date = s[0];
+    var time = s[1];
     date = date.split("-");
     time = time.split("-");
 
@@ -184,13 +126,21 @@ function parse2localTime(s) {
     oDate.setUTCFullYear(parseInt(date[0]));
     oDate.setUTCHours(parseInt(time[0]));
     oDate.setUTCMinutes(parseInt(time[1]));
-    oDate.setUTCSeconds(parseInt(time[2]));
-    test = oDate.toLocaleString();
+    oDate.setUTCSeconds(parseInt(time[2]));   
     return oDate.toLocaleString();
 }
 
+function dateFormat(date){
+    var date = date.split("/");
+    var oDate = new Date();
+    oDate.setUTCDate(parseInt(date[1]));
+    oDate.setUTCMonth(parseInt(date[0] - 1));
+    oDate.setUTCFullYear(parseInt(date[2]));
+    return oDate.toLocaleDateString();
+}
+
+// jQuery function to call all functions, needed for startup
 $(document).ready(function () {
-    // console.log("create map call");   
     changeCursor('wait');
     loadingText(1);
     var mymap;
@@ -200,25 +150,38 @@ $(document).ready(function () {
     getSliderValue();
     rssCall();
     countriesCallBackEnd();
-
-    $('form input').keydown(function (e) {
+    document.getElementById("switchToLightmode").checked =  getCookie("lightMode") == "true" ? true : false;
+    switchToLightmode();
+    $('form input').keydown(function (e) { // catch key inputs in form field
         if (e.keyCode == 13) {
             e.preventDefault();
-            if (bStart)
-                callGeoCoding();
-            else
-                start();
+                start(false);
             return false;
         }
     });
-    $(function () {
-        var focusedElement;
-        $(document).on('focus', 'input', function () {
-            if (focusedElement == this) return; //already focused, return so user can now place cursor at specific point in input.
-            focusedElement = this;
-            setTimeout(function () {
-                focusedElement.select();
-            }, 100); //select all text in any field on focus for easy re-entry. Delay sightly to allow focus to "stick" before selecting.
-        });
-    });
 });
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function setCookies(name, oHTML) {
+    var date = new Date;
+    date.setMonth(date.getMonth() + 1);
+    date = date.toUTCString();
+    var checkbox = document.getElementById(oHTML).checked == true ? true : false;
+    var cookie = name + "=" + checkbox +";expires=" + date + ";secure";
+    document.cookie = cookie;
+  }

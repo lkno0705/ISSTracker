@@ -65,8 +65,8 @@
   }
 
   .middle {
-    /* display: table-cell; */
-    /* vertical-align: middle; */
+    display: table-cell;
+    vertical-align: middle;
   }
 
   .inner{
@@ -84,7 +84,7 @@
   .logo2 {
     display: inline;
     cursor: pointer;   
-    /* left: 40px; */
+    left: 31px;
     /* top: calc(50% - 240px); */
   }
   .logo2::after {
@@ -136,3 +136,34 @@
     margin: 40px auto 0;
     text-indent: -99999px;
   }
+
+  #overlay {
+    position: fixed;
+    display: none;
+    pointer-events: unset;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);  
+    cursor: wait ;       
+  }
+
+  .animate{
+    -webkit-animation: rotate-once 1s ease-in-out; /* Safari */
+    animation: rotate-once 1s ease-in-out;    
+  }
+
+  /* Standard syntax */
+@keyframes rotate-once {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+  /* Safari 4.0 - 8.0 */
+@-webkit-keyframes rotate-once {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}

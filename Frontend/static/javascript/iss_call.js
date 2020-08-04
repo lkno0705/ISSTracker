@@ -1,3 +1,4 @@
+"use strict";
 
 var bFollowISS = false;
 var bFirstLoad = false;
@@ -28,17 +29,14 @@ function moveISSCall(){
     ajaxCall(oData);
 }
 
-function createISS(oData) {
-    // console.log("createISS");     
+function createISS(oData) {   
     var lat = oData.getElementsByTagName("latitude")[0].innerHTML;
     var lon = oData.getElementsByTagName("longitude")[0].innerHTML;
 
     latlng = L.latLng(lat, lon);
     mymap.flyTo(latlng, 6);
     create([latlng, latlng]);  
-    oldLng = lon;
-    // console.log("Lang: " + lat + " Long: " + lon);
-    // console.log("moveISSbefore");     
+    oldLng = lon;    
     moveISSCall();
 }
 
@@ -47,14 +45,9 @@ function moveISS(oData) {
     oldLatLng = latlng;    
     var lat = oData.getElementsByTagName("latitude")[0].innerHTML;
     var lon = oData.getElementsByTagName("longitude")[0].innerHTML;
-    iss =  {
-        "Latitide": lat,
-        "Longitude": lon
-    };
     if (issIcon){
         var x = parseFloat(oldLng);
-        var y = parseFloat(lon);       
-        // console.log("Possition difference: " + (x - y) );
+        var y = parseFloat(lon);
         if (parseFloat(oldLng) > parseFloat(lon)) {
             issIcon.removeFrom(mymap);            
             ISSCall();
@@ -68,7 +61,6 @@ function moveISS(oData) {
             return;
         }
         oldLng = lon;
-        // console.log("moveISS");
         latlng = L.latLng(lat, lon);
         issIcon.moveTo(latlng, 5000)
 
@@ -100,13 +92,18 @@ function moveISS(oData) {
             duration: 5.0,
             easeLinearity: 1
         });   
-        mymap.setZoom = 6;          
+        // mymap.setZoom = 6;          
         }
-        issIcon.start();
-        // console.log("Lang: " + lat + " Long: " + lon);
+        issIcon.start();    
         if (!bFirstLoad)
         {
+            var showTutorial = getCookie("tutorial") == "true" ? false : true;
+            document.getElementById("startupTutorialCB").checked = !showTutorial;
+            if (showTutorial) {
+              openModal();
+            }
             document.getElementById("loadwrapper").style.display="none";
+            document.getElementById("overlay").style.display="none";
             changeCursor('default');  
             bFirstLoad= true;
         }
@@ -114,41 +111,42 @@ function moveISS(oData) {
     }    
 }
 
-function followISS(){
-    // console.log("followISS");
-    if (document.getElementById("followISS").checked)
-        {
-            // console.log(issIcon);
+function followISS(){    
+    if (document.getElementById("followISS").checked) {           
             mymap.flyTo(latlng,6,{
                 duration: 1
             });      
             bFollowISS=true;
-            document.getElementById("mapid").style.pointerEvents ="none";
-            var kmlLayer = document.getElementsByClassName("leaflet-interactive")
+            document.getElementById("mapid").style.pointerEvents = "none";
+            var zoom = document.getElementsByClassName("leaflet-control-zoom");
+            for (var i = 0; i < zoom.length;i++){
+                zoom[i].style.pointerEvents="none";
+            }
+            var kmlLayer = document.getElementsByClassName("leaflet-interactive");
             for (var i = 0; i < kmlLayer.length;i++){
                 kmlLayer[i].style.pointerEvents="none";
             }
-        }
-    else
-        {
+        } else {
             bFollowISS=false;
-            mymap.setMinZoom(3);
-            mymap.setMaxZoom(7);
             document.getElementById("mapid").style['pointer-events'] = "auto";
-            var kmlLayer = document.getElementsByClassName("leaflet-interactive")
+            var zoom = document.getElementsByClassName("leaflet-control-zoom");
+            for (var i = 0; i < zoom.length;i++){
+                zoom[i].style.pointerEvents="auto";
+            }
+            var kmlLayer = document.getElementsByClassName("leaflet-interactive");
             for (var i = 0; i < kmlLayer.length;i++){
-                kmlLayer[i].style.pointerEvents="";
+                kmlLayer[i].style.pointerEvents="auto";
             }
         }
 };
 
 var issPNG = L.icon({
     iconUrl: 'images/International_Space_Station.svg',   
-    iconSize: [100, 100], // size of the icon
-    shadowSize: [50, 64], // size of the shadow
-    iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize: [100, 100], 
+    shadowSize: [50, 64], 
+    iconAnchor: [0, 0], 
+    shadowAnchor: [4, 62],  
+    popupAnchor: [-3, -76] 
 });
 
 function create(strecke) {
@@ -158,5 +156,4 @@ function create(strecke) {
      }).addTo(mymap);
      
     issIcon.on("click", onBoard);
-    // issIcon.on("mouseover", addBorder);
 }

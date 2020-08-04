@@ -7,6 +7,7 @@ from Backend.Requests import astrosOnISS
 from Backend.Tools.XMLToDic4DB import GeoJsonXMLToDic, ISSPosXMLToISSDBKey
 from Backend.Tools.DicToXML4DB import ISSPosISSDBKeyToXML
 from Backend.Tools import rssFeedTimeConverter as dateConverter
+from Backend.Core.XMLParser import XMLvalidate
 
 
 class redisDB:
@@ -14,6 +15,15 @@ class redisDB:
     __redisHost__ = getenv('REDISHOST')  # "ISS-Trackr-API.redis.cache.windows.net"
     __redisPW__ = getenv('REDISPW')
     __redisDB__ = redis.StrictRedis(host=__redisHost__, port=6379, db=0, decode_responses=True, password=__redisPW__)
+
+    def _correctDBKeys(self, keys):
+
+        del keys[0]
+        del keys[0]
+        del keys[len(keys) - 1]
+        del keys[len(keys) - 1]
+
+        return keys
 
     # push current ISS postition to DB
     def _setIsspos(self, data):
@@ -35,10 +45,24 @@ class redisDB:
 
             if datetime.datetime.now().timestamp() - issPositions[0].timestamp > 43200:  # vergleiche timestamps
                 del issPositions[0]
-                del issPositions[1]
+                del issPositions[0]
 
-            # push all ISSPositions including the new position into DB as XML
-            DB.set(name="ISSpos", value=ISSPosISSDBKeyToXML(issPositions))
+            for i in range(10):
+                try:
+                    XML = ISSPosISSDBKeyToXML(issPositions)
+                except:
+                    XML = []
+                if XMLvalidate(
+                        "<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE Request SYSTEM \'./DTD/ISSposDB.dtd\'>" + str(
+                                XML, 'utf-8')):
+                    DB.set(name="ISSpos", value=XML)
+                    print("DB SET")
+                    return
+                else:
+                    print("correcting KEYS")
+                    issPositions = self._correctDBKeys(issPositions)
+
+            # DB.set(name="ISSpos", value="")
 
     def _getISS(self, requestData):
 

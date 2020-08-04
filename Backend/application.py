@@ -10,7 +10,7 @@ from Backend.Requests.issFuturePasses import getFuturePass
 from Backend.Core.XMLParser import reformatData, parseRequestParamsXMLToDic, XMLvalidate
 from Backend.Requests.addressGeocoding import geocoder
 import multiprocessing
-from Backend.Core.polling import polling
+from Backend.Core.checkThread import checkThread
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_url_path='')
@@ -21,7 +21,7 @@ BadRequest = '<?xml version="1.0" encoding="UTF-8"?>' \
              '<description></description>' \
              '</message>'
 
-multiprocessing.Process(target=polling).start()
+multiprocessing.Process(target=checkThread).start()
 
 
 def makeResponse(data, status):
