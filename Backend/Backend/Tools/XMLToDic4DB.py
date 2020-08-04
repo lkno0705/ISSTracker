@@ -26,8 +26,11 @@ def ISSPosXMLToISSDBKey(posXML):
             positions = [positions]
         DBkeys = []
         for position in positions:
-            longitude = ISSDBKey(timeValue=position['time'], key='longitude', value=position['longitude'])
-            latitude = ISSDBKey(timeValue=position['time'], key='latitude', value=position['latitude'])
-            DBkeys.append(longitude)
-            DBkeys.append(latitude)
+            try:
+                longitude = ISSDBKey(timeValue=position['time'], key='longitude', value=position['longitude'])
+                latitude = ISSDBKey(timeValue=position['time'], key='latitude', value=position['latitude'])
+                DBkeys.append(longitude)
+                DBkeys.append(latitude)
+            except:  # If the current position is incomplete and missing one of the needed tags, then continue with next position
+                continue
         return DBkeys

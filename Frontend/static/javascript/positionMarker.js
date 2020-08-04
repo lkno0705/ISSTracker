@@ -1,27 +1,34 @@
+"use strict";
 
 var radius;
 var circle;
 var posMarker;
+var bFromMarker = false;
 
 function addMarker(lat,lng,bool){
+    if (!lat || !lng)
+        return;
+    bFromMarker = true;
     if (posMarker)
-    posMarker.removeFrom(mymap);
-   var latlng = L.latLng(lat, lng);
-   posMarker = L.marker(latlng,{draggable:true}).addTo(mymap);
-   getFlyByInfo(latlng,bool);
-   addCircle(latlng,radius);
-   posMarker.on('drag', function(e){
-    bContextMenu = true;
-    var chagedPos = e.target.getLatLng();
-    addCircle(chagedPos);
-   });
-   posMarker.on('moveend', function(e){
-    bContextMenu = true;   
-    getFlyByInfo(e.target._latlng);
-   })
+        posMarker.removeFrom(mymap);
+    var latlng = L.latLng(lat, lng);
+    posMarker = L.marker(latlng,{draggable:true}).addTo(mymap); // add marker
+    getFlyByInfo(latlng,bool);
+    addCircle(latlng,radius);
+    // eventhandler for marker
+    posMarker.on('drag', function(e){
+        bContextMenu = true;
+        var chagedPos = e.target.getLatLng();
+        addCircle(chagedPos);
+    });
+    posMarker.on('moveend', function(e){
+        bContextMenu = true;   
+        bFromMarker = true;
+        getFlyByInfo(e.target._latlng);
+    })
 }
 
-function addCircle(latlng){
+function addCircle(latlng){ // circle around marker
     if (circle)
      circle.removeFrom(mymap);
     var slider = document.getElementById("position_radius");
@@ -38,9 +45,9 @@ function addCircle(latlng){
     });
 }
 
-function mousewheelHandler(e) {
+function mousewheelHandler(e) { //mousewheel handler while hovered over circle
     var wheelMultiplier
-    if (e.deltaMode == 0)
+    if (e.deltaMode == 0) //detla mode for Firefox and Others
             wheelMultiplier = 120;
         else
             wheelMultiplier = 2;
@@ -60,7 +67,6 @@ function mousewheelHandler(e) {
         output.innerHTML = 500;
 
     circle.setRadius( parseInt(output.innerHTML) * 1000);
-    slider.value = output.innerHTML;    
-    // console.log(e.deltaY);
+    slider.value = output.innerHTML;
     }
 }

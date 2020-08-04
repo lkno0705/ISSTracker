@@ -1,3 +1,5 @@
+"use strict";
+
 // Function to load xml File via URL
 function load(url, callback) {
   var req = new XMLHttpRequest();
@@ -19,12 +21,14 @@ function transform(xml, xsl,target) {
     });
 }
 
+// xml transform with local xml
 function transform2(xml, xsl, target) {  
   load(xsl, function(xsltSheet) {
       displayResult(xml, xsltSheet,target);
     });
 }
 
+// xml transform with callback handler
 function transform3(xml, xsl, callback) {  
   load(xsl, function(xsltSheet) {
       callback(returnResult(xml, xsltSheet));
@@ -42,14 +46,19 @@ function displayResult(xmlInput, xsltSheet,target) {
   else if (typeof xmlInput.transformNode !== 'undefined') {
     document.getElementById(target).innerHTML = xmlInput.transformNode(xsltSheet);
   }
+  if (target == "pastpasses" || target == "flyby" || target == "countryContent"){
+    var objDiv = document.getElementById("leftBottom");
+    objDiv.scrollTop = objDiv.scrollHeight; 
+  }  
 }
 
+// return for callback
 function returnResult(xmlInput, xsltSheet) {
   if (typeof XSLTProcessor !== 'undefined') {
     var proc = new XSLTProcessor();
     proc.importStylesheet(xsltSheet);
-    xml = proc.transformToFragment(xmlInput, document);
-    xmlText = new XMLSerializer().serializeToString(xml)
+    var xml = proc.transformToFragment(xmlInput, document);
+    var xmlText = new XMLSerializer().serializeToString(xml)
    return xmlText
   }
   else if (typeof xmlInput.transformNode !== 'undefined') {

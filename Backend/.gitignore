@@ -2,3 +2,4 @@
 **/__pycache__/
 ./Backend/Core/__pycache__
 ./Backend/Requests/__pycache__
+ErrorLog.txt

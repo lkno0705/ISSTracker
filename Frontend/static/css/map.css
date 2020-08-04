@@ -1,3 +1,62 @@
+
+/* color themes for different modes */
+
+[data-theme="dark"] {
+    --color-bg: #000000;
+    --color-border: #FFFFFF;
+    --color-left:#000000;
+    --color-color: #FFFFFF;
+    --color-td: #000000;
+    --color-color-left: #FFFFFF;
+    --color-rss: #f2f2f2;
+    --color-slider: #EEE;
+    --color-slider-border: #DDD;
+    --color-button-hover: #444;
+    --color-bg-opacity: rgba(0,0,0,0.4)
+  }
+  
+  [data-theme="light"] {
+    --color-bg: #FFFFFF;
+    --color-border: #000000;
+    --color-left:#FFFFFF;
+    --color-color: #000000;
+    --color-td: #FFFFFF;
+    --color-color-left: #000000;
+    --color-rss: #000000;
+    --color-slider: #EEE;
+    --color-slider-border: #DDD;
+    --color-button-hover: #aaa;
+    --color-bg-opacity: rgba(255,255,255,0.6)
+  }
+  
+  [data-theme="opacity-dark"] {
+    --color-bg: #000000;
+    --color-border: #FFFFFF;
+    --color-left:#00000000;
+    --color-color: #FFFFFF;
+    --color-td: #000000;
+    --color-color-left: #FFFFFF00;
+    --color-rss: #f2f2f2;
+    --color-slider: #EEE;
+    --color-slider-border: #DDD;
+    --color-button-hover: #444;
+    --color-bg-opacity: rgba(0,0,0,0.4)
+  }
+
+  [data-theme="opacity-light"] {
+    --color-bg: #FFFFFF;
+    --color-border: #000000;
+    --color-left:#FFFFFF00;
+    --color-color: #000000;
+    --color-td: #FFFFFF;
+    --color-color-left: #00000000;
+    --color-rss: #000000;
+    --color-slider: #EEE;
+    --color-slider-border: #DDD;
+    --color-button-hover: #aaa;
+    --color-bg-opacity: rgba(255,255,255,0.4)
+  }
+
 .overlay {
     position: fixed;
     width: 100%;
@@ -52,4 +111,16 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.leaflet-container .leaflet-control-attribution{
+    font-size: 14px;
+    padding-right: 22px;
+}
+
+#helpIcon{
+    font-size: 17px;
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
 }
